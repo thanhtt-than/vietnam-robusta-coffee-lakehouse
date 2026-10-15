@@ -1,0 +1,40 @@
+# Local archives
+*.zip
+*.rar
+*.7z
+
+# Local datasets and documents
+/data/
+/*.csv
+/*.json
+/*.pdf
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Docker / MinIO local storage
+minio-data/
+minio_data/
+volumes/
+
+# Logs and temporary files
+*.log
+logs/
+tmp/
+temp/
+checkpoints/
+
+# IDE
+.vscode/
+.idea/

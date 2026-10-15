@@ -1,0 +1,2018 @@
+[
+  {
+    "product": "FUEL",
+    "region": "DAU_HOA_2_K_V1",
+    "series_code": "FUEL/DAU_HOA_2_K_V1",
+    "quote_date_vn": "2025-04-24",
+    "quoted_at": "2025-04-24T00:00:00+07:00",
+    "price": 17710,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Dầu hỏa 2-K",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DAU_HOA_2_K_V2",
+    "series_code": "FUEL/DAU_HOA_2_K_V2",
+    "quote_date_vn": "2025-04-24",
+    "quoted_at": "2025-04-24T00:00:00+07:00",
+    "price": 18060,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Dầu hỏa 2-K",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_001S_V_V1",
+    "series_code": "FUEL/DO_0_001S_V_V1",
+    "quote_date_vn": "2025-04-24",
+    "quoted_at": "2025-04-24T00:00:00+07:00",
+    "price": 18050,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,001S-V",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_001S_V_V2",
+    "series_code": "FUEL/DO_0_001S_V_V2",
+    "quote_date_vn": "2025-04-24",
+    "quoted_at": "2025-04-24T00:00:00+07:00",
+    "price": 18410,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,001S-V",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_05S_II_V1",
+    "series_code": "FUEL/DO_0_05S_II_V1",
+    "quote_date_vn": "2025-04-24",
+    "quoted_at": "2025-04-24T00:00:00+07:00",
+    "price": 17520,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,05S-II",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_05S_II_V2",
+    "series_code": "FUEL/DO_0_05S_II_V2",
+    "quote_date_vn": "2025-04-24",
+    "quoted_at": "2025-04-24T00:00:00+07:00",
+    "price": 17870,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,05S-II",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_E5_RON_92_II_V1",
+    "series_code": "FUEL/XANG_E5_RON_92_II_V1",
+    "quote_date_vn": "2025-04-24",
+    "quoted_at": "2025-04-24T00:00:00+07:00",
+    "price": 19230,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng E5 RON 92-II",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_E5_RON_92_II_V2",
+    "series_code": "FUEL/XANG_E5_RON_92_II_V2",
+    "quote_date_vn": "2025-04-24",
+    "quoted_at": "2025-04-24T00:00:00+07:00",
+    "price": 19610,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng E5 RON 92-II",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_III_V1",
+    "series_code": "FUEL/XANG_RON_95_III_V1",
+    "quote_date_vn": "2025-04-24",
+    "quoted_at": "2025-04-24T00:00:00+07:00",
+    "price": 19630,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-III",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_III_V2",
+    "series_code": "FUEL/XANG_RON_95_III_V2",
+    "quote_date_vn": "2025-04-24",
+    "quoted_at": "2025-04-24T00:00:00+07:00",
+    "price": 20020,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-III",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_V_V1",
+    "series_code": "FUEL/XANG_RON_95_V_V1",
+    "quote_date_vn": "2025-04-24",
+    "quoted_at": "2025-04-24T00:00:00+07:00",
+    "price": 20190,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-V",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_V_V2",
+    "series_code": "FUEL/XANG_RON_95_V_V2",
+    "quote_date_vn": "2025-04-24",
+    "quoted_at": "2025-04-24T00:00:00+07:00",
+    "price": 20590,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-V",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DAU_HOA_2_K_V1",
+    "series_code": "FUEL/DAU_HOA_2_K_V1",
+    "quote_date_vn": "2025-05-05",
+    "quoted_at": "2025-05-05T00:00:00+07:00",
+    "price": 17560,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Dầu hỏa 2-K",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DAU_HOA_2_K_V2",
+    "series_code": "FUEL/DAU_HOA_2_K_V2",
+    "quote_date_vn": "2025-05-05",
+    "quoted_at": "2025-05-05T00:00:00+07:00",
+    "price": 17910,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Dầu hỏa 2-K",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_001S_V_V1",
+    "series_code": "FUEL/DO_0_001S_V_V1",
+    "quote_date_vn": "2025-05-05",
+    "quoted_at": "2025-05-05T00:00:00+07:00",
+    "price": 17880,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,001S-V",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_001S_V_V2",
+    "series_code": "FUEL/DO_0_001S_V_V2",
+    "quote_date_vn": "2025-05-05",
+    "quoted_at": "2025-05-05T00:00:00+07:00",
+    "price": 18230,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,001S-V",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_05S_II_V1",
+    "series_code": "FUEL/DO_0_05S_II_V1",
+    "quote_date_vn": "2025-05-05",
+    "quoted_at": "2025-05-05T00:00:00+07:00",
+    "price": 17350,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,05S-II",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_05S_II_V2",
+    "series_code": "FUEL/DO_0_05S_II_V2",
+    "quote_date_vn": "2025-05-05",
+    "quoted_at": "2025-05-05T00:00:00+07:00",
+    "price": 17690,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,05S-II",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_E5_RON_92_II_V1",
+    "series_code": "FUEL/XANG_E5_RON_92_II_V1",
+    "quote_date_vn": "2025-05-05",
+    "quoted_at": "2025-05-05T00:00:00+07:00",
+    "price": 19150,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng E5 RON 92-II",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_E5_RON_92_II_V2",
+    "series_code": "FUEL/XANG_E5_RON_92_II_V2",
+    "quote_date_vn": "2025-05-05",
+    "quoted_at": "2025-05-05T00:00:00+07:00",
+    "price": 19530,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng E5 RON 92-II",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_III_V1",
+    "series_code": "FUEL/XANG_RON_95_III_V1",
+    "quote_date_vn": "2025-05-05",
+    "quoted_at": "2025-05-05T00:00:00+07:00",
+    "price": 19580,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-III",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_III_V2",
+    "series_code": "FUEL/XANG_RON_95_III_V2",
+    "quote_date_vn": "2025-05-05",
+    "quoted_at": "2025-05-05T00:00:00+07:00",
+    "price": 19970,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-III",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_V_V1",
+    "series_code": "FUEL/XANG_RON_95_V_V1",
+    "quote_date_vn": "2025-05-05",
+    "quoted_at": "2025-05-05T00:00:00+07:00",
+    "price": 20140,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-V",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_V_V2",
+    "series_code": "FUEL/XANG_RON_95_V_V2",
+    "quote_date_vn": "2025-05-05",
+    "quoted_at": "2025-05-05T00:00:00+07:00",
+    "price": 20540,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-V",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DAU_HOA_2_K_V1",
+    "series_code": "FUEL/DAU_HOA_2_K_V1",
+    "quote_date_vn": "2025-06-12",
+    "quoted_at": "2025-06-12T00:00:00+07:00",
+    "price": 17510,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Dầu hỏa 2-K",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DAU_HOA_2_K_V2",
+    "series_code": "FUEL/DAU_HOA_2_K_V2",
+    "quote_date_vn": "2025-06-12",
+    "quoted_at": "2025-06-12T00:00:00+07:00",
+    "price": 17860,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Dầu hỏa 2-K",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_001S_V_V1",
+    "series_code": "FUEL/DO_0_001S_V_V1",
+    "quote_date_vn": "2025-06-12",
+    "quoted_at": "2025-06-12T00:00:00+07:00",
+    "price": 17960,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,001S-V",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_001S_V_V2",
+    "series_code": "FUEL/DO_0_001S_V_V2",
+    "quote_date_vn": "2025-06-12",
+    "quoted_at": "2025-06-12T00:00:00+07:00",
+    "price": 18310,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,001S-V",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_05S_II_V1",
+    "series_code": "FUEL/DO_0_05S_II_V1",
+    "quote_date_vn": "2025-06-12",
+    "quoted_at": "2025-06-12T00:00:00+07:00",
+    "price": 17700,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,05S-II",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_05S_II_V2",
+    "series_code": "FUEL/DO_0_05S_II_V2",
+    "quote_date_vn": "2025-06-12",
+    "quoted_at": "2025-06-12T00:00:00+07:00",
+    "price": 18050,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,05S-II",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_E5_RON_92_II_V1",
+    "series_code": "FUEL/XANG_E5_RON_92_II_V1",
+    "quote_date_vn": "2025-06-12",
+    "quoted_at": "2025-06-12T00:00:00+07:00",
+    "price": 19460,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng E5 RON 92-II",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_E5_RON_92_II_V2",
+    "series_code": "FUEL/XANG_E5_RON_92_II_V2",
+    "quote_date_vn": "2025-06-12",
+    "quoted_at": "2025-06-12T00:00:00+07:00",
+    "price": 19840,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng E5 RON 92-II",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_III_V1",
+    "series_code": "FUEL/XANG_RON_95_III_V1",
+    "quote_date_vn": "2025-06-12",
+    "quoted_at": "2025-06-12T00:00:00+07:00",
+    "price": 19960,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-III",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_III_V2",
+    "series_code": "FUEL/XANG_RON_95_III_V2",
+    "quote_date_vn": "2025-06-12",
+    "quoted_at": "2025-06-12T00:00:00+07:00",
+    "price": 20350,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-III",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_V_V1",
+    "series_code": "FUEL/XANG_RON_95_V_V1",
+    "quote_date_vn": "2025-06-12",
+    "quoted_at": "2025-06-12T00:00:00+07:00",
+    "price": 20420,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-V",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_V_V2",
+    "series_code": "FUEL/XANG_RON_95_V_V2",
+    "quote_date_vn": "2025-06-12",
+    "quoted_at": "2025-06-12T00:00:00+07:00",
+    "price": 20820,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-V",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DAU_HOA_2_K_V1",
+    "series_code": "FUEL/DAU_HOA_2_K_V1",
+    "quote_date_vn": "2025-06-19",
+    "quoted_at": "2025-06-19T00:00:00+07:00",
+    "price": 18920,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Dầu hỏa 2-K",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DAU_HOA_2_K_V2",
+    "series_code": "FUEL/DAU_HOA_2_K_V2",
+    "quote_date_vn": "2025-06-19",
+    "quoted_at": "2025-06-19T00:00:00+07:00",
+    "price": 19290,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Dầu hỏa 2-K",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_001S_V_V1",
+    "series_code": "FUEL/DO_0_001S_V_V1",
+    "quote_date_vn": "2025-06-19",
+    "quoted_at": "2025-06-19T00:00:00+07:00",
+    "price": 19410,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,001S-V",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_001S_V_V2",
+    "series_code": "FUEL/DO_0_001S_V_V2",
+    "quote_date_vn": "2025-06-19",
+    "quoted_at": "2025-06-19T00:00:00+07:00",
+    "price": 19790,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,001S-V",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_05S_II_V1",
+    "series_code": "FUEL/DO_0_05S_II_V1",
+    "quote_date_vn": "2025-06-19",
+    "quoted_at": "2025-06-19T00:00:00+07:00",
+    "price": 19150,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,05S-II",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_05S_II_V2",
+    "series_code": "FUEL/DO_0_05S_II_V2",
+    "quote_date_vn": "2025-06-19",
+    "quoted_at": "2025-06-19T00:00:00+07:00",
+    "price": 19530,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,05S-II",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_E5_RON_92_II_V1",
+    "series_code": "FUEL/XANG_E5_RON_92_II_V1",
+    "quote_date_vn": "2025-06-19",
+    "quoted_at": "2025-06-19T00:00:00+07:00",
+    "price": 20630,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng E5 RON 92-II",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_E5_RON_92_II_V2",
+    "series_code": "FUEL/XANG_E5_RON_92_II_V2",
+    "quote_date_vn": "2025-06-19",
+    "quoted_at": "2025-06-19T00:00:00+07:00",
+    "price": 21040,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng E5 RON 92-II",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_III_V1",
+    "series_code": "FUEL/XANG_RON_95_III_V1",
+    "quote_date_vn": "2025-06-19",
+    "quoted_at": "2025-06-19T00:00:00+07:00",
+    "price": 21240,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-III",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_III_V2",
+    "series_code": "FUEL/XANG_RON_95_III_V2",
+    "quote_date_vn": "2025-06-19",
+    "quoted_at": "2025-06-19T00:00:00+07:00",
+    "price": 21660,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-III",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_V_V1",
+    "series_code": "FUEL/XANG_RON_95_V_V1",
+    "quote_date_vn": "2025-06-19",
+    "quoted_at": "2025-06-19T00:00:00+07:00",
+    "price": 21700,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-V",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_V_V2",
+    "series_code": "FUEL/XANG_RON_95_V_V2",
+    "quote_date_vn": "2025-06-19",
+    "quoted_at": "2025-06-19T00:00:00+07:00",
+    "price": 22130,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-V",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DAU_HOA_2_K_V1",
+    "series_code": "FUEL/DAU_HOA_2_K_V1",
+    "quote_date_vn": "2025-06-26",
+    "quoted_at": "2025-06-26T00:00:00+07:00",
+    "price": 19410,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Dầu hỏa 2-K",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DAU_HOA_2_K_V2",
+    "series_code": "FUEL/DAU_HOA_2_K_V2",
+    "quote_date_vn": "2025-06-26",
+    "quoted_at": "2025-06-26T00:00:00+07:00",
+    "price": 19790,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Dầu hỏa 2-K",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_001S_V_V1",
+    "series_code": "FUEL/DO_0_001S_V_V1",
+    "quote_date_vn": "2025-06-26",
+    "quoted_at": "2025-06-26T00:00:00+07:00",
+    "price": 19960,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,001S-V",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_001S_V_V2",
+    "series_code": "FUEL/DO_0_001S_V_V2",
+    "quote_date_vn": "2025-06-26",
+    "quoted_at": "2025-06-26T00:00:00+07:00",
+    "price": 20350,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,001S-V",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_05S_II_V1",
+    "series_code": "FUEL/DO_0_05S_II_V1",
+    "quote_date_vn": "2025-06-26",
+    "quoted_at": "2025-06-26T00:00:00+07:00",
+    "price": 19700,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,05S-II",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_05S_II_V2",
+    "series_code": "FUEL/DO_0_05S_II_V2",
+    "quote_date_vn": "2025-06-26",
+    "quoted_at": "2025-06-26T00:00:00+07:00",
+    "price": 20090,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,05S-II",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_E5_RON_92_II_V1",
+    "series_code": "FUEL/XANG_E5_RON_92_II_V1",
+    "quote_date_vn": "2025-06-26",
+    "quoted_at": "2025-06-26T00:00:00+07:00",
+    "price": 20910,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng E5 RON 92-II",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_E5_RON_92_II_V2",
+    "series_code": "FUEL/XANG_E5_RON_92_II_V2",
+    "quote_date_vn": "2025-06-26",
+    "quoted_at": "2025-06-26T00:00:00+07:00",
+    "price": 21320,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng E5 RON 92-II",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_III_V1",
+    "series_code": "FUEL/XANG_RON_95_III_V1",
+    "quote_date_vn": "2025-06-26",
+    "quoted_at": "2025-06-26T00:00:00+07:00",
+    "price": 21500,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-III",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_III_V2",
+    "series_code": "FUEL/XANG_RON_95_III_V2",
+    "quote_date_vn": "2025-06-26",
+    "quoted_at": "2025-06-26T00:00:00+07:00",
+    "price": 21930,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-III",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_V_V1",
+    "series_code": "FUEL/XANG_RON_95_V_V1",
+    "quote_date_vn": "2025-06-26",
+    "quoted_at": "2025-06-26T00:00:00+07:00",
+    "price": 21960,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-V",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_V_V2",
+    "series_code": "FUEL/XANG_RON_95_V_V2",
+    "quote_date_vn": "2025-06-26",
+    "quoted_at": "2025-06-26T00:00:00+07:00",
+    "price": 22390,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-V",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DAU_HOA_2_K_V1",
+    "series_code": "FUEL/DAU_HOA_2_K_V1",
+    "quote_date_vn": "2025-12-11",
+    "quoted_at": "2025-12-11T00:00:00+07:00",
+    "price": 18640,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Dầu hỏa 2-K",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DAU_HOA_2_K_V2",
+    "series_code": "FUEL/DAU_HOA_2_K_V2",
+    "quote_date_vn": "2025-12-11",
+    "quoted_at": "2025-12-11T00:00:00+07:00",
+    "price": 19010,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Dầu hỏa 2-K",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_001S_V_V1",
+    "series_code": "FUEL/DO_0_001S_V_V1",
+    "quote_date_vn": "2025-12-11",
+    "quoted_at": "2025-12-11T00:00:00+07:00",
+    "price": 18510,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,001S-V",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_001S_V_V2",
+    "series_code": "FUEL/DO_0_001S_V_V2",
+    "quote_date_vn": "2025-12-11",
+    "quoted_at": "2025-12-11T00:00:00+07:00",
+    "price": 18880,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,001S-V",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_05S_II_V1",
+    "series_code": "FUEL/DO_0_05S_II_V1",
+    "quote_date_vn": "2025-12-11",
+    "quoted_at": "2025-12-11T00:00:00+07:00",
+    "price": 18150,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,05S-II",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_05S_II_V2",
+    "series_code": "FUEL/DO_0_05S_II_V2",
+    "quote_date_vn": "2025-12-11",
+    "quoted_at": "2025-12-11T00:00:00+07:00",
+    "price": 18510,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,05S-II",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_E5_RON_92_II_V1",
+    "series_code": "FUEL/XANG_E5_RON_92_II_V1",
+    "quote_date_vn": "2025-12-11",
+    "quoted_at": "2025-12-11T00:00:00+07:00",
+    "price": 19610,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng E5 RON 92-II",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_E5_RON_92_II_V2",
+    "series_code": "FUEL/XANG_E5_RON_92_II_V2",
+    "quote_date_vn": "2025-12-11",
+    "quoted_at": "2025-12-11T00:00:00+07:00",
+    "price": 20000,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng E5 RON 92-II",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_III_V1",
+    "series_code": "FUEL/XANG_RON_95_III_V1",
+    "quote_date_vn": "2025-12-11",
+    "quoted_at": "2025-12-11T00:00:00+07:00",
+    "price": 19820,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-III",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_III_V2",
+    "series_code": "FUEL/XANG_RON_95_III_V2",
+    "quote_date_vn": "2025-12-11",
+    "quoted_at": "2025-12-11T00:00:00+07:00",
+    "price": 20210,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-III",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_V_V1",
+    "series_code": "FUEL/XANG_RON_95_V_V1",
+    "quote_date_vn": "2025-12-11",
+    "quoted_at": "2025-12-11T00:00:00+07:00",
+    "price": 20620,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-V",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_V_V2",
+    "series_code": "FUEL/XANG_RON_95_V_V2",
+    "quote_date_vn": "2025-12-11",
+    "quoted_at": "2025-12-11T00:00:00+07:00",
+    "price": 21030,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-V",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DAU_HOA_2_K_V1",
+    "series_code": "FUEL/DAU_HOA_2_K_V1",
+    "quote_date_vn": "2025-12-24",
+    "quoted_at": "2025-12-24T00:00:00+07:00",
+    "price": 17930,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Dầu hỏa 2-K",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DAU_HOA_2_K_V2",
+    "series_code": "FUEL/DAU_HOA_2_K_V2",
+    "quote_date_vn": "2025-12-24",
+    "quoted_at": "2025-12-24T00:00:00+07:00",
+    "price": 18280,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Dầu hỏa 2-K",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_001S_V_V1",
+    "series_code": "FUEL/DO_0_001S_V_V1",
+    "quote_date_vn": "2025-12-24",
+    "quoted_at": "2025-12-24T00:00:00+07:00",
+    "price": 17800,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,001S-V",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_001S_V_V2",
+    "series_code": "FUEL/DO_0_001S_V_V2",
+    "quote_date_vn": "2025-12-24",
+    "quoted_at": "2025-12-24T00:00:00+07:00",
+    "price": 18150,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,001S-V",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_05S_II_V1",
+    "series_code": "FUEL/DO_0_05S_II_V1",
+    "quote_date_vn": "2025-12-24",
+    "quoted_at": "2025-12-24T00:00:00+07:00",
+    "price": 17470,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,05S-II",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_05S_II_V2",
+    "series_code": "FUEL/DO_0_05S_II_V2",
+    "quote_date_vn": "2025-12-24",
+    "quoted_at": "2025-12-24T00:00:00+07:00",
+    "price": 17810,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,05S-II",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_E5_RON_92_II_V1",
+    "series_code": "FUEL/XANG_E5_RON_92_II_V1",
+    "quote_date_vn": "2025-12-24",
+    "quoted_at": "2025-12-24T00:00:00+07:00",
+    "price": 19230,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng E5 RON 92-II",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_E5_RON_92_II_V2",
+    "series_code": "FUEL/XANG_E5_RON_92_II_V2",
+    "quote_date_vn": "2025-12-24",
+    "quoted_at": "2025-12-24T00:00:00+07:00",
+    "price": 19610,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng E5 RON 92-II",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_III_V1",
+    "series_code": "FUEL/XANG_RON_95_III_V1",
+    "quote_date_vn": "2025-12-24",
+    "quoted_at": "2025-12-24T00:00:00+07:00",
+    "price": 19620,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-III",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_III_V2",
+    "series_code": "FUEL/XANG_RON_95_III_V2",
+    "quote_date_vn": "2025-12-24",
+    "quoted_at": "2025-12-24T00:00:00+07:00",
+    "price": 20010,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-III",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_V_V1",
+    "series_code": "FUEL/XANG_RON_95_V_V1",
+    "quote_date_vn": "2025-12-24",
+    "quoted_at": "2025-12-24T00:00:00+07:00",
+    "price": 20150,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-V",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_V_V2",
+    "series_code": "FUEL/XANG_RON_95_V_V2",
+    "quote_date_vn": "2025-12-24",
+    "quoted_at": "2025-12-24T00:00:00+07:00",
+    "price": 20550,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-V",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DAU_HOA_2_K_V1",
+    "series_code": "FUEL/DAU_HOA_2_K_V1",
+    "quote_date_vn": "2025-12-31",
+    "quoted_at": "2025-12-31T00:00:00+07:00",
+    "price": 17690,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Dầu hỏa 2-K",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DAU_HOA_2_K_V2",
+    "series_code": "FUEL/DAU_HOA_2_K_V2",
+    "quote_date_vn": "2025-12-31",
+    "quoted_at": "2025-12-31T00:00:00+07:00",
+    "price": 18040,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Dầu hỏa 2-K",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_001S_V_V1",
+    "series_code": "FUEL/DO_0_001S_V_V1",
+    "quote_date_vn": "2025-12-31",
+    "quoted_at": "2025-12-31T00:00:00+07:00",
+    "price": 17850,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,001S-V",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_001S_V_V2",
+    "series_code": "FUEL/DO_0_001S_V_V2",
+    "quote_date_vn": "2025-12-31",
+    "quoted_at": "2025-12-31T00:00:00+07:00",
+    "price": 18200,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,001S-V",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_05S_II_V1",
+    "series_code": "FUEL/DO_0_05S_II_V1",
+    "quote_date_vn": "2025-12-31",
+    "quoted_at": "2025-12-31T00:00:00+07:00",
+    "price": 17250,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,05S-II",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "DO_0_05S_II_V2",
+    "series_code": "FUEL/DO_0_05S_II_V2",
+    "quote_date_vn": "2025-12-31",
+    "quoted_at": "2025-12-31T00:00:00+07:00",
+    "price": 17590,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "DO 0,05S-II",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_E5_RON_92_II_V1",
+    "series_code": "FUEL/XANG_E5_RON_92_II_V1",
+    "quote_date_vn": "2025-12-31",
+    "quoted_at": "2025-12-31T00:00:00+07:00",
+    "price": 18430,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng E5 RON 92-II",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_E5_RON_92_II_V2",
+    "series_code": "FUEL/XANG_E5_RON_92_II_V2",
+    "quote_date_vn": "2025-12-31",
+    "quoted_at": "2025-12-31T00:00:00+07:00",
+    "price": 18790,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng E5 RON 92-II",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_III_V1",
+    "series_code": "FUEL/XANG_RON_95_III_V1",
+    "quote_date_vn": "2025-12-31",
+    "quoted_at": "2025-12-31T00:00:00+07:00",
+    "price": 18800,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-III",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_III_V2",
+    "series_code": "FUEL/XANG_RON_95_III_V2",
+    "quote_date_vn": "2025-12-31",
+    "quoted_at": "2025-12-31T00:00:00+07:00",
+    "price": 19170,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-III",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_V_V1",
+    "series_code": "FUEL/XANG_RON_95_V_V1",
+    "quote_date_vn": "2025-12-31",
+    "quoted_at": "2025-12-31T00:00:00+07:00",
+    "price": 19710,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-V",
+      "zone": "V1",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  },
+  {
+    "product": "FUEL",
+    "region": "XANG_RON_95_V_V2",
+    "series_code": "FUEL/XANG_RON_95_V_V2",
+    "quote_date_vn": "2025-12-31",
+    "quoted_at": "2025-12-31T00:00:00+07:00",
+    "price": 20100,
+    "currency": "VND",
+    "unit": "VND/L",
+    "meta": {
+      "provider": "petrolimex",
+      "fuel_name": "Xăng RON 95-V",
+      "zone": "V2",
+      "source_page": "feedin-history-seed"
+    },
+    "updated_at": "2026-04-23T14:32:54+07:00",
+    "source": {
+      "code": "petro_fuel",
+      "name": "Petrolimex Fuel"
+    }
+  }
+]

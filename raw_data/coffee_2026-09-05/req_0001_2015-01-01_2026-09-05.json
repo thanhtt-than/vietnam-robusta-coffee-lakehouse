@@ -1,0 +1,2024 @@
+{
+  "data": [
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-09-05",
+      "quoted_at": "2026-09-05T23:59:59+07:00",
+      "price": 94700,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "+1,000"
+      },
+      "updated_at": "2026-09-05T22:15:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-09-05",
+      "quoted_at": "2026-09-05T23:59:59+07:00",
+      "price": 95000,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": "+1,000"
+      },
+      "updated_at": "2026-09-05T22:15:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-09-05",
+      "quoted_at": "2026-09-05T23:59:59+07:00",
+      "price": 94700,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "+1,000"
+      },
+      "updated_at": "2026-09-05T22:15:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-09-05",
+      "quoted_at": "2026-09-05T23:59:59+07:00",
+      "price": 94200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "+1,000"
+      },
+      "updated_at": "2026-09-05T22:15:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-09-05",
+      "quoted_at": "2026-09-05T23:59:59+07:00",
+      "price": 94800,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "+1,000"
+      },
+      "updated_at": "2026-09-05T22:15:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-09-04",
+      "quoted_at": "2026-09-04T23:59:59+07:00",
+      "price": 93700,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "-500"
+      },
+      "updated_at": "2026-09-04T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-09-04",
+      "quoted_at": "2026-09-04T23:59:59+07:00",
+      "price": 94000,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": "-500"
+      },
+      "updated_at": "2026-09-04T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-09-04",
+      "quoted_at": "2026-09-04T23:59:59+07:00",
+      "price": 93700,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "-500"
+      },
+      "updated_at": "2026-09-04T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-09-04",
+      "quoted_at": "2026-09-04T23:59:59+07:00",
+      "price": 93200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "-500"
+      },
+      "updated_at": "2026-09-04T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-09-04",
+      "quoted_at": "2026-09-04T23:59:59+07:00",
+      "price": 93800,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "-500"
+      },
+      "updated_at": "2026-09-04T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-09-03",
+      "quoted_at": "2026-09-03T23:59:59+07:00",
+      "price": 94200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "-600"
+      },
+      "updated_at": "2026-09-03T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-09-03",
+      "quoted_at": "2026-09-03T23:59:59+07:00",
+      "price": 94500,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": "-500"
+      },
+      "updated_at": "2026-09-03T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-09-03",
+      "quoted_at": "2026-09-03T23:59:59+07:00",
+      "price": 94200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "-600"
+      },
+      "updated_at": "2026-09-03T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-09-03",
+      "quoted_at": "2026-09-03T23:59:59+07:00",
+      "price": 93700,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "-600"
+      },
+      "updated_at": "2026-09-03T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-09-03",
+      "quoted_at": "2026-09-03T23:59:59+07:00",
+      "price": 94300,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "-600"
+      },
+      "updated_at": "2026-09-03T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-09-02",
+      "quoted_at": "2026-09-02T23:59:59+07:00",
+      "price": 94800,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "-700"
+      },
+      "updated_at": "2026-09-02T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-09-02",
+      "quoted_at": "2026-09-02T23:59:59+07:00",
+      "price": 95000,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": "-700"
+      },
+      "updated_at": "2026-09-02T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-09-02",
+      "quoted_at": "2026-09-02T23:59:59+07:00",
+      "price": 94800,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "-700"
+      },
+      "updated_at": "2026-09-02T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-09-02",
+      "quoted_at": "2026-09-02T23:59:59+07:00",
+      "price": 94300,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "-700"
+      },
+      "updated_at": "2026-09-02T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-09-02",
+      "quoted_at": "2026-09-02T23:59:59+07:00",
+      "price": 94900,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "-700"
+      },
+      "updated_at": "2026-09-02T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-09-01",
+      "quoted_at": "2026-09-01T23:59:59+07:00",
+      "price": 95500,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": null
+      },
+      "updated_at": "2026-09-01T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-09-01",
+      "quoted_at": "2026-09-01T23:59:59+07:00",
+      "price": 95700,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": null
+      },
+      "updated_at": "2026-09-01T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-09-01",
+      "quoted_at": "2026-09-01T23:59:59+07:00",
+      "price": 95500,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": null
+      },
+      "updated_at": "2026-09-01T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-09-01",
+      "quoted_at": "2026-09-01T23:59:59+07:00",
+      "price": 95000,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": null
+      },
+      "updated_at": "2026-09-01T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-09-01",
+      "quoted_at": "2026-09-01T23:59:59+07:00",
+      "price": 95600,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "0"
+      },
+      "updated_at": "2026-09-01T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-08-31",
+      "quoted_at": "2026-08-31T23:59:59+07:00",
+      "price": 95100,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "-100"
+      },
+      "updated_at": "2026-08-31T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-08-31",
+      "quoted_at": "2026-08-31T23:59:59+07:00",
+      "price": 95300,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": "-200"
+      },
+      "updated_at": "2026-08-31T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-08-31",
+      "quoted_at": "2026-08-31T23:59:59+07:00",
+      "price": 95100,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "-100"
+      },
+      "updated_at": "2026-08-31T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-08-31",
+      "quoted_at": "2026-08-31T23:59:59+07:00",
+      "price": 94600,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "-100"
+      },
+      "updated_at": "2026-08-31T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-31",
+      "quoted_at": "2026-08-31T23:59:59+07:00",
+      "price": 95200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "-100"
+      },
+      "updated_at": "2026-08-31T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-08-30",
+      "quoted_at": "2026-08-30T23:59:59+07:00",
+      "price": 95100,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "-100"
+      },
+      "updated_at": "2026-08-30T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-08-30",
+      "quoted_at": "2026-08-30T23:59:59+07:00",
+      "price": 95300,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": "-200"
+      },
+      "updated_at": "2026-08-30T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-08-30",
+      "quoted_at": "2026-08-30T23:59:59+07:00",
+      "price": 95100,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "-100"
+      },
+      "updated_at": "2026-08-30T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-08-30",
+      "quoted_at": "2026-08-30T23:59:59+07:00",
+      "price": 94600,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "-100"
+      },
+      "updated_at": "2026-08-30T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-30",
+      "quoted_at": "2026-08-30T23:59:59+07:00",
+      "price": 95200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "-100"
+      },
+      "updated_at": "2026-08-30T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-08-29",
+      "quoted_at": "2026-08-29T23:59:59+07:00",
+      "price": 95100,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "-100"
+      },
+      "updated_at": "2026-08-29T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-08-29",
+      "quoted_at": "2026-08-29T23:59:59+07:00",
+      "price": 95300,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": "-200"
+      },
+      "updated_at": "2026-08-29T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-08-29",
+      "quoted_at": "2026-08-29T23:59:59+07:00",
+      "price": 95100,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "-100"
+      },
+      "updated_at": "2026-08-29T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-08-29",
+      "quoted_at": "2026-08-29T23:59:59+07:00",
+      "price": 94600,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "-100"
+      },
+      "updated_at": "2026-08-29T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-29",
+      "quoted_at": "2026-08-29T23:59:59+07:00",
+      "price": 95200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "-100"
+      },
+      "updated_at": "2026-08-29T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-08-28",
+      "quoted_at": "2026-08-28T23:59:59+07:00",
+      "price": 95200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "-1,000"
+      },
+      "updated_at": "2026-08-28T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-08-28",
+      "quoted_at": "2026-08-28T23:59:59+07:00",
+      "price": 95500,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": "-1,000"
+      },
+      "updated_at": "2026-08-28T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-08-28",
+      "quoted_at": "2026-08-28T23:59:59+07:00",
+      "price": 95200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "-1,000"
+      },
+      "updated_at": "2026-08-28T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-08-28",
+      "quoted_at": "2026-08-28T23:59:59+07:00",
+      "price": 94700,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "-1,000"
+      },
+      "updated_at": "2026-08-28T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-28",
+      "quoted_at": "2026-08-28T23:59:59+07:00",
+      "price": 95300,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "-1,000"
+      },
+      "updated_at": "2026-08-28T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-28",
+      "quoted_at": "2026-08-28T07:00:00+07:00",
+      "price": 95300,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "change": "-1,000",
+        "market": "Việt Nam trung bình",
+        "provider": "giacaphe"
+      },
+      "updated_at": "2026-08-28T17:17:23+07:00",
+      "source": {
+        "code": "giacaphe_spot",
+        "name": "Giacaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-28",
+      "quoted_at": "2026-08-28T00:00:00+07:00",
+      "price": 95300,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "change": "-1,000",
+        "market": "Việt Nam trung bình",
+        "provider": "giacaphe"
+      },
+      "updated_at": "2026-08-28T17:11:28+07:00",
+      "source": {
+        "code": "giacaphe_spot",
+        "name": "Giacaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-08-27",
+      "quoted_at": "2026-08-27T23:59:59+07:00",
+      "price": 96200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "-800"
+      },
+      "updated_at": "2026-08-27T23:45:05+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-08-27",
+      "quoted_at": "2026-08-27T23:59:59+07:00",
+      "price": 96500,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": "-700"
+      },
+      "updated_at": "2026-08-27T23:45:05+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-08-27",
+      "quoted_at": "2026-08-27T23:59:59+07:00",
+      "price": 96200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "-800"
+      },
+      "updated_at": "2026-08-27T23:45:05+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-08-27",
+      "quoted_at": "2026-08-27T23:59:59+07:00",
+      "price": 95700,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "-800"
+      },
+      "updated_at": "2026-08-27T23:45:05+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-27",
+      "quoted_at": "2026-08-27T23:59:59+07:00",
+      "price": 96300,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "-800"
+      },
+      "updated_at": "2026-08-27T23:45:05+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-27",
+      "quoted_at": "2026-08-27T00:00:00+07:00",
+      "price": 96300,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "change": "-800",
+        "market": "Việt Nam trung bình",
+        "provider": "giacaphe"
+      },
+      "updated_at": "2026-08-28T10:11:28+07:00",
+      "source": {
+        "code": "giacaphe_spot",
+        "name": "Giacaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-08-26",
+      "quoted_at": "2026-08-26T23:59:59+07:00",
+      "price": 97000,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "-500"
+      },
+      "updated_at": "2026-08-26T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-08-26",
+      "quoted_at": "2026-08-26T23:59:59+07:00",
+      "price": 97200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": "-500"
+      },
+      "updated_at": "2026-08-26T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-08-26",
+      "quoted_at": "2026-08-26T23:59:59+07:00",
+      "price": 97000,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "-500"
+      },
+      "updated_at": "2026-08-26T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-08-26",
+      "quoted_at": "2026-08-26T23:59:59+07:00",
+      "price": 96500,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "-500"
+      },
+      "updated_at": "2026-08-26T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-26",
+      "quoted_at": "2026-08-26T23:59:59+07:00",
+      "price": 97100,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "-500"
+      },
+      "updated_at": "2026-08-26T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-26",
+      "quoted_at": "2026-08-26T00:00:00+07:00",
+      "price": 97100,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "change": "-500",
+        "market": "Việt Nam trung bình",
+        "provider": "giacaphe"
+      },
+      "updated_at": "2026-08-27T10:11:24+07:00",
+      "source": {
+        "code": "giacaphe_spot",
+        "name": "Giacaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-08-25",
+      "quoted_at": "2026-08-25T23:59:59+07:00",
+      "price": 97500,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "+1,000"
+      },
+      "updated_at": "2026-08-25T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-08-25",
+      "quoted_at": "2026-08-25T23:59:59+07:00",
+      "price": 97700,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": "+1,000"
+      },
+      "updated_at": "2026-08-25T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-08-25",
+      "quoted_at": "2026-08-25T23:59:59+07:00",
+      "price": 97500,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "+1,000"
+      },
+      "updated_at": "2026-08-25T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-08-25",
+      "quoted_at": "2026-08-25T23:59:59+07:00",
+      "price": 97000,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "+1,000"
+      },
+      "updated_at": "2026-08-25T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-25",
+      "quoted_at": "2026-08-25T23:59:59+07:00",
+      "price": 97600,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "+1,000"
+      },
+      "updated_at": "2026-08-25T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-25",
+      "quoted_at": "2026-08-25T00:00:00+07:00",
+      "price": 97600,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "change": "+1,000",
+        "market": "Việt Nam trung bình",
+        "provider": "giacaphe"
+      },
+      "updated_at": "2026-08-26T10:41:21+07:00",
+      "source": {
+        "code": "giacaphe_spot",
+        "name": "Giacaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-08-24",
+      "quoted_at": "2026-08-24T23:59:59+07:00",
+      "price": 96500,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "+300"
+      },
+      "updated_at": "2026-08-24T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-08-24",
+      "quoted_at": "2026-08-24T23:59:59+07:00",
+      "price": 96800,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": "+300"
+      },
+      "updated_at": "2026-08-24T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-08-24",
+      "quoted_at": "2026-08-24T23:59:59+07:00",
+      "price": 96500,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "+300"
+      },
+      "updated_at": "2026-08-24T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-08-24",
+      "quoted_at": "2026-08-24T23:59:59+07:00",
+      "price": 96000,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "+300"
+      },
+      "updated_at": "2026-08-24T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-24",
+      "quoted_at": "2026-08-24T23:59:59+07:00",
+      "price": 96600,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "+300"
+      },
+      "updated_at": "2026-08-24T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-24",
+      "quoted_at": "2026-08-24T00:00:00+07:00",
+      "price": 96600,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "change": "+300",
+        "market": "Việt Nam trung bình",
+        "provider": "giacaphe"
+      },
+      "updated_at": "2026-08-25T10:56:18+07:00",
+      "source": {
+        "code": "giacaphe_spot",
+        "name": "Giacaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-08-23",
+      "quoted_at": "2026-08-23T23:59:59+07:00",
+      "price": 96200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "-1,700"
+      },
+      "updated_at": "2026-08-23T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-08-23",
+      "quoted_at": "2026-08-23T23:59:59+07:00",
+      "price": 96500,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": "-1,500"
+      },
+      "updated_at": "2026-08-23T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-08-23",
+      "quoted_at": "2026-08-23T23:59:59+07:00",
+      "price": 96200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "-1,700"
+      },
+      "updated_at": "2026-08-23T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-08-23",
+      "quoted_at": "2026-08-23T23:59:59+07:00",
+      "price": 95700,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "-1,600"
+      },
+      "updated_at": "2026-08-23T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-23",
+      "quoted_at": "2026-08-23T23:59:59+07:00",
+      "price": 96300,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "-1,600"
+      },
+      "updated_at": "2026-08-23T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-08-22",
+      "quoted_at": "2026-08-22T23:59:59+07:00",
+      "price": 96200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "-1,700"
+      },
+      "updated_at": "2026-08-22T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-08-22",
+      "quoted_at": "2026-08-22T23:59:59+07:00",
+      "price": 96500,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": "-1,500"
+      },
+      "updated_at": "2026-08-22T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-08-22",
+      "quoted_at": "2026-08-22T23:59:59+07:00",
+      "price": 96200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "-1,700"
+      },
+      "updated_at": "2026-08-22T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-08-22",
+      "quoted_at": "2026-08-22T23:59:59+07:00",
+      "price": 95700,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "-1,600"
+      },
+      "updated_at": "2026-08-22T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-22",
+      "quoted_at": "2026-08-22T23:59:59+07:00",
+      "price": 96300,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "-1,600"
+      },
+      "updated_at": "2026-08-22T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-22",
+      "quoted_at": "2026-08-22T00:00:00+07:00",
+      "price": 96300,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "change": "-1,600",
+        "market": "Việt Nam trung bình",
+        "provider": "giacaphe"
+      },
+      "updated_at": "2026-08-24T09:41:13+07:00",
+      "source": {
+        "code": "giacaphe_spot",
+        "name": "Giacaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-08-21",
+      "quoted_at": "2026-08-21T23:59:59+07:00",
+      "price": 97900,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "+200"
+      },
+      "updated_at": "2026-08-21T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-08-21",
+      "quoted_at": "2026-08-21T23:59:59+07:00",
+      "price": 98000,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": null
+      },
+      "updated_at": "2026-08-21T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-08-21",
+      "quoted_at": "2026-08-21T23:59:59+07:00",
+      "price": 97900,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "+200"
+      },
+      "updated_at": "2026-08-21T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-08-21",
+      "quoted_at": "2026-08-21T23:59:59+07:00",
+      "price": 97300,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "+100"
+      },
+      "updated_at": "2026-08-21T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-21",
+      "quoted_at": "2026-08-21T23:59:59+07:00",
+      "price": 97900,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "+100"
+      },
+      "updated_at": "2026-08-21T23:45:03+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-21",
+      "quoted_at": "2026-08-21T00:00:00+07:00",
+      "price": 97900,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "change": "+100",
+        "market": "Việt Nam trung bình",
+        "provider": "giacaphe"
+      },
+      "updated_at": "2026-08-22T11:11:07+07:00",
+      "source": {
+        "code": "giacaphe_spot",
+        "name": "Giacaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-08-20",
+      "quoted_at": "2026-08-20T23:59:59+07:00",
+      "price": 97700,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "-600"
+      },
+      "updated_at": "2026-08-20T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-08-20",
+      "quoted_at": "2026-08-20T23:59:59+07:00",
+      "price": 98000,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": "-500"
+      },
+      "updated_at": "2026-08-20T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-08-20",
+      "quoted_at": "2026-08-20T23:59:59+07:00",
+      "price": 97700,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "-600"
+      },
+      "updated_at": "2026-08-20T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-08-20",
+      "quoted_at": "2026-08-20T23:59:59+07:00",
+      "price": 97200,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "-500"
+      },
+      "updated_at": "2026-08-20T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-20",
+      "quoted_at": "2026-08-20T23:59:59+07:00",
+      "price": 97800,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "-600"
+      },
+      "updated_at": "2026-08-20T23:45:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-20",
+      "quoted_at": "2026-08-20T00:00:00+07:00",
+      "price": 97800,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "change": "-600",
+        "market": "Việt Nam trung bình",
+        "provider": "giacaphe"
+      },
+      "updated_at": "2026-08-21T10:41:04+07:00",
+      "source": {
+        "code": "giacaphe_spot",
+        "name": "Giacaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_LAK",
+      "series_code": "COFFEE/DAK_LAK",
+      "quote_date_vn": "2026-08-19",
+      "quoted_at": "2026-08-19T23:59:59+07:00",
+      "price": 98300,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Lắk",
+        "change": "+1,500"
+      },
+      "updated_at": "2026-08-19T23:15:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "DAK_NONG",
+      "series_code": "COFFEE/DAK_NONG",
+      "quote_date_vn": "2026-08-19",
+      "quoted_at": "2026-08-19T23:59:59+07:00",
+      "price": 98500,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Đắk Nông",
+        "change": "+1,500"
+      },
+      "updated_at": "2026-08-19T23:15:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "GIA_LAI",
+      "series_code": "COFFEE/GIA_LAI",
+      "quote_date_vn": "2026-08-19",
+      "quoted_at": "2026-08-19T23:59:59+07:00",
+      "price": 98300,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Gia Lai",
+        "change": "+1,500"
+      },
+      "updated_at": "2026-08-19T23:15:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "LAM_DONG",
+      "series_code": "COFFEE/LAM_DONG",
+      "quote_date_vn": "2026-08-19",
+      "quoted_at": "2026-08-19T23:59:59+07:00",
+      "price": 97700,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Lâm Đồng",
+        "change": "+1,500"
+      },
+      "updated_at": "2026-08-19T23:15:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-19",
+      "quoted_at": "2026-08-19T23:59:59+07:00",
+      "price": 98400,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "provider": "chocaphe",
+        "market": "Việt Nam trung bình",
+        "change": "+1,500"
+      },
+      "updated_at": "2026-08-19T23:15:04+07:00",
+      "source": {
+        "code": "chocaphe_spot",
+        "name": "Chocaphe Spot"
+      }
+    },
+    {
+      "product": "COFFEE",
+      "region": "VN_AVG",
+      "series_code": "COFFEE/VN_AVG",
+      "quote_date_vn": "2026-08-19",
+      "quoted_at": "2026-08-19T00:00:00+07:00",
+      "price": 98400,
+      "currency": "VND",
+      "unit": "VND/KG",
+      "meta": {
+        "change": "+1,500",
+        "market": "Việt Nam trung bình",
+        "provider": "giacaphe"
+      },
+      "updated_at": "2026-08-20T10:41:01+07:00",
+      "source": {
+        "code": "giacaphe_spot",
+        "name": "Giacaphe Spot"
+      }
+    }
+  ],
+  "meta": {
+    "read_schema_version": 1,
+    "snapshot_mode": "date_range",
+    "sort": "newest",
+    "window": {
+      "from": "2015-01-01",
+      "to": "2026-09-05"
+    },
+    "quoted_at_timezone": "Asia/Ho_Chi_Minh",
+    "current_page": 1,
+    "last_page": 31,
+    "per_page": 100,
+    "total": 3055,
+    "read_timestamp_timezone": "Asia/Ho_Chi_Minh",
+    "cache": {
+      "hit": false,
+      "cached_at": "2026-09-05T22:25:02+07:00",
+      "ttl_seconds": 300
+    }
+  }
+}

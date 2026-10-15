@@ -1,0 +1,109 @@
+{
+  "fetched_at": "2026-09-05",
+  "source_url": "https://giacaphe.com/gia-ca-phe-noi-dia/",
+  "tieu_de": "Giá cà phê  hôm nay  ngày 05/09/2026",
+  "gia_trung_binh": {
+    "gia_trung_binh": "94,800",
+    "thay_doi": "1,000",
+    "thay_doi_raw_price": "1000"
+  },
+  "gia_noi_dia_theo_tinh": [
+    {
+      "thi_truong": "Đắk Lắk",
+      "gia": "94,700",
+      "thay_doi": "+1,000"
+    },
+    {
+      "thi_truong": "Lâm Đồng",
+      "gia": "94,200",
+      "thay_doi": "+1,000"
+    },
+    {
+      "thi_truong": "Gia Lai",
+      "gia": "94,700",
+      "thay_doi": "+1,000"
+    },
+    {
+      "thi_truong": "Đắk Nông",
+      "gia": "95,000",
+      "thay_doi": "+1,000"
+    },
+    {
+      "thi_truong": "Hồ tiêu",
+      "gia": "137,000",
+      "thay_doi": null
+    },
+    {
+      "thi_truong": "Tỷ giá USD/VND",
+      "gia": "25,845",
+      "thay_doi": "-30"
+    }
+  ],
+  "gia_robusta_london": [
+    {
+      "ky_han": "09/26",
+      "gia_khop": "3,344",
+      "gia_khop_raw": "3344",
+      "thay_doi": "0",
+      "thay_doi_pct": "0.00%",
+      "cao_nhat": "3,400",
+      "thap_nhat": "3,344",
+      "khoi_luong": "2",
+      "mo_cua": "3,344",
+      "hom_truoc": "3,344",
+      "hd_mo": "434"
+    },
+    {
+      "ky_han": "11/26",
+      "gia_khop": "3,430",
+      "gia_khop_raw": "3430",
+      "thay_doi": "56",
+      "thay_doi_pct": "1.66%",
+      "cao_nhat": "3,464",
+      "thap_nhat": "3,348",
+      "khoi_luong": "11,254",
+      "mo_cua": "3,389",
+      "hom_truoc": "3,374",
+      "hd_mo": "48,889"
+    },
+    {
+      "ky_han": "01/27",
+      "gia_khop": "3,415",
+      "gia_khop_raw": "3415",
+      "thay_doi": "55",
+      "thay_doi_pct": "1.64%",
+      "cao_nhat": "3,449",
+      "thap_nhat": "3,343",
+      "khoi_luong": "5,004",
+      "mo_cua": "3,380",
+      "hom_truoc": "3,360",
+      "hd_mo": "23,418"
+    },
+    {
+      "ky_han": "03/27",
+      "gia_khop": "3,396",
+      "gia_khop_raw": "3396",
+      "thay_doi": "56",
+      "thay_doi_pct": "1.68%",
+      "cao_nhat": "3,429",
+      "thap_nhat": "3,329",
+      "khoi_luong": "3,241",
+      "mo_cua": "3,344",
+      "hom_truoc": "3,340",
+      "hd_mo": "15,242"
+    },
+    {
+      "ky_han": "05/27",
+      "gia_khop": "3,383",
+      "gia_khop_raw": "3383",
+      "thay_doi": "57",
+      "thay_doi_pct": "1.71%",
+      "cao_nhat": "3,410",
+      "thap_nhat": "3,318",
+      "khoi_luong": "689",
+      "mo_cua": "3,328",
+      "hom_truoc": "3,326",
+      "hd_mo": "3,270"
+    }
+  ]
+}

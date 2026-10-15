@@ -1,0 +1,4 @@
+﻿product_key_candidate,product_name,product_scope,hs_code,note
+COFFEE_ROBUSTA_RAW,Robusta coffee (raw beans),ROBUSTA,,Từ domestic price dataset.
+COFFEE_ALL_PRODUCTION,Coffee - production aggregate,COFFEE_ALL,,Production source hiện chưa tách Robusta/Arabica.
+HS090111,"Coffee, not roasted, not decaffeinated",GREEN_COFFEE_ALL_SPECIES,090111,KHÔNG Robusta-specific.

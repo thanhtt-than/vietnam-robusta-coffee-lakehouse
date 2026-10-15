@@ -1,0 +1,123 @@
+﻿dataset,column,dtype,rows,non_null,null,null_pct,unique,sample_values,min,max,mean
+production_area_clean,year,Int64,19,19,0,0.0,19,2005 | 2007 | 2008 | 2009 | 2010,2005.0,2024.0,2014.9473684210527
+production_area_clean,coffee_area_thousand_ha,float64,19,19,0,0.0,19,483.6 | 488.9 | 500.2 | 507.2 | 511.9,483.6,678.5,585.0894736842105
+production_area_clean,coffee_area_growth_index_prev_year_100,float64,19,19,0,0.0,15,100.9 | 101.2 | 102.3 | 101.4 | 100.9,100.3,106.3,101.86842105263158
+production_area_clean,status,object,19,19,0,0.0,2,Official/Published | Official/Published | Official/Published | Official/Published | Official/Published,,,
+production_area_clean,prev_year,Int64,19,18,1,5.2632,18,2005 | 2007 | 2008 | 2009 | 2010,2005.0,2023.0,2014.4444444444443
+production_area_clean,prev_area,float64,19,18,1,5.2632,18,483.6 | 488.9 | 500.2 | 507.2 | 511.9,483.6,666.8,579.9
+production_area_clean,area_growth_index_calc_prev_year_100,float64,19,17,2,10.5263,17,102.31131110656577 | 101.39944022391043 | 100.92665615141956 | 106.25122094159016 | 105.2767052767053,100.29168692270297,106.25122094159016,101.95847322119597
+production_area_clean,country_code,object,19,19,0,0.0,1,VN | VN | VN | VN | VN,,,
+production_area_clean,country_name,object,19,19,0,0.0,1,Viet Nam | Viet Nam | Viet Nam | Viet Nam | Viet Nam,,,
+production_area_clean,product_scope,object,19,19,0,0.0,1,COFFEE_ALL | COFFEE_ALL | COFFEE_ALL | COFFEE_ALL | COFFEE_ALL,,,
+production_area_clean,coffee_area_ha,float64,19,19,0,0.0,19,483600.0 | 488900.0 | 500200.0 | 507200.0 | 511900.0,483600.0,678500.0,585089.4736842106
+production_volume_clean,year,Int64,19,19,0,0.0,19,2005 | 2007 | 2008 | 2009 | 2010,2005.0,2024.0,2014.9473684210527
+production_volume_clean,coffee_production_thousand_tons,float64,19,19,0,0.0,19,752.1 | 915.8 | 1055.8 | 1057.5 | 1171.3,752.1,2015.2,1456.8842105263159
+production_volume_clean,coffee_production_growth_index_prev_year_100,float64,19,19,0,0.0,17,90.0 | 92.9 | 115.3 | 100.2 | 104.1,90.0,115.3,103.06842105263158
+production_volume_clean,status,object,19,19,0,0.0,2,Official/Published | Official/Published | Official/Published | Official/Published | Official/Published,,,
+production_volume_clean,prev_year,Int64,19,18,1,5.2632,18,2005 | 2007 | 2008 | 2009 | 2010,2005.0,2023.0,2014.4444444444443
+production_volume_clean,prev_production,float64,19,18,1,5.2632,18,752.1 | 915.8 | 1055.8 | 1057.5 | 1171.3,752.1,1956.7,1425.8666666666668
+production_volume_clean,production_growth_index_calc_prev_year_100,float64,19,17,2,10.5263,17,115.28718060711947 | 100.16101534381512 | 110.7612293144208 | 108.59728506787332 | 99.4811320754717,99.4811320754717,115.28718060711947,104.82448124889848
+production_volume_clean,country_code,object,19,19,0,0.0,1,VN | VN | VN | VN | VN,,,
+production_volume_clean,country_name,object,19,19,0,0.0,1,Viet Nam | Viet Nam | Viet Nam | Viet Nam | Viet Nam,,,
+production_volume_clean,product_scope,object,19,19,0,0.0,1,COFFEE_ALL | COFFEE_ALL | COFFEE_ALL | COFFEE_ALL | COFFEE_ALL,,,
+production_volume_clean,coffee_production_ton,float64,19,19,0,0.0,19,752100.0 | 915800.0 | 1055800.0 | 1057500.0 | 1171300.0,752100.0,2015200.0,1456884.2105263157
+production_yearly_merged,year,Int64,19,19,0,0.0,19,2005 | 2007 | 2008 | 2009 | 2010,2005.0,2024.0,2014.9473684210527
+production_yearly_merged,country_code,object,19,19,0,0.0,1,VN | VN | VN | VN | VN,,,
+production_yearly_merged,country_name,object,19,19,0,0.0,1,Viet Nam | Viet Nam | Viet Nam | Viet Nam | Viet Nam,,,
+production_yearly_merged,product_scope,object,19,19,0,0.0,1,COFFEE_ALL | COFFEE_ALL | COFFEE_ALL | COFFEE_ALL | COFFEE_ALL,,,
+production_yearly_merged,coffee_area_ha,float64,19,19,0,0.0,19,483600.0 | 488900.0 | 500200.0 | 507200.0 | 511900.0,483600.0,678500.0,585089.4736842106
+production_yearly_merged,coffee_area_thousand_ha,float64,19,19,0,0.0,19,483.6 | 488.9 | 500.2 | 507.2 | 511.9,483.6,678.5,585.0894736842105
+production_yearly_merged,coffee_area_growth_index_prev_year_100,float64,19,19,0,0.0,15,100.9 | 101.2 | 102.3 | 101.4 | 100.9,100.3,106.3,101.86842105263158
+production_yearly_merged,area_growth_index_calc_prev_year_100,float64,19,17,2,10.5263,17,102.31131110656577 | 101.39944022391043 | 100.92665615141956 | 106.25122094159016 | 105.2767052767053,100.29168692270297,106.25122094159016,101.95847322119597
+production_yearly_merged,area_status,object,19,19,0,0.0,2,Official/Published | Official/Published | Official/Published | Official/Published | Official/Published,,,
+production_yearly_merged,coffee_production_ton,float64,19,19,0,0.0,19,752100.0 | 915800.0 | 1055800.0 | 1057500.0 | 1171300.0,752100.0,2015200.0,1456884.2105263157
+production_yearly_merged,coffee_production_thousand_tons,float64,19,19,0,0.0,19,752.1 | 915.8 | 1055.8 | 1057.5 | 1171.3,752.1,2015.2,1456.8842105263159
+production_yearly_merged,coffee_production_growth_index_prev_year_100,float64,19,19,0,0.0,17,90.0 | 92.9 | 115.3 | 100.2 | 104.1,90.0,115.3,103.06842105263158
+production_yearly_merged,production_growth_index_calc_prev_year_100,float64,19,17,2,10.5263,17,115.28718060711947 | 100.16101534381512 | 110.7612293144208 | 108.59728506787332 | 99.4811320754717,99.4811320754717,115.28718060711947,104.82448124889848
+production_yearly_merged,production_status,object,19,19,0,0.0,2,Official/Published | Official/Published | Official/Published | Official/Published | Official/Published,,,
+production_yearly_merged,coffee_yield_ton_ha,float64,19,19,0,0.0,19,1.555210918114144 | 1.8731847003477193 | 2.1107556977209114 | 2.0849763406940065 | 2.2881422152764213,1.555210918114144,2.9791126696142705,2.453222303242212
+london_futures_clean,trading_date,datetime64[ns],4755,4755,0,0.0,4755,2008-01-14 | 2008-01-15 | 2008-01-16 | 2008-01-17 | 2008-01-18,2008-01-14 00:00:00,2026-09-04 00:00:00,
+london_futures_clean,close_usd_ton,float64,4755,4755,0,0.0,1899,2051.0 | 2036.0 | 2040.0 | 2037.0 | 2027.0,1121.0,5765.0,2161.6296529968454
+london_futures_clean,open_usd_ton,float64,4755,4755,0,0.0,1820,2051.0 | 2036.0 | 2035.0 | 2037.0 | 2027.0,1128.0,5745.0,2161.1639327024186
+london_futures_clean,high_usd_ton,float64,4755,4755,0,0.0,1865,2051.0 | 2036.0 | 2035.0 | 2037.0 | 2027.0,1148.0,5800.0,2184.7032597266034
+london_futures_clean,low_usd_ton,float64,4755,4755,0,0.0,1867,2051.0 | 2036.0 | 2035.0 | 2037.0 | 2027.0,1109.0,5706.0,2138.8090431125133
+london_futures_clean,volume_raw,object,4755,4410,345,7.2555,1344,0.00K | 0.01K | 0.01K | 0.01K | 0.01K,,,
+london_futures_clean,change_pct_source,float64,4755,4755,0,0.0,835,-0.19 | -0.73 | 0.2 | -0.15 | -0.49,-10.62,9.31,0.024961093585699253
+london_futures_clean,volume,float64,4755,4410,345,7.2555,1344,0.0 | 10.0 | 10.0 | 10.0 | 10.0,0.0,45910.0,6289.988662131519
+london_futures_clean,change_pct_calc,float64,4755,4754,1,0.021,4448,-0.7313505607020931 | 0.19646365422396617 | -0.14705882352941124 | -0.4909180166912108 | -0.19733596447952806,-10.619304444857725,9.305993690851743,0.024967172819267004
+london_futures_clean,change_pct_abs_diff,float64,4755,4754,1,0.021,4358,0.001350560702093162 | 0.0035363457760338446 | 0.002941176470588752 | 0.0009180166912108323 | 0.0026640355204719524,0.0,0.004999999999999893,0.0024027007530947487
+london_futures_clean,market_code,object,4755,4755,0,0.0,1,LONDON_ROBUSTA | LONDON_ROBUSTA | LONDON_ROBUSTA | LONDON_ROBUSTA | LONDON_ROBUSTA,,,
+london_futures_clean,market_name,object,4755,4755,0,0.0,1,London Robusta Futures | London Robusta Futures | London Robusta Futures | London Robusta Futures | London Robusta Futures,,,
+london_futures_clean,currency,object,4755,4755,0,0.0,1,USD | USD | USD | USD | USD,,,
+london_futures_clean,price_unit,object,4755,4755,0,0.0,1,USD/TON | USD/TON | USD/TON | USD/TON | USD/TON,,,
+london_futures_clean,contract_code,object,4755,0,4755,100.0,0,,,,
+london_futures_clean,contract_semantics_status,object,4755,4755,0,0.0,1,NEEDS_VALIDATION | NEEDS_VALIDATION | NEEDS_VALIDATION | NEEDS_VALIDATION | NEEDS_VALIDATION,,,
+vietnam_coffee_price_clean,date,datetime64[ns],5445,5445,0,0.0,1616,2020-01-01 | 2020-01-02 | 2020-01-03 | 2020-01-06 | 2020-01-07,2020-01-01 00:00:00,2026-05-22 00:00:00,
+vietnam_coffee_price_clean,split,object,5445,5445,0,0.0,3,train | train | train | train | train,,,
+vietnam_coffee_price_clean,province,object,5445,5445,0,0.0,5,Dak Lak | Dak Lak | Dak Lak | Dak Lak | Dak Lak,,,
+vietnam_coffee_price_clean,commodity,object,5445,5445,0,0.0,1,Robusta coffee (raw beans) | Robusta coffee (raw beans) | Robusta coffee (raw beans) | Robusta coffee (raw beans) | Robusta coffee (raw beans),,,
+vietnam_coffee_price_clean,coffee_price_vnd_kg,float64,5445,5445,0,0.0,2029,32639.0 | 32639.0 | 32539.0 | 32519.0 | 32181.0,28367.0,135467.0,76299.95997979799
+vietnam_coffee_price_clean,london_price_usd_ton,float64,5445,5445,0,0.0,1200,1380.0 | 1380.0 | 1372.0 | 1352.0 | 1364.0,1121.0,5740.0,3056.897704315886
+vietnam_coffee_price_clean,usd_vnd_rate,float64,5445,5445,0,0.0,784,23171.0 | 23168.0 | 23171.0 | 23176.0 | 23175.0,22625.0,26432.5,24493.757300275483
+vietnam_coffee_price_clean,london_price_vnd_kg,float64,5445,5445,0,0.0,1587,31975.98 | 31971.84 | 31790.612 | 31333.952 | 31610.7,26319.959,146025.6,76193.43821056014
+vietnam_coffee_price_clean,domestic_london_price_gap_vnd_kg,float64,5445,5445,0,0.0,5095,663.0200000000004 | 667.1599999999999 | 748.387999999999 | 1185.0479999999989 | 570.2999999999993,-22006.81000000001,40708.600000000006,106.52176923783298
+vietnam_coffee_price_clean,brent_price_usd_barrel,float64,5445,5445,0,0.0,1371,67.05 | 67.05 | 69.08 | 70.25 | 68.74,9.12,138.21,75.9542662993572
+vietnam_coffee_price_clean,wti_price_usd_barrel,float64,5445,5445,0,0.0,1358,61.17 | 61.17 | 63.0 | 63.27 | 62.7,-36.98,123.64,71.71626078971534
+vietnam_coffee_price_clean,brent_price_vnd_liter_converted,float64,5445,5445,0,0.0,1594,9771.96594690132 | 9770.700749117852 | 10067.821142609144 | 10240.547969330826 | 10019.998490442613,1345.7402177536528,22892.577003151204,11711.83220289514
+vietnam_coffee_price_clean,wti_price_vnd_liter_converted,float64,5445,5445,0,0.0,1594,8915.006069678653 | 8913.851824362999 | 9181.71297024285 | 9223.05295401511 | 9139.568014994937,-5454.414511878329,18978.59397309214,11055.274974957238
+vietnam_coffee_price_clean,ron95_price_vnd_liter,float64,5445,5445,0,0.0,203,20910.0 | 20910.0 | 20910.0 | 20910.0 | 20910.0,11630.0,33840.0,21443.81634527089
+vietnam_coffee_price_clean,e5ron92_price_vnd_liter,float64,5445,5445,0,0.0,207,19840.0 | 19840.0 | 19840.0 | 19840.0 | 19840.0,10940.0,31300.0,20535.505968778696
+vietnam_coffee_price_clean,diesel_price_vnd_liter,float64,5445,5445,0,0.0,212,16540.0 | 16540.0 | 16540.0 | 16540.0 | 16540.0,9850.0,44780.0,18950.5160697888
+vietnam_coffee_price_clean,kerosene_price_vnd_liter,float64,5445,5445,0,0.0,212,15530.0 | 15530.0 | 15530.0 | 15530.0 | 15530.0,7880.0,44120.0,18740.83930211203
+vietnam_coffee_price_clean,temperature_2m_mean,float64,5445,5445,0,0.0,151,21.6 | 21.7 | 21.2 | 21.0 | 21.9,14.8,31.3,22.758953168044076
+vietnam_coffee_price_clean,temperature_2m_min,float64,5445,5445,0,0.0,146,19.8 | 19.4 | 18.6 | 17.4 | 19.0,8.8,26.0,19.274710743801652
+vietnam_coffee_price_clean,temperature_2m_max,float64,5445,5445,0,0.0,182,25.5 | 25.6 | 25.2 | 25.5 | 26.5,18.8,38.5,27.817465564738292
+vietnam_coffee_price_clean,precipitation_sum,float64,5445,5445,0,0.0,333,3.7 | 0.6 | 0.2 | 0.0 | 0.0,0.0,340.0,4.589880624426079
+vietnam_coffee_price_clean,rain_sum,float64,5445,5445,0,0.0,333,3.7 | 0.6 | 0.2 | 0.0 | 0.0,0.0,340.0,4.589880624426079
+vietnam_coffee_price_clean,lat,float64,5445,5445,0,0.0,5,12.71 | 12.71 | 12.71 | 12.71 | 12.71,11.5753,14.3497,12.684758696051423
+vietnam_coffee_price_clean,lon,float64,5445,5445,0,0.0,5,108.2378 | 108.2378 | 108.2378 | 108.2378 | 108.2378,107.6098,108.2378,108.0773443526171
+vietnam_coffee_price_clean,coord_source,object,5445,5445,0,0.0,1,manual_fallback | manual_fallback | manual_fallback | manual_fallback | manual_fallback,,,
+vietnam_coffee_price_clean,province_code,object,5445,5445,0,0.0,5,DAK_LAK | DAK_LAK | DAK_LAK | DAK_LAK | DAK_LAK,,,
+vietnam_coffee_price_clean,london_price_vnd_kg_calc,float64,5445,5445,0,0.0,1587,31975.98 | 31971.84 | 31790.612 | 31333.952 | 31610.7,26319.959,146025.6,76193.43821056014
+vietnam_coffee_price_clean,domestic_london_gap_calc,float64,5445,5445,0,0.0,5095,663.0200000000004 | 667.1599999999999 | 748.387999999999 | 1185.0479999999989 | 570.2999999999993,-22006.810000000012,40708.600000000006,106.52176923783281
+fact_domestic_price_daily,date,datetime64[ns],5445,5445,0,0.0,1616,2020-01-01 | 2020-01-01 | 2020-01-02 | 2020-01-02 | 2020-01-03,2020-01-01 00:00:00,2026-05-22 00:00:00,
+fact_domestic_price_daily,province_code,object,5445,5445,0,0.0,5,DAK_LAK | LAM_DONG | DAK_LAK | LAM_DONG | DAK_LAK,,,
+fact_domestic_price_daily,province,object,5445,5445,0,0.0,5,Dak Lak | Lam Dong | Dak Lak | Lam Dong | Dak Lak,,,
+fact_domestic_price_daily,commodity,object,5445,5445,0,0.0,1,Robusta coffee (raw beans) | Robusta coffee (raw beans) | Robusta coffee (raw beans) | Robusta coffee (raw beans) | Robusta coffee (raw beans),,,
+fact_domestic_price_daily,coffee_price_vnd_kg,float64,5445,5445,0,0.0,2029,32639.0 | 32000.0 | 32639.0 | 32000.0 | 32539.0,28367.0,135467.0,76299.95997979799
+fact_weather_daily,date,datetime64[ns],5445,5445,0,0.0,1616,2020-01-01 | 2020-01-01 | 2020-01-02 | 2020-01-02 | 2020-01-03,2020-01-01 00:00:00,2026-05-22 00:00:00,
+fact_weather_daily,province_code,object,5445,5445,0,0.0,5,DAK_LAK | LAM_DONG | DAK_LAK | LAM_DONG | DAK_LAK,,,
+fact_weather_daily,province,object,5445,5445,0,0.0,5,Dak Lak | Lam Dong | Dak Lak | Lam Dong | Dak Lak,,,
+fact_weather_daily,temperature_2m_mean,float64,5445,5445,0,0.0,151,21.6 | 18.9 | 21.7 | 19.6 | 21.2,14.8,31.3,22.758953168044076
+fact_weather_daily,temperature_2m_min,float64,5445,5445,0,0.0,146,19.8 | 13.3 | 19.4 | 14.8 | 18.6,8.8,26.0,19.274710743801652
+fact_weather_daily,temperature_2m_max,float64,5445,5445,0,0.0,182,25.5 | 24.7 | 25.6 | 25.5 | 25.2,18.8,38.5,27.817465564738292
+fact_weather_daily,precipitation_sum,float64,5445,5445,0,0.0,333,3.7 | 0.0 | 0.6 | 0.0 | 0.2,0.0,340.0,4.589880624426079
+fact_weather_daily,rain_sum,float64,5445,5445,0,0.0,333,3.7 | 0.0 | 0.6 | 0.0 | 0.2,0.0,340.0,4.589880624426079
+fact_weather_daily,lat,float64,5445,5445,0,0.0,5,12.71 | 11.5753 | 12.71 | 11.5753 | 12.71,11.5753,14.3497,12.684758696051423
+fact_weather_daily,lon,float64,5445,5445,0,0.0,5,108.2378 | 108.1429 | 108.2378 | 108.1429 | 108.2378,107.6098,108.2378,108.0773443526171
+fact_weather_daily,coord_source,object,5445,5445,0,0.0,1,manual_fallback | manual_fallback | manual_fallback | manual_fallback | manual_fallback,,,
+fact_fx_daily,date,datetime64[ns],1616,1616,0,0.0,1616,2020-01-01 | 2020-01-02 | 2020-01-03 | 2020-01-06 | 2020-01-07,2020-01-01 00:00:00,2026-05-22 00:00:00,
+fact_fx_daily,usd_vnd_rate,float64,1616,1616,0,0.0,784,23171.0 | 23168.0 | 23171.0 | 23176.0 | 23175.0,22625.0,26432.5,24161.74566831683
+fact_energy_daily,date,datetime64[ns],1616,1616,0,0.0,1616,2020-01-01 | 2020-01-02 | 2020-01-03 | 2020-01-06 | 2020-01-07,2020-01-01 00:00:00,2026-05-22 00:00:00,
+fact_energy_daily,brent_price_usd_barrel,float64,1616,1616,0,0.0,1371,67.05 | 67.05 | 69.08 | 70.25 | 68.74,9.12,138.21,75.48279702970298
+fact_energy_daily,wti_price_usd_barrel,float64,1616,1616,0,0.0,1358,61.17 | 61.17 | 63.0 | 63.27 | 62.7,-36.98,123.64,71.1877660891089
+fact_energy_daily,ron95_price_vnd_liter,float64,1616,1616,0,0.0,203,20910.0 | 20910.0 | 20910.0 | 20910.0 | 20910.0,11630.0,33840.0,21396.231435643564
+fact_energy_daily,e5ron92_price_vnd_liter,float64,1616,1616,0,0.0,207,19840.0 | 19840.0 | 19840.0 | 19840.0 | 19840.0,10940.0,31300.0,20479.46782178218
+fact_energy_daily,diesel_price_vnd_liter,float64,1616,1616,0,0.0,212,16540.0 | 16540.0 | 16540.0 | 16540.0 | 16540.0,9850.0,44780.0,18810.383663366338
+fact_energy_daily,kerosene_price_vnd_liter,float64,1616,1616,0,0.0,212,15530.0 | 15530.0 | 15530.0 | 15530.0 | 15530.0,7880.0,44120.0,18412.14108910891
+trade_hs090111_long,reporterCd,Int64,3888,3888,0,0.0,1,704 | 704 | 704 | 704 | 704,704,704,704.0
+trade_hs090111_long,reporterLabel,object,3888,3888,0,0.0,1,Viet Nam | Viet Nam | Viet Nam | Viet Nam | Viet Nam,,,
+trade_hs090111_long,partnerCd,Int64,3888,3888,0,0.0,162,0 | 0 | 0 | 0 | 0,0,899,423.75925925925924
+trade_hs090111_long,partnerLabel,object,3888,3888,0,0.0,162,World | World | World | World | World,,,
+trade_hs090111_long,productCd,object,3888,3888,0,0.0,1,090111 | 090111 | 090111 | 090111 | 090111,,,
+trade_hs090111_long,productLabel,object,3888,3888,0,0.0,1,Coffee (excl. roasted and decaffeinated) | Coffee (excl. roasted and decaffeinated) | Coffee (excl. roasted and decaffeinated) | Coffee (excl. roasted and decaffeinated) | Coffee (excl. roasted and decaffeinated),,,
+trade_hs090111_long,export_value_usd_thousand,int64,3888,3888,0,0.0,1575,388041 | 321632 | 504892 | 640677 | 730258,0,3944447,25902.791152263373
+trade_hs090111_long,year,Int64,3888,3888,0,0.0,24,2001 | 2002 | 2003 | 2004 | 2005,2001,2024,2012.5
+trade_hs090111_long,export_value_usd,float64,3888,3888,0,0.0,1575,388041000.0 | 321632000.0 | 504892000.0 | 640677000.0 | 730258000.0,0.0,3944447000.0,25902791.152263373
+trade_hs090111_long,is_world_total,boolean,3888,3888,0,0.0,2,True | True | True | True | True,False,True,0.006172839506172839
+trade_hs090111_long,product_scope,object,3888,3888,0,0.0,1,GREEN_COFFEE_NOT_ROASTED_NOT_DECAFFEINATED | GREEN_COFFEE_NOT_ROASTED_NOT_DECAFFEINATED | GREEN_COFFEE_NOT_ROASTED_NOT_DECAFFEINATED | GREEN_COFFEE_NOT_ROASTED_NOT_DECAFFEINATED | GREEN_COFFEE_NOT_ROASTED_NOT_DECAFFEINATED,,,
+trade_hs090111_long,robusta_specific_flag,bool,3888,3888,0,0.0,1,False | False | False | False | False,False,False,0.0
+trade_hs090111_long,robusta_scope_note,object,3888,3888,0,0.0,1,HS090111 không phân biệt Robusta/Arabica; không dùng để kết luận riêng Robusta. | HS090111 không phân biệt Robusta/Arabica; không dùng để kết luận riêng Robusta. | HS090111 không phân biệt Robusta/Arabica; không dùng để kết luận riêng Robusta. | HS090111 không phân biệt Robusta/Arabica; không dùng để kết luận riêng Robusta. | HS090111 không phân biệt Robusta/Arabica; không dùng để kết luận riêng Robusta.,,,
+trade_hs090111_long,world_export_value_usd,float64,3888,3888,0,0.0,24,388041000.0 | 321632000.0 | 504892000.0 | 640677000.0 | 730258000.0,321632000.0,3944447000.0,2098126166.6666667
+trade_hs090111_long,partner_market_share_pct,float64,3888,3864,24,0.6173,1789,0.0 | 0.0 | 0.0 | 0.0 | 0.0,0.0,19.126330280395244,0.6211179389455027
+trade_hs090111_long,export_value_yoy_pct,float64,3888,1972,1916,49.2798,1548,-17.113913220510202 | 56.97816137697742 | 26.89387037227764 | 13.982240661050739 | 66.5347041730457,-100.0,inf,inf

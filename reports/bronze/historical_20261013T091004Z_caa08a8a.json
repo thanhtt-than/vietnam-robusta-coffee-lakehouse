@@ -1,0 +1,91 @@
+{
+  "batch_id": "20261013T091004Z_caa08a8a",
+  "bucket": "coffee-lakehouse",
+  "dry_run": false,
+  "files": [
+    {
+      "domain": "area",
+      "source": "historical_csv",
+      "file": "D:\\TLCN\\data\\coffee_area_vietnam_2005_2024.csv",
+      "relative_path": "coffee_area_vietnam_2005_2024.csv",
+      "size_bytes": 775,
+      "sha256": "bff91114805173a8746e40a14f24f87a2e1bb78dd0d2f1d40bbdce9925e0f793",
+      "status": "SKIPPED"
+    },
+    {
+      "domain": "production",
+      "source": "historical_csv",
+      "file": "D:\\TLCN\\data\\coffee_production_vietnam_2005_2024.csv",
+      "relative_path": "coffee_production_vietnam_2005_2024.csv",
+      "size_bytes": 803,
+      "sha256": "347718d12f299e382e430a6f349cf971acfaa6cb2f737b08a3db49d24574cf12",
+      "status": "SKIPPED"
+    },
+    {
+      "domain": "trade",
+      "source": "historical_csv",
+      "file": "D:\\TLCN\\data\\viet-nams-exports-to-world-by-importer_090111.csv",
+      "relative_path": "viet-nams-exports-to-world-by-importer_090111.csv",
+      "size_bytes": 26313,
+      "sha256": "83d29487eaf26553c677a01fdebf8938186e05157600b56b8437f28f2371a800",
+      "status": "SKIPPED"
+    },
+    {
+      "domain": "domestic_price",
+      "source": "historical_csv",
+      "file": "D:\\TLCN\\data\\vietnam_coffee_price_dataset.csv",
+      "relative_path": "vietnam_coffee_price_dataset.csv",
+      "size_bytes": 1303809,
+      "sha256": "d6c18f2bee64a94df61205586e3fe58530116e681aedede7c7d1fc722f2497c2",
+      "status": "SKIPPED"
+    },
+    {
+      "domain": "london_futures",
+      "source": "historical_csv",
+      "file": "D:\\TLCN\\data\\Dữ liệu Lịch sử Hợp đồng Tương lai Cà phê London.csv",
+      "relative_path": "Dữ liệu Lịch sử Hợp đồng Tương lai Cà phê London.csv",
+      "size_bytes": 348576,
+      "sha256": "e87bb149a8bc8ce94aedd593140bed138a725611c1e322bca4951826f025e3f1",
+      "status": "SKIPPED"
+    },
+    {
+      "domain": "weather",
+      "source": "open_meteo",
+      "file": "D:\\TLCN\\data\\open-meteo-12.48N107.97E419m_DakNong.csv",
+      "relative_path": "open-meteo-12.48N107.97E419m_DakNong.csv",
+      "size_bytes": 427734,
+      "sha256": "3b6ed28068b474f82758c477670893e97153a23ac4c48d66a2cbe6bf629088a2",
+      "status": "SUCCESS",
+      "object_key": "bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t091004z_caa08a8a/raw/open-meteo-12.48N107.97E419m_DakNong.csv"
+    },
+    {
+      "domain": "weather",
+      "source": "open_meteo",
+      "file": "D:\\TLCN\\data\\open-meteo-12.83N108.13E481m_DaKLak.csv",
+      "relative_path": "open-meteo-12.83N108.13E481m_DaKLak.csv",
+      "size_bytes": 427677,
+      "sha256": "6c303631d50871dcb99d9a1548002019053124faf7b89fddc29fe4e957a1d64d",
+      "status": "SUCCESS",
+      "object_key": "bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t091004z_caa08a8a/raw/open-meteo-12.83N108.13E481m_DaKLak.csv"
+    },
+    {
+      "domain": "weather",
+      "source": "open_meteo",
+      "file": "D:\\TLCN\\data\\open-meteo-14.09N109.18E336m_GiaLai.csv",
+      "relative_path": "open-meteo-14.09N109.18E336m_GiaLai.csv",
+      "size_bytes": 429983,
+      "sha256": "8069b74a5f3fc18dfd98ea903b6a22e105cdf87789a6748ddcfe76708cf23a50",
+      "status": "SUCCESS",
+      "object_key": "bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t091004z_caa08a8a/raw/open-meteo-14.09N109.18E336m_GiaLai.csv"
+    },
+    {
+      "domain": "weather",
+      "source": "open_meteo",
+      "file": "D:\\TLCN\\data\\open-meteo-20.91N106.60E5m_LamDong.csv",
+      "relative_path": "open-meteo-20.91N106.60E5m_LamDong.csv",
+      "size_bytes": 429059,
+      "sha256": "1f31765440cec282aae5933695ca9a0b3c6a42a360bb6fd72f903ac7c56fafaa",
+      "status": "SKIPPED"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+﻿dataset,rows,columns,duplicate_full_rows,missing_cells,missing_cell_pct,min_year,max_year,grain,min_date,max_date,province_count,partner_count_including_world,hs_scope
+production_area,19,11,0,4,1.9139,2005.0,2024.0,Year × Vietnam × Coffee(all types),,,,,
+production_volume,19,11,0,4,1.9139,2005.0,2024.0,Year × Vietnam × Coffee(all types),,,,,
+london_futures,4755,16,0,5447,7.1596,,,Trading day × market/contract (contract metadata chưa xác minh),2008-01-14,2026-09-04,,,
+vietnam_coffee_price,5445,28,0,0,0.0,,,Date × Province × Commodity,2020-01-01,2026-05-22,5.0,,
+trade_hs090111,3888,17,0,1940,2.9351,2001.0,2024.0,Year × Reporter × Partner × HS product,,,,162.0,"090111 = green coffee, not roasted, not decaffeinated; NOT Robusta-specific"

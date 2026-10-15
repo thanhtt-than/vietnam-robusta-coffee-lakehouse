@@ -1,0 +1,11 @@
+﻿dataset,severity,rule,issue_count,detail
+london_futures,ERROR,invalid_ohlc,374,Vi phạm Low <= Open/Close <= High.
+london_futures,WARNING,missing_volume,345,Volume thiếu; không tự fill vì chưa xác minh ý nghĩa.
+production_area,WARNING,missing_years,1,Thiếu năm trong chuỗi: [2006]
+production_volume,WARNING,growth_index_mismatch,1,Growth index nguồn lệch > 0.2 điểm so với tính lại ở các năm liên tiếp.
+production_volume,WARNING,missing_years,1,Thiếu năm trong chuỗi: [2006]
+bbw_spot_api,INFO,no_bbw_json_found,0,Không thấy req_*.json; bỏ qua BBW.
+production_area,INFO,preliminary_records,1,Có dữ liệu Preliminary; nên giữ status để audit.
+production_volume,INFO,preliminary_records,1,Có dữ liệu Preliminary; nên giữ status để audit.
+trade_hs090111,INFO,world_total_records,24,World là aggregate total; loại khỏi partner ranking/HHI.
+vietnam_coffee_price,INFO,province_coverage_below_95pct,5,Một số tỉnh có coverage calendar <95%; cần phân biệt source start-date và missing thực.
