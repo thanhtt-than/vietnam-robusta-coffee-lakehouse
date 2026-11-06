@@ -1,0 +1,59 @@
+﻿type,domain,source,object_key,detail
+UNREFERENCED_RAW,weather,open_meteo,bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t090947z_bf8e1ad0/raw/open-meteo-12.48N107.97E419m_DakNong.csv,No metadata raw_object_key points here
+UNREFERENCED_RAW,weather,open_meteo,bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t090947z_bf8e1ad0/raw/open-meteo-12.83N108.13E481m_DaKLak.csv,No metadata raw_object_key points here
+UNREFERENCED_RAW,weather,open_meteo,bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t090947z_bf8e1ad0/raw/open-meteo-14.09N109.18E336m_GiaLai.csv,No metadata raw_object_key points here
+UNREFERENCED_RAW,weather,open_meteo,bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t091004z_caa08a8a/raw/open-meteo-12.48N107.97E419m_DakNong.csv,No metadata raw_object_key points here
+UNREFERENCED_RAW,weather,open_meteo,bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t091004z_caa08a8a/raw/open-meteo-12.83N108.13E481m_DaKLak.csv,No metadata raw_object_key points here
+UNREFERENCED_RAW,weather,open_meteo,bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t091011z_90bc6578/raw/open-meteo-12.48N107.97E419m_DakNong.csv,No metadata raw_object_key points here
+DUPLICATE_CONTENT,coffee_prices,bbw_coffee,bronze/coffee_prices/source=bbw_coffee/ingestion_date=2026-10-13/batch_id=20261013t192817z_ec5abeb5/raw/bbw_coffee_2025-08-01_2025-08-31_page_0001.json,sha256=5b3452741e9279a3883eb17661f0ca3450583dd34b225763d6da804909662238; canonical=bronze/coffee_prices/source=bbw_coffee/ingestion_date=2026-10-13/batch_id=20261013t192756z_4f758515/raw/bbw_coffee_2025-08-01_2025-08-31_page_0001.json
+DUPLICATE_CONTENT,coffee_prices,bbw_coffee,bronze/coffee_prices/source=bbw_coffee/ingestion_date=2026-10-13/batch_id=20261013t192817z_03ebc7a5/raw/bbw_coffee_2025-08-01_2025-08-31_page_0002.json,sha256=92aa51c968b110b616e5f616726982827732c64a5e2b75505c2640abf8ea08d8; canonical=bronze/coffee_prices/source=bbw_coffee/ingestion_date=2026-10-13/batch_id=20261013t192757z_af089feb/raw/bbw_coffee_2025-08-01_2025-08-31_page_0002.json
+DUPLICATE_CONTENT,production,historical_csv,bronze/production/source=historical_csv/ingestion_date=2026-10-13/batch_id=20261013t090947z_bf8e1ad0/raw/coffee_production_vietnam_2005_2024.csv,sha256=347718d12f299e382e430a6f349cf971acfaa6cb2f737b08a3db49d24574cf12; canonical=bronze/production/source=historical_csv/ingestion_date=2026-10-13/batch_id=20261013t024301z_d6ba2798/raw/coffee_production_vietnam_2005_2024.csv
+DUPLICATE_CONTENT,weather,open_meteo,bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t091004z_caa08a8a/raw/open-meteo-12.48N107.97E419m_DakNong.csv,sha256=3b6ed28068b474f82758c477670893e97153a23ac4c48d66a2cbe6bf629088a2; canonical=bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t090947z_bf8e1ad0/raw/open-meteo-12.48N107.97E419m_DakNong.csv
+DUPLICATE_CONTENT,weather,open_meteo,bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t091011z_90bc6578/raw/open-meteo-12.48N107.97E419m_DakNong.csv,sha256=3b6ed28068b474f82758c477670893e97153a23ac4c48d66a2cbe6bf629088a2; canonical=bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t090947z_bf8e1ad0/raw/open-meteo-12.48N107.97E419m_DakNong.csv
+DUPLICATE_CONTENT,weather,open_meteo,bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t091517z_5f976a9e/raw/open-meteo-12.48N107.97E419m_DakNong.csv,sha256=3b6ed28068b474f82758c477670893e97153a23ac4c48d66a2cbe6bf629088a2; canonical=bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t090947z_bf8e1ad0/raw/open-meteo-12.48N107.97E419m_DakNong.csv
+DUPLICATE_CONTENT,weather,open_meteo,bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t091004z_caa08a8a/raw/open-meteo-12.83N108.13E481m_DaKLak.csv,sha256=6c303631d50871dcb99d9a1548002019053124faf7b89fddc29fe4e957a1d64d; canonical=bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t090947z_bf8e1ad0/raw/open-meteo-12.83N108.13E481m_DaKLak.csv
+DUPLICATE_CONTENT,weather,open_meteo,bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t091011z_90bc6578/raw/open-meteo-12.83N108.13E481m_DaKLak.csv,sha256=6c303631d50871dcb99d9a1548002019053124faf7b89fddc29fe4e957a1d64d; canonical=bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t090947z_bf8e1ad0/raw/open-meteo-12.83N108.13E481m_DaKLak.csv
+DUPLICATE_CONTENT,weather,open_meteo,bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t091004z_caa08a8a/raw/open-meteo-14.09N109.18E336m_GiaLai.csv,sha256=8069b74a5f3fc18dfd98ea903b6a22e105cdf87789a6748ddcfe76708cf23a50; canonical=bronze/weather/source=open_meteo/ingestion_date=2026-10-13/batch_id=20261013t090947z_bf8e1ad0/raw/open-meteo-14.09N109.18E336m_GiaLai.csv
+LEGACY_LAYOUT,area,legacy_unknown,bronze/area/coffee_area_vietnam_2005_2024.csv,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/Back-fill/vietnam_coffee_price_dataset.csv,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0001_2015-01-01_2026-09-05.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0002_2015-01-01_2026-08-18.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0003_2015-01-01_2026-08-01.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0004_2015-01-01_2026-07-15.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0005_2015-01-01_2026-06-24.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0006_2015-01-01_2026-06-02.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0007_2015-01-01_2026-05-22.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0008_2015-01-01_2026-05-10.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0009_2015-01-01_2026-04-29.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0010_2015-01-01_2026-04-12.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0011_2015-01-01_2026-03-16.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0012_2015-01-01_2026-02-19.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0013_2015-01-01_2026-01-27.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0014_2015-01-01_2026-01-02.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0015_2015-01-01_2025-12-10.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0016_2015-01-01_2025-11-14.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0017_2015-01-01_2025-10-21.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0018_2015-01-01_2025-09-28.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0019_2015-01-01_2025-09-04.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0020_2015-01-01_2025-08-11.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0021_2015-01-01_2025-07-17.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0022_2015-01-01_2025-06-20.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0023_2015-01-01_2025-05-28.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0024_2015-01-01_2025-05-02.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0025_2015-01-01_2025-04-07.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0026_2015-01-01_2025-03-13.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0027_2015-01-01_2025-02-18.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0028_2015-01-01_2025-01-24.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0029_2015-01-01_2025-01-02.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0030_2015-01-01_2024-12-10.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,domestic_price,legacy_unknown,bronze/domestic_price/req_0031_2015-01-01_2024-11-19.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,fuel,legacy_unknown,bronze/fuel/fuel_2025.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,fuel,legacy_unknown,bronze/fuel/fuel_2026.json,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,fuel,legacy_unknown,bronze/fuel/fuel_prices_bbw_2000_present.csv,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,london_futures,legacy_unknown,bronze/london_futures/Dữ liệu Lịch sử Hợp đồng Tương lai Cà phê London.csv,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,production,legacy_unknown,bronze/production/coffee_production_vietnam_2005_2024.csv,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,trade,legacy_unknown,bronze/trade/viet-nams-exports-to-world-by-importer_090111.csv,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,weather,legacy_unknown,bronze/weather/open-meteo-12.48N107.97E419m_DakNong.csv,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,weather,legacy_unknown,bronze/weather/open-meteo-12.83N108.13E481m_DaKLak.csv,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,weather,legacy_unknown,bronze/weather/open-meteo-14.09N109.18E336m_GiaLai.csv,Object key has no source= segment; not necessarily invalid
+LEGACY_LAYOUT,weather,legacy_unknown,bronze/weather/open-meteo-20.91N106.60E5m_LamDong.csv,Object key has no source= segment; not necessarily invalid

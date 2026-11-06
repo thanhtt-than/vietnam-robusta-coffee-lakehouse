@@ -9,6 +9,7 @@ from uuid import uuid4
 from minio.error import S3Error
 from src.bronze.minio_client import get_bucket_name, get_minio_client
 from src.bronze.metadata import upload_bytes_and_metadata
+from src.bronze.run_logging import start_run, finish_run, save_run
 
 # Relative to D:\TLCN\data. API snapshots and website resources are intentionally excluded.
 DATASETS = [
@@ -66,60 +67,103 @@ def main():
     parser.add_argument("--data-dir", default=r"D:\TLCN\data")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
-    root = Path(args.data_dir)
-    client = get_minio_client()
-    bucket = get_bucket_name()
-    if not client.bucket_exists(bucket):
-        raise RuntimeError(f"Bucket not found: {bucket}")
-    known = prior_uploads(client, bucket)
-    batch_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "_" + uuid4().hex[:8]
+    run = start_run("historical_batch", "mixed_historical_sources")
     records = []
-    for domain, source, relative in DATASETS:
-        path = root / relative
-        entry = {"domain": domain, "source": source, "file": str(path), "relative_path": relative}
-        try:
-            if not path.is_file():
-                raise FileNotFoundError(path)
-            data = path.read_bytes()
-            if not data:
-                raise ValueError("Empty file")
-            sha = digest(data)
-            entry.update(size_bytes=len(data), sha256=sha)
-            identity = (domain, source, relative, sha)
-            if identity in known:
-                entry["status"] = "SKIPPED"
-            elif args.dry_run:
-                entry["status"] = "WOULD_UPLOAD"
-            else:
-                result = upload_bytes_and_metadata(
-                    raw_bytes=data,
-                    raw_filename=path.name,
-                    domain=domain,
-                    source=source,
-                    source_type="local_file",
-                    extra_metadata={
-                        "ingestion_program": "ingest_historical_v1",
-                        "relative_path": relative,
-                        "run_batch_id": batch_id,
-                    },
-                )
-                verify_download(client, bucket, result["raw_object_key"], sha)
-                entry.update(status="SUCCESS", object_key=result["raw_object_key"])
-                known.add(identity)
-        except Exception as exc:
-            entry.update(status="FAILED", error=str(exc))
-        print(f"[{entry['status']}] {relative}")
-        records.append(entry)
-    report = {"batch_id": batch_id, "bucket": bucket, "dry_run": args.dry_run, "files": records}
-    report_dir = Path("reports") / "bronze"
-    report_dir.mkdir(parents=True, exist_ok=True)
-    report_path = report_dir / f"historical_{batch_id}.json"
-    report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
-    from collections import Counter
-    print("Summary:", dict(Counter(r["status"] for r in records)))
-    print("Report:", report_path)
-    if any(r["status"] == "FAILED" for r in records):
-        raise SystemExit(1)
+
+    try:
+        root = Path(args.data_dir)
+        client = get_minio_client()
+        bucket = get_bucket_name()
+        if not client.bucket_exists(bucket):
+            raise RuntimeError(f"Bucket not found: {bucket}")
+        known = prior_uploads(client, bucket)
+        batch_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "_" + uuid4().hex[:8]
+        records = []
+        for domain, source, relative in DATASETS:
+            path = root / relative
+            entry = {"domain": domain, "source": source, "file": str(path), "relative_path": relative}
+            try:
+                if not path.is_file():
+                    raise FileNotFoundError(path)
+                data = path.read_bytes()
+                if not data:
+                    raise ValueError("Empty file")
+                sha = digest(data)
+                entry.update(size_bytes=len(data), sha256=sha)
+                identity = (domain, source, relative, sha)
+                if identity in known:
+                    entry["status"] = "SKIPPED"
+                elif args.dry_run:
+                    entry["status"] = "WOULD_UPLOAD"
+                else:
+                    result = upload_bytes_and_metadata(
+                        raw_bytes=data,
+                        raw_filename=path.name,
+                        domain=domain,
+                        source=source,
+                        source_type="local_file",
+                        extra_metadata={
+                            "ingestion_program": "ingest_historical_v1",
+                            "relative_path": relative,
+                            "run_batch_id": batch_id,
+                        },
+                    )
+                    verify_download(client, bucket, result["raw_object_key"], sha)
+                    entry.update(status="SUCCESS", object_key=result["raw_object_key"])
+                    known.add(identity)
+            except Exception as exc:
+                entry.update(status="FAILED", error=str(exc))
+            print(f"[{entry['status']}] {relative}")
+            records.append(entry)
+        report = {"batch_id": batch_id, "bucket": bucket, "dry_run": args.dry_run, "files": records}
+        report_dir = Path("reports") / "bronze"
+        report_dir.mkdir(parents=True, exist_ok=True)
+        report_path = report_dir / f"historical_{batch_id}.json"
+        report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+        from collections import Counter
+        print("Summary:", dict(Counter(r["status"] for r in records)))
+        print("Report:", report_path)
+    except Exception as exc:
+        metrics = {
+            "total_files": len(DATASETS),
+            "uploaded_files": sum(r.get("status") == "SUCCESS" for r in records),
+            "skipped_files": sum(r.get("status") == "SKIPPED" for r in records),
+            "would_upload_files": sum(r.get("status") == "WOULD_UPLOAD" for r in records),
+            "failed_files": sum(r.get("status") == "FAILED" for r in records),
+        }
+        finish_run(run, error=exc, metrics=metrics)
+        report_path = save_run(run)
+        print(f"FAILED_RUN_REPORT: {report_path}")
+        raise
+    else:
+        metrics = {
+            "total_files": len(DATASETS),
+            "uploaded_files": sum(r.get("status") == "SUCCESS" for r in records),
+            "skipped_files": sum(r.get("status") == "SKIPPED" for r in records),
+            "would_upload_files": sum(r.get("status") == "WOULD_UPLOAD" for r in records),
+            "failed_files": sum(r.get("status") == "FAILED" for r in records),
+        }
+
+        if metrics["failed_files"]:
+            finish_run(
+                run,
+                error=RuntimeError("One or more historical files failed"),
+                metrics=metrics,
+            )
+        else:
+            finish_run(
+                run,
+                dry_run=args.dry_run,
+                result=None if args.dry_run else {"batch_id": batch_id},
+                metrics=metrics,
+            )
+
+        run_report = save_run(run)
+        print(f"RUN_REPORT: {run_report}")
+
+        if metrics["failed_files"]:
+            raise SystemExit(1)
+
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,29 @@
+{
+  "evaluated_at_utc": "2026-11-05T04:54:00.918586+00:00",
+  "scope": "Bronze Iceberg content derived from MinIO; comparison to saved MinIO profiling",
+  "read_only": true,
+  "table_records": {
+    "coffee_prices": 3525,
+    "domestic_price": 13915,
+    "fuel": 1912,
+    "weather": 156108,
+    "london_futures": 9510,
+    "area": 38,
+    "production": 57,
+    "trade": 324,
+    "vicofa": 2436
+  },
+  "total_rows_scanned": 187825,
+  "rules_with_findings": 22,
+  "rule_violation_instances": 8209,
+  "sample_findings_written": 146,
+  "baseline_minio_profile": "2026-11-05T03:11:20.568554+00:00",
+  "limitations": [
+    "Flags are screening results, not automatic deletion/normalization decisions.",
+    "Duplicate business keys may represent valid revisions or repeated ingestion.",
+    "Source-specific units and providers must be resolved before Silver.",
+    "quality_findings.csv contains capped examples, not every violating record.",
+    "No cross-source price reconciliation, weather-day completeness, or statistical outlier detection yet.",
+    "ICEBERG profile does not re-download all 311 MinIO objects; earlier read-only MinIO audit/profile remains its source baseline."
+  ]
+}

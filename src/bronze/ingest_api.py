@@ -5,6 +5,7 @@ import json
 from datetime import datetime, timezone
 import requests
 from src.bronze.metadata import upload_bytes_and_metadata
+from src.bronze.run_logging import start_run, finish_run, save_run
 
 
 def parse_headers(items: list[str]) -> dict[str, str]:
@@ -41,27 +42,59 @@ def main() -> None:
     if body is not None:
         headers.setdefault("Content-Type", "application/json")
 
-    response = requests.request(args.method, args.url, headers=headers, params=params,
-                                json=body, timeout=args.timeout)
-    response.raise_for_status()
-    content_type = response.headers.get("Content-Type", "application/octet-stream").split(";", 1)[0].strip()
-    result = upload_bytes_and_metadata(
-        raw_bytes=response.content, raw_filename=args.output_name,
-        domain=args.domain, source=args.source, source_type="api",
-        source_url=response.url, content_type=content_type or "application/octet-stream",
-        batch_id=args.batch_id,
-        extra_metadata={
-            "http_method": args.method, "http_status": response.status_code,
-            "response_content_type": response.headers.get("Content-Type"),
-            "response_date": response.headers.get("Date"),
-            "response_etag": response.headers.get("ETag"),
-            "retrieved_at_utc": datetime.now(timezone.utc).isoformat(),
-            "request_params": params,
-        },
-    )
-    print(f"API ingestion thành công (HTTP {response.status_code}).")
+    run = start_run(args.domain, args.source)
+
+    try:
+        response = requests.request(
+            args.method,
+            args.url,
+            headers=headers,
+            params=params,
+            json=body,
+            timeout=args.timeout,
+        )
+        response.raise_for_status()
+
+        content_type = response.headers.get(
+            "Content-Type", "application/octet-stream"
+        ).split(";", 1)[0].strip()
+
+        result = upload_bytes_and_metadata(
+            raw_bytes=response.content,
+            raw_filename=args.output_name,
+            domain=args.domain,
+            source=args.source,
+            source_type="api",
+            source_url=response.url,
+            content_type=content_type or "application/octet-stream",
+            batch_id=args.batch_id,
+            extra_metadata={
+                "http_method": args.method,
+                "http_status": response.status_code,
+                "response_content_type": response.headers.get("Content-Type"),
+                "response_date": response.headers.get("Date"),
+                "response_etag": response.headers.get("ETag"),
+                "retrieved_at_utc": datetime.now(timezone.utc).isoformat(),
+                "request_params": params,
+            },
+        )
+
+    except Exception as exc:
+        finish_run(run, error=exc)
+        try:
+            report_path = save_run(run)
+            print(f"FAILED_RUN_REPORT: {report_path}")
+        except Exception:
+            print("WARNING: Could not save failed run report")
+        raise
+
+    finish_run(run, result=result)
+    report_path = save_run(run)
+
+    print(f"API ingestion successful (HTTP {response.status_code}).")
     for key, value in result.items():
         print(f"{key}: {value}")
+    print(f"SUCCESS_RUN_REPORT: {report_path}")
 
 
 if __name__ == "__main__":

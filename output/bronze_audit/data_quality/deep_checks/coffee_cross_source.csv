@@ -1,0 +1,9 @@
+﻿reference,compared_with,region,matched_days,median_relative_difference_pct,max_relative_difference_pct,days_ge_15pct_difference,status
+bbw_coffee,legacy_api_json,DAK_LAK,564,0.0,0.0,0,SCREEN_OK
+bbw_coffee,legacy_api_json,DAK_NONG,561,0.0,0.0,0,SCREEN_OK
+bbw_coffee,legacy_api_json,GIA_LAI,561,0.0,0.0,0,SCREEN_OK
+bbw_coffee,legacy_api_json,LAM_DONG,560,0.0,0.0,0,SCREEN_OK
+bbw_coffee,enriched_csv,DAK_LAK,346,0.075,14.866,0,SCREEN_OK
+bbw_coffee,enriched_csv,DAK_NONG,264,0.052,14.819,0,SCREEN_OK
+bbw_coffee,enriched_csv,GIA_LAI,342,0.075,14.866,0,SCREEN_OK
+bbw_coffee,enriched_csv,LAM_DONG,347,0.0,15.493,1,REVIEW

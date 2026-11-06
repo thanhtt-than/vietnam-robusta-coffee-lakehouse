@@ -1,0 +1,22 @@
+{
+  "audited_at_utc": "2026-11-05T03:10:46.675061+00:00",
+  "bucket": "coffee-lakehouse",
+  "prefix": "bronze/",
+  "total_objects": 573,
+  "metadata_objects": 262,
+  "valid_metadata": 262,
+  "raw_objects_in_standard_layout": 268,
+  "raw_referenced_by_metadata": 262,
+  "raw_checked_against_metadata": 262,
+  "raw_integrity_pass": 262,
+  "unreferenced_raw": 6,
+  "unique_raw_contents": 259,
+  "duplicate_raw_copies": 9,
+  "legacy_layout_objects": 43,
+  "finding_counts": {
+    "DUPLICATE_CONTENT": 9,
+    "LEGACY_LAYOUT": 43,
+    "UNREFERENCED_RAW": 6
+  },
+  "note": "Legacy-layout objects are inventoried but not checksum-validated unless referenced by metadata."
+}

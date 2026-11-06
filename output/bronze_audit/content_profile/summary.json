@@ -1,0 +1,22 @@
+{
+  "audited_at_utc": "2026-11-05T03:11:20.568554+00:00",
+  "bucket": "coffee-lakehouse",
+  "prefix": "bronze/",
+  "metadata_objects_excluded_from_content_profile": 262,
+  "data_objects_found": 311,
+  "data_objects_ok": 311,
+  "data_objects_error": 0,
+  "data_objects_unsupported": 0,
+  "total_extracted_rows_before_deduplication": 187853,
+  "finding_counts": {
+    "EMPTY_DATASET": 123,
+    "DUPLICATE_BYTES": 18
+  },
+  "notes": [
+    "READ-ONLY: no MinIO writes",
+    "Row counts use root list, common list fields, or Open-Meteo daily arrays",
+    "JSON other than those patterns is profiled as one root object; nested records might require source-specific checks",
+    "Field profile is descriptive; it is not business-rule validation",
+    "VICOFA local JSONL is not included until uploaded to MinIO"
+  ]
+}

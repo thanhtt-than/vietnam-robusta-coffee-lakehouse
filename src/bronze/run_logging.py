@@ -1,0 +1,107 @@
+"""Structured local run reports for Bronze ingestion pipelines."""
+from __future__ import annotations
+
+import json
+import uuid
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+REPORT_ROOT = Path("reports/bronze_runs")
+
+
+def utc_timestamp() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def start_run(domain: str, source: str) -> dict[str, Any]:
+    if not domain.strip() or not source.strip():
+        raise ValueError("domain and source must not be empty")
+
+    return {
+        "run_id": uuid.uuid4().hex,
+        "domain": domain,
+        "source": source,
+        "started_at_utc": utc_timestamp(),
+        "finished_at_utc": None,
+        "status": "RUNNING",
+        "batch_id": None,
+        "raw_object_key": None,
+        "metadata_object_key": None,
+        "size_bytes": None,
+        "error_type": None,
+        "error_message": None,
+        "metrics": {},
+    }
+
+
+def finish_run(
+    run: dict[str, Any],
+    *,
+    result: dict[str, Any] | None = None,
+    error: BaseException | None = None,
+    metrics: dict[str, int] | None = None,
+    dry_run: bool = False,
+) -> dict[str, Any]:
+    # Validate everything before mutating the run object.
+    if run.get("status") != "RUNNING":
+        raise ValueError("Run has already finished")
+
+    if dry_run and (error is not None or result is not None):
+        raise ValueError("DRY_RUN cannot have an upload result or error")
+
+    if not dry_run and error is None and result is None:
+        raise ValueError("Successful run requires upload result")
+
+    if metrics is not None:
+        if not isinstance(metrics, dict) or any(
+            not isinstance(key, str)
+            or not isinstance(value, int)
+            or isinstance(value, bool)
+            or value < 0
+            for key, value in metrics.items()
+        ):
+            raise ValueError("Metrics must contain nonnegative integer counts")
+
+    # Mutate state only after all validation succeeds.
+    if metrics is not None:
+        run["metrics"] = dict(metrics)
+
+    if dry_run:
+        run["status"] = "DRY_RUN"
+    elif error is not None:
+        run["status"] = "FAILED"
+        run["error_type"] = type(error).__name__
+        run["error_message"] = "See protected process stderr for details"
+    else:
+        run["status"] = "SUCCESS"
+        for key in (
+            "batch_id",
+            "raw_object_key",
+            "metadata_object_key",
+            "size_bytes",
+        ):
+            run[key] = result.get(key)
+
+    run["finished_at_utc"] = utc_timestamp()
+    return run
+
+
+def save_run(run: dict[str, Any]) -> Path:
+    run_id = run.get("run_id")
+    if not isinstance(run_id, str) or len(run_id) != 32:
+        raise ValueError("Invalid run_id")
+    if run.get("status") not in {"SUCCESS", "FAILED", "DRY_RUN"}:
+        raise ValueError("Only completed runs may be saved")
+
+    run_dir = REPORT_ROOT / "runs"
+    run_dir.mkdir(parents=True, exist_ok=True)
+
+    output = run_dir / f"{run_id}.json"
+    payload = json.dumps(run, ensure_ascii=False, indent=2)
+
+    # Exclusive creation prevents overwriting an existing run report.
+    with output.open("x", encoding="utf-8") as f:
+        f.write(payload + "\n")
+
+    return output

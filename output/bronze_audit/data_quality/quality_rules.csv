@@ -1,0 +1,90 @@
+﻿domain,source,rule_id,severity,status,evaluated,violations,description
+all,all_sources,MINIO_PROFILE_ROW_DIFFERENCE,INFO,INFO,1,1,CSV weather station header rows excluded from Bronze Iceberg
+area,all_sources,AREA_PRODUCTION_MISSING_YEAR,WARN,WARN,1,1,Missing year within observed historical range
+area,all_sources,OBJECT_HASH_DUPLICATED,INFO,INFO,1,1,"Byte-identical raw source objects, retained intentionally"
+area,historical_csv,INVALID_STAT_VALUE,FAIL,PASS,19,0,Historical area or production value non-numeric/negative
+area,historical_csv,INVALID_YEAR,FAIL,PASS,19,0,Historical statistical year invalid
+area,legacy_unknown,INVALID_STAT_VALUE,FAIL,PASS,19,0,Historical area or production value non-numeric/negative
+area,legacy_unknown,INVALID_YEAR,FAIL,PASS,19,0,Historical statistical year invalid
+coffee_prices,bbw_coffee,BUSINESS_KEY_REPEATED,WARN,WARN,3525,293,"Repeated source-level business key, including legitimate snapshot revisions"
+coffee_prices,bbw_coffee,INVALID_DATE,FAIL,PASS,3525,0,Nonparseable date in known source formats
+coffee_prices,bbw_coffee,INVALID_PRICE,FAIL,PASS,3525,0,Non-numeric or nonpositive price value
+coffee_prices,bbw_coffee,MISSING_DATE,WARN,PASS,3525,0,Missing primary source observation/publication date
+coffee_prices,bbw_coffee,MISSING_PRICE,WARN,PASS,3525,0,No price value for price observation
+coffee_prices,bbw_coffee,MISSING_REGION,WARN,PASS,3525,0,Missing locality/region in provincial coffee observation
+coffee_prices,bbw_coffee,UNEXPECTED_UNIT,WARN,PASS,3525,0,Price unit missing or not recognized; review before Silver normalization
+domestic_price,all_sources,OBJECT_HASH_DUPLICATED,INFO,INFO,1,1,"Byte-identical raw source objects, retained intentionally"
+domestic_price,historical_enriched,BUSINESS_KEY_REPEATED,WARN,WARN,10890,5445,"Repeated source-level business key, including legitimate snapshot revisions"
+domestic_price,historical_enriched,INVALID_DATE,FAIL,PASS,10890,0,Nonparseable date in known source formats
+domestic_price,historical_enriched,INVALID_PRICE,FAIL,PASS,10890,0,Non-numeric or nonpositive price value
+domestic_price,historical_enriched,MISSING_DATE,WARN,PASS,10890,0,Missing primary source observation/publication date
+domestic_price,historical_enriched,MISSING_PRICE,WARN,PASS,10890,0,No price value for price observation
+domestic_price,historical_enriched,MISSING_REGION,WARN,PASS,10890,0,Missing locality/region in provincial coffee observation
+domestic_price,legacy_api_json,BUSINESS_KEY_REPEATED,WARN,WARN,3025,18,"Repeated source-level business key, including legitimate snapshot revisions"
+domestic_price,legacy_api_json,INVALID_DATE,FAIL,PASS,3025,0,Nonparseable date in known source formats
+domestic_price,legacy_api_json,INVALID_PRICE,FAIL,PASS,3025,0,Non-numeric or nonpositive price value
+domestic_price,legacy_api_json,MISSING_DATE,WARN,PASS,3025,0,Missing primary source observation/publication date
+domestic_price,legacy_api_json,MISSING_PRICE,WARN,PASS,3025,0,No price value for price observation
+domestic_price,legacy_api_json,MISSING_REGION,WARN,PASS,3025,0,Missing locality/region in provincial coffee observation
+domestic_price,legacy_api_json,UNEXPECTED_UNIT,WARN,PASS,3025,0,Price unit missing or not recognized; review before Silver normalization
+fuel,bbw_fuel,BUSINESS_KEY_REPEATED,WARN,WARN,710,110,"Repeated source-level business key, including legitimate snapshot revisions"
+fuel,bbw_fuel,INVALID_DATE,FAIL,PASS,710,0,Nonparseable date in known source formats
+fuel,bbw_fuel,INVALID_PRICE,FAIL,PASS,710,0,Non-numeric or nonpositive price value
+fuel,bbw_fuel,MISSING_DATE,WARN,PASS,710,0,Missing primary source observation/publication date
+fuel,bbw_fuel,MISSING_PRICE,WARN,PASS,710,0,No price value for price observation
+fuel,bbw_fuel,UNEXPECTED_UNIT,WARN,PASS,710,0,Price unit missing or not recognized; review before Silver normalization
+fuel,legacy_unknown,BUSINESS_KEY_REPEATED,WARN,WARN,1202,98,"Repeated source-level business key, including legitimate snapshot revisions"
+fuel,legacy_unknown,INVALID_DATE,FAIL,PASS,1202,0,Nonparseable date in known source formats
+fuel,legacy_unknown,INVALID_PRICE,FAIL,PASS,1202,0,Non-numeric or nonpositive price value
+fuel,legacy_unknown,MISSING_DATE,WARN,PASS,1202,0,Missing primary source observation/publication date
+fuel,legacy_unknown,MISSING_PRICE,WARN,PASS,1202,0,No price value for price observation
+fuel,legacy_unknown,UNEXPECTED_UNIT,WARN,PASS,1202,0,Price unit missing or not recognized; review before Silver normalization
+london_futures,all_sources,OBJECT_HASH_DUPLICATED,INFO,INFO,1,1,"Byte-identical raw source objects, retained intentionally"
+london_futures,historical_csv,INVALID_DATE,FAIL,PASS,4755,0,Nonparseable date in known source formats
+london_futures,historical_csv,INVALID_OHLC,WARN,WARN,4755,374,Futures OHLC values inconsistent or not interpretable
+london_futures,historical_csv,MISSING_DATE,WARN,PASS,4755,0,Missing primary source observation/publication date
+london_futures,historical_csv,MISSING_FUTURES_VOLUME,WARN,WARN,4755,345,Futures trading volume missing
+london_futures,legacy_unknown,INVALID_DATE,FAIL,PASS,4755,0,Nonparseable date in known source formats
+london_futures,legacy_unknown,INVALID_OHLC,WARN,WARN,4755,374,Futures OHLC values inconsistent or not interpretable
+london_futures,legacy_unknown,MISSING_DATE,WARN,PASS,4755,0,Missing primary source observation/publication date
+london_futures,legacy_unknown,MISSING_FUTURES_VOLUME,WARN,WARN,4755,345,Futures trading volume missing
+production,all_sources,AREA_PRODUCTION_MISSING_YEAR,WARN,WARN,1,1,Missing year within observed historical range
+production,all_sources,OBJECT_HASH_DUPLICATED,INFO,INFO,1,1,"Byte-identical raw source objects, retained intentionally"
+production,historical_csv,INVALID_STAT_VALUE,FAIL,PASS,38,0,Historical area or production value non-numeric/negative
+production,historical_csv,INVALID_YEAR,FAIL,PASS,38,0,Historical statistical year invalid
+production,legacy_unknown,INVALID_STAT_VALUE,FAIL,PASS,19,0,Historical area or production value non-numeric/negative
+production,legacy_unknown,INVALID_YEAR,FAIL,PASS,19,0,Historical statistical year invalid
+trade,all_sources,OBJECT_HASH_DUPLICATED,INFO,INFO,1,1,"Byte-identical raw source objects, retained intentionally"
+trade,historical_csv,INVALID_TRADE_VALUE,WARN,PASS,3888,0,Trade annual value non-numeric or negative
+trade,historical_csv,WORLD_AGGREGATE,INFO,INFO,162,1,World aggregate partner row; avoid double counting
+trade,legacy_unknown,INVALID_TRADE_VALUE,WARN,PASS,3888,0,Trade annual value non-numeric or negative
+trade,legacy_unknown,WORLD_AGGREGATE,INFO,INFO,162,1,World aggregate partner row; avoid double counting
+vicofa,vicofa_article_detail,INVALID_DATE,FAIL,PASS,1218,0,Nonparseable date in known source formats
+vicofa,vicofa_article_detail,MISSING_DATE,WARN,PASS,1218,0,Missing primary source observation/publication date
+vicofa,vicofa_article_detail,VICOFA_BOILERPLATE,FAIL,FAIL,1218,772,VICOFA content contains only repeated association contact information
+vicofa,vicofa_article_detail,VICOFA_DUPLICATE_ARTICLE_KEY,WARN,PASS,1218,0,Repeated VICOFA article ID/URL within same record type
+vicofa,vicofa_article_detail,VICOFA_MISSING_ID_URL,FAIL,PASS,1218,0,VICOFA missing article ID or URL
+vicofa,vicofa_article_detail,VICOFA_NO_CONTENT,WARN,WARN,1218,21,VICOFA detail article has missing/blank content
+vicofa,vicofa_article_list,INVALID_DATE,FAIL,PASS,1218,0,Nonparseable date in known source formats
+vicofa,vicofa_article_list,MISSING_DATE,WARN,PASS,1218,0,Missing primary source observation/publication date
+vicofa,vicofa_article_list,VICOFA_DUPLICATE_ARTICLE_KEY,WARN,PASS,1218,0,Repeated VICOFA article ID/URL within same record type
+vicofa,vicofa_article_list,VICOFA_MISSING_ID_URL,FAIL,PASS,1218,0,VICOFA missing article ID or URL
+weather,all_sources,OBJECT_HASH_DUPLICATED,INFO,INFO,4,4,"Byte-identical raw source objects, retained intentionally"
+weather,legacy_unknown,INVALID_DATE,FAIL,PASS,38992,0,Nonparseable date in known source formats
+weather,legacy_unknown,INVALID_WEATHER_RANGE,FAIL,PASS,233952,0,Physically invalid weather measurement
+weather,legacy_unknown,MISSING_DATE,WARN,PASS,38992,0,Missing primary source observation/publication date
+weather,open_meteo,INVALID_DATE,FAIL,PASS,97480,0,Nonparseable date in known source formats
+weather,open_meteo,INVALID_WEATHER_RANGE,FAIL,PASS,584880,0,Physically invalid weather measurement
+weather,open_meteo,MISSING_DATE,WARN,PASS,97480,0,Missing primary source observation/publication date
+weather,open_meteo_archive_dak_lak,INVALID_DATE,FAIL,PASS,35,0,Nonparseable date in known source formats
+weather,open_meteo_archive_dak_lak,INVALID_WEATHER_RANGE,FAIL,PASS,210,0,Physically invalid weather measurement
+weather,open_meteo_archive_dak_lak,MISSING_DATE,WARN,PASS,35,0,Missing primary source observation/publication date
+weather,open_meteo_archive_dak_nong,INVALID_DATE,FAIL,PASS,35,0,Nonparseable date in known source formats
+weather,open_meteo_archive_dak_nong,INVALID_WEATHER_RANGE,FAIL,PASS,210,0,Physically invalid weather measurement
+weather,open_meteo_archive_dak_nong,MISSING_DATE,WARN,PASS,35,0,Missing primary source observation/publication date
+weather,open_meteo_archive_gia_lai_corrected_v2,INVALID_DATE,FAIL,PASS,9783,0,Nonparseable date in known source formats
+weather,open_meteo_archive_gia_lai_corrected_v2,INVALID_WEATHER_RANGE,FAIL,PASS,58698,0,Physically invalid weather measurement
+weather,open_meteo_archive_gia_lai_corrected_v2,MISSING_DATE,WARN,PASS,9783,0,Missing primary source observation/publication date
+weather,open_meteo_archive_lam_dong_corrected_v2,INVALID_DATE,FAIL,PASS,9783,0,Nonparseable date in known source formats
+weather,open_meteo_archive_lam_dong_corrected_v2,INVALID_WEATHER_RANGE,FAIL,PASS,58698,0,Physically invalid weather measurement
+weather,open_meteo_archive_lam_dong_corrected_v2,MISSING_DATE,WARN,PASS,9783,0,Missing primary source observation/publication date

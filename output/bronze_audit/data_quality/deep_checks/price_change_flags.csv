@@ -1,0 +1,5 @@
+﻿domain,series,date,previous_date,previous_price,price,change_percent,gap_days,review_flag
+fuel,bbw_fuel/FUEL/DAU_HOA_2_K_V1/DAU_HOA_2_K_V1,2026-03-19,2026-03-12,26930.0,35920.0,33.383,7,REVIEW_ONLY
+fuel,bbw_fuel/FUEL/DAU_HOA_2_K_V2/DAU_HOA_2_K_V2,2026-03-19,2026-03-12,27460.0,36630.0,33.394,7,REVIEW_ONLY
+fuel,legacy_unknown/FUEL/DAU_HOA_2_K_V1/DAU_HOA_2_K_V1,2026-03-19,2026-03-12,26930.0,35920.0,33.383,7,REVIEW_ONLY
+fuel,legacy_unknown/FUEL/DAU_HOA_2_K_V2/DAU_HOA_2_K_V2,2026-03-19,2026-03-12,27460.0,36630.0,33.394,7,REVIEW_ONLY

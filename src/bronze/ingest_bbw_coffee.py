@@ -24,6 +24,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 from src.bronze.metadata import upload_bytes_and_metadata
+from src.bronze.run_logging import start_run, finish_run, save_run
 from src.bronze.minio_client import get_bucket_name, get_minio_client
 
 API_URL = "https://bbw.vn/api/proxy/commodity-spot-prices"
@@ -155,67 +156,99 @@ def main():
     print(f"BBW COFFEE: {args.start_date}..{end}, refresh={args.refresh_days} days, run={run_id}")
     print("NOTE: today's quote may be provisional; Bronze stores snapshots, not finalized prices.")
 
-    client = get_minio_client()
-    bucket = get_bucket_name()
-    done = existing_pages(client, bucket)
-    print(f"Existing page checkpoints: {len(done)}")
-    session = http_session()
+    run = start_run(DOMAIN, SOURCE)
     saved = skipped = calls = 0
+
     try:
-        for start, stop in months_between(args.start_date, end):
-            # Use stable month-sized windows. Refresh the entire month when it
-            # intersects the refresh interval; this avoids unstable split keys.
-            parts = [(start, stop)]
-            for wstart, wend in parts:
-                is_refresh = wend >= refresh_start
-                label = f"{wstart}..{wend}"
-                print(f"WINDOW {label}{' [REFRESH]' if is_refresh else ''}")
-                if args.dry_run:
-                    print("  WOULD_CHECK pages via API; upload only missing pages unless refresh")
-                    continue
-                page = 1
-                while True:
-                    raw, payload, url = request_page(session, wstart, wend, page, args.limit)
-                    calls += 1
-                    m = payload.get("meta") or {}
-                    last_page = int(m.get("last_page") or 1)
-                    if last_page < 1 or page > last_page:
-                        raise RuntimeError(f"Invalid pagination page={page}, last_page={last_page}")
-                    key = (wstart.isoformat(), wend.isoformat(), page)
-                    if key in done and not is_refresh:
-                        skipped += 1
-                        print(f"  SKIPPED page {page}/{last_page} (checkpoint exists)")
-                    else:
-                        # Every page is its own upload batch, preventing metadata.json collisions.
-                        filename = f"bbw_coffee_{wstart}_{wend}_page_{page:04d}.json"
-                        upload_bytes_and_metadata(
-                            raw_bytes=raw, raw_filename=filename,
-                            domain=DOMAIN, source=SOURCE, source_type="api",
-                            source_url=url, content_type="application/json",
-                            extra_metadata={
-                                "pipeline": "ingest_bbw_coffee_v1", "run_batch_id": run_id,
-                                "window_start": wstart.isoformat(), "window_end": wend.isoformat(),
-                                "page": page, "last_page": last_page,
-                                "records": len(payload["data"]),
-                                "total": m.get("total"), "snapshot_mode": m.get("snapshot_mode"),
-                                "is_refresh": is_refresh,
-                                "is_current_day_window": wend == today,
-                                "note": "Quotes for current day may change after collection",
-                            },
-                        )
-                        done.add(key)
-                        saved += 1
-                        print(f"  SUCCESS page {page}/{last_page}: {len(payload['data'])} records")
-                    if page >= last_page:
-                        break
-                    page += 1
+        client = get_minio_client()
+        bucket = get_bucket_name()
+        done = existing_pages(client, bucket)
+        print(f"Existing page checkpoints: {len(done)}")
+        session = http_session()
+        saved = skipped = calls = 0
+        try:
+            for start, stop in months_between(args.start_date, end):
+                # Use stable month-sized windows. Refresh the entire month when it
+                # intersects the refresh interval; this avoids unstable split keys.
+                parts = [(start, stop)]
+                for wstart, wend in parts:
+                    is_refresh = wend >= refresh_start
+                    label = f"{wstart}..{wend}"
+                    print(f"WINDOW {label}{' [REFRESH]' if is_refresh else ''}")
+                    if args.dry_run:
+                        print("  WOULD_CHECK pages via API; upload only missing pages unless refresh")
+                        continue
+                    page = 1
+                    while True:
+                        raw, payload, url = request_page(session, wstart, wend, page, args.limit)
+                        calls += 1
+                        m = payload.get("meta") or {}
+                        last_page = int(m.get("last_page") or 1)
+                        if last_page < 1 or page > last_page:
+                            raise RuntimeError(f"Invalid pagination page={page}, last_page={last_page}")
+                        key = (wstart.isoformat(), wend.isoformat(), page)
+                        if key in done and not is_refresh:
+                            skipped += 1
+                            print(f"  SKIPPED page {page}/{last_page} (checkpoint exists)")
+                        else:
+                            # Every page is its own upload batch, preventing metadata.json collisions.
+                            filename = f"bbw_coffee_{wstart}_{wend}_page_{page:04d}.json"
+                            upload_bytes_and_metadata(
+                                raw_bytes=raw, raw_filename=filename,
+                                domain=DOMAIN, source=SOURCE, source_type="api",
+                                source_url=url, content_type="application/json",
+                                extra_metadata={
+                                    "pipeline": "ingest_bbw_coffee_v1", "run_batch_id": run_id,
+                                    "window_start": wstart.isoformat(), "window_end": wend.isoformat(),
+                                    "page": page, "last_page": last_page,
+                                    "records": len(payload["data"]),
+                                    "total": m.get("total"), "snapshot_mode": m.get("snapshot_mode"),
+                                    "is_refresh": is_refresh,
+                                    "is_current_day_window": wend == today,
+                                    "note": "Quotes for current day may change after collection",
+                                },
+                            )
+                            done.add(key)
+                            saved += 1
+                            print(f"  SUCCESS page {page}/{last_page}: {len(payload['data'])} records")
+                        if page >= last_page:
+                            break
+                        page += 1
+                        if args.sleep:
+                            time.sleep(args.sleep)
                     if args.sleep:
                         time.sleep(args.sleep)
-                if args.sleep:
-                    time.sleep(args.sleep)
-    finally:
-        session.close()
-    print(f"SUMMARY: api_calls={calls}, uploaded_pages={saved}, skipped_pages={skipped}")
+        finally:
+            session.close()
+        print(f"SUMMARY: api_calls={calls}, uploaded_pages={saved}, skipped_pages={skipped}")
+    except Exception as exc:
+        finish_run(
+            run,
+            error=exc,
+            metrics={
+                "api_calls": calls,
+                "uploaded_pages": saved,
+                "skipped_pages": skipped,
+            },
+        )
+        report_path = save_run(run)
+        print(f"FAILED_RUN_REPORT: {report_path}", file=sys.stderr)
+        raise
+    else:
+        finish_run(
+            run,
+            dry_run=args.dry_run,
+            result=None if args.dry_run else {
+                "batch_id": run_id,
+            },
+            metrics={
+                "api_calls": calls,
+                "uploaded_pages": saved,
+                "skipped_pages": skipped,
+            },
+        )
+        report_path = save_run(run)
+        print(f"RUN_REPORT: {report_path}")
 
 
 if __name__ == "__main__":

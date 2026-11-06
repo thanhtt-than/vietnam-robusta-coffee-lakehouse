@@ -1,0 +1,3 @@
+﻿category,series,date,metric,detail
+TEMPORAL_GAP,london_futures/all_raw_sources,,112,"Missing sample: 2008-03-21, 2008-03-24, 2008-05-26, 2008-12-25, 2008-12-26"
+CROSS_SOURCE_PRICE_DIFFERENCE,bbw_coffee vs enriched_csv/LAM_DONG,2024-12-03,15.493,bbw=108000.0; other=127800.0; unit=VND/kg

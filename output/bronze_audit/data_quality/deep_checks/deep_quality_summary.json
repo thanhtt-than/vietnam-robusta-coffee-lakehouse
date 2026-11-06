@@ -1,0 +1,46 @@
+{
+  "evaluated_at_utc": "2026-11-05T05:03:26.248611+00:00",
+  "read_only": true,
+  "source": "existing Bronze Iceberg tables populated from MinIO",
+  "table_records": {
+    "coffee_prices": 3525,
+    "domestic_price": 13915,
+    "fuel": 1912,
+    "weather": 156108,
+    "london_futures": 9510
+  },
+  "coverage_series": 67,
+  "weather_series": 12,
+  "weather_series_with_missing_days": 0,
+  "coffee_cross_source_matched_days": 3545,
+  "coffee_cross_source_large_difference_days": 1,
+  "price_change_flags": 4,
+  "counters": {
+    "bbw_coffee_not_comparable_coffee": 733,
+    "bbw_coffee_valid_comparable": 2792,
+    "coffee_prices_rows": 3525,
+    "coffee_same_day_duplicate_observations": 5280,
+    "cross_source_large_diff_days": 1,
+    "cross_source_matched_days": 3545,
+    "domestic_price_rows": 13915,
+    "enriched_csv_not_comparable_coffee": 1388,
+    "enriched_csv_valid_comparable": 9502,
+    "fuel_price_jump_flags": 4,
+    "fuel_rows": 1912,
+    "legacy_api_json_not_comparable_coffee": 630,
+    "legacy_api_json_valid_comparable": 2395,
+    "london_futures_rows": 9510,
+    "weather_rows": 156108
+  },
+  "rules_and_limitations": [
+    "Coverage is measured only between first and last observed date in each series; it does not prove completeness beyond that window.",
+    "Weather group keys include source and source_context coordinates; coordinate versions must not be combined.",
+    "Coffee and fuel use event observation gaps, not calendar-day missing counts.",
+    "Futures weekday gaps include exchange holidays; do not label every gap as invalid.",
+    "Cross-source only compares same date, recognized province, explicitly comparable VND/kg units.",
+    "Multiple raw snapshots on one date are reduced to a median only for diagnostics; Bronze is unchanged.",
+    "15% cross-source difference and 25% price jump are review thresholds, not anomaly proof or deletion criteria.",
+    "No geographic station reference matching, no weather-value outlier test, no business-day market calendar.",
+    "Do not use these outputs as automatic Silver deduplication rules without source-specific review."
+  ]
+}

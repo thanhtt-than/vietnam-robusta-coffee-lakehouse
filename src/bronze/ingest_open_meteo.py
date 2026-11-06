@@ -13,6 +13,7 @@ from pathlib import Path
 import requests
 from src.bronze.minio_client import get_minio_client, get_bucket_name
 from src.bronze.metadata import upload_bytes_and_metadata
+from src.bronze.run_logging import start_run, finish_run, save_run
 
 API = 'https://archive-api.open-meteo.com/v1/archive'
 VARIABLES = 'weather_code,temperature_2m_mean,temperature_2m_min,temperature_2m_max,rain_sum,precipitation_sum,et0_fao_evapotranspiration'
@@ -200,22 +201,61 @@ def main():
         p.error('--chunk-days must be 1..365')
     if not 0 <= args.refresh_days <= 30:
         p.error('--refresh-days must be 0..30')
-    if args.end_date is None:
-        args.end_date = resolve_default_end_date().isoformat()
-    stations = list(STATIONS) if args.station == 'all' else [args.station]
+    run = start_run("weather", "open_meteo_archive")
+    stations = []
     failed = []
-    for station in stations:
-        print(f'\n===== {station.upper()} =====', flush=True)
-        try:
-            ingest_station(args, station)
-        except Exception as exc:
-            print(f'ERROR [{station}]: {type(exc).__name__}: {exc}', flush=True)
-            failed.append(station)
-            if args.station != 'all':
-                raise
-    print(f'\nSUMMARY: stations={len(stations)}, succeeded={len(stations)-len(failed)}, failed={len(failed)}')
-    if failed:
-        raise SystemExit(f'Failed stations: {", ".join(failed)}')
+
+    try:
+        if args.end_date is None:
+            args.end_date = resolve_default_end_date().isoformat()
+        stations = list(STATIONS) if args.station == 'all' else [args.station]
+        failed = []
+        for station in stations:
+            print(f'\n===== {station.upper()} =====', flush=True)
+            try:
+                ingest_station(args, station)
+            except Exception as exc:
+                print(f'ERROR [{station}]: {type(exc).__name__}: {exc}', flush=True)
+                failed.append(station)
+                if args.station != 'all':
+                    raise
+        print(f'\nSUMMARY: stations={len(stations)}, succeeded={len(stations)-len(failed)}, failed={len(failed)}')
+    except Exception as exc:
+        metrics = {
+            "total_stations": len(stations),
+            "succeeded_stations": len(stations) - len(failed),
+            "failed_stations": len(failed),
+        }
+        finish_run(run, error=exc, metrics=metrics)
+        report_path = save_run(run)
+        print(f"FAILED_RUN_REPORT: {report_path}")
+        raise
+    else:
+        metrics = {
+            "total_stations": len(stations),
+            "succeeded_stations": len(stations) - len(failed),
+            "failed_stations": len(failed),
+        }
+
+        if failed:
+            finish_run(
+                run,
+                error=RuntimeError("One or more Open-Meteo stations failed"),
+                metrics=metrics,
+            )
+        else:
+            finish_run(
+                run,
+                dry_run=args.dry_run,
+                result=None if args.dry_run else {"batch_id": run["run_id"]},
+                metrics=metrics,
+            )
+
+        report_path = save_run(run)
+        print(f"RUN_REPORT: {report_path}")
+
+        if failed:
+            raise SystemExit(f'Failed stations: {", ".join(failed)}')
 
 if __name__ == '__main__':
     main()

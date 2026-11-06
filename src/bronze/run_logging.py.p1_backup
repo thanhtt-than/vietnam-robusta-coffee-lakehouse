@@ -1,0 +1,85 @@
+"""Structured local run reports for Bronze ingestion pipelines."""
+from __future__ import annotations
+
+import json
+import uuid
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+REPORT_ROOT = Path("reports/bronze_runs")
+
+
+def utc_timestamp() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def start_run(domain: str, source: str) -> dict[str, Any]:
+    if not domain.strip() or not source.strip():
+        raise ValueError("domain and source must not be empty")
+
+    return {
+        "run_id": uuid.uuid4().hex,
+        "domain": domain,
+        "source": source,
+        "started_at_utc": utc_timestamp(),
+        "finished_at_utc": None,
+        "status": "RUNNING",
+        "batch_id": None,
+        "raw_object_key": None,
+        "metadata_object_key": None,
+        "size_bytes": None,
+        "error_type": None,
+        "error_message": None,
+    }
+
+
+def finish_run(
+    run: dict[str, Any],
+    *,
+    result: dict[str, Any] | None = None,
+    error: BaseException | None = None,
+) -> dict[str, Any]:
+    if run.get("status") != "RUNNING":
+        raise ValueError("Run has already finished")
+
+    run["finished_at_utc"] = utc_timestamp()
+
+    if error is None:
+        if result is None:
+            raise ValueError("Successful run requires upload result")
+        run["status"] = "SUCCESS"
+        for key in (
+            "batch_id",
+            "raw_object_key",
+            "metadata_object_key",
+            "size_bytes",
+        ):
+            run[key] = result.get(key)
+    else:
+        run["status"] = "FAILED"
+        run["error_type"] = type(error).__name__
+        # Avoid logging exception text: it may contain URLs or credentials.
+        run["error_message"] = "See protected process stderr for details"
+
+    return run
+
+
+def save_run(run: dict[str, Any]) -> Path:
+    run_id = run.get("run_id")
+    if not isinstance(run_id, str) or len(run_id) != 32:
+        raise ValueError("Invalid run_id")
+    if run.get("status") not in {"SUCCESS", "FAILED"}:
+        raise ValueError("Only completed runs may be saved")
+
+    run_dir = REPORT_ROOT / "runs"
+    run_dir.mkdir(parents=True, exist_ok=True)
+
+    output = run_dir / f"{run_id}.json"
+    payload = json.dumps(run, ensure_ascii=False, indent=2)
+
+    # Exclusive creation prevents overwriting an existing run report.
+    with output.open("x", encoding="utf-8") as f:
+        f.write(payload + "\n")
+
+    return output
