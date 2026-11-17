@@ -38,3 +38,23 @@ checkpoints/
 # IDE
 .vscode/
 .idea/
+# Dashboard generated data
+/dashboard/data/
+/dashboard/*_backup.py
+/dashboard/*.parquet
+
+# Local infrastructure data
+/infrastructure/minio/data/
+/infrastructure/docker/minio/data/
+
+# Spark and local runtime
+/metastore_db/
+/derby.log
+/spark-warehouse/
+/output/
+/browser_profiles/
+
+# Additional secrets
+*.env.local
+*credentials*.json
+
