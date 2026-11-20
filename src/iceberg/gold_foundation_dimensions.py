@@ -1,4 +1,4 @@
-﻿import sys
+import sys
 from datetime import date
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
@@ -34,6 +34,8 @@ try:
         ("weather_daily", "observation_date"),
         ("london_futures_daily", "trade_date"),
         ("vicofa_articles", "published_date"),
+        ("robusta_stock_port_daily", "cutoff_date"),
+        ("robusta_stock_totals_daily", "cutoff_date"),  
     ]
 
     date_df = None
@@ -83,13 +85,43 @@ try:
         F.col("id").cast("int").alias("calendar_year")
     )
 
-    # 2. Geography: country + four coffee provinces.
+    # 2. Geography: preserve the existing five surrogate keys and append
+    # stable, explicitly assigned keys for the Statistics geography members.
+    # Cả nước maps to VN; Tổng thế giới maps to WORLD.
     geography_rows = [
         (1, "VN", "Viet Nam", "COUNTRY", "VIET_NAM"),
         (2, "DAK_LAK", "Dak Lak", "PROVINCE", "TAY_NGUYEN"),
         (3, "DAK_NONG", "Dak Nong", "PROVINCE", "TAY_NGUYEN"),
         (4, "GIA_LAI", "Gia Lai", "PROVINCE", "TAY_NGUYEN"),
         (5, "LAM_DONG", "Lam Dong", "PROVINCE", "TAY_NGUYEN"),
+        (6, "DIEN_BIEN", "Dien Bien", "PROVINCE", "NORTHERN_MIDLANDS_AND_MOUNTAINS"),
+        (7, "SON_LA", "Son La", "PROVINCE", "NORTHERN_MIDLANDS_AND_MOUNTAINS"),
+        (8, "PHU_THO", "Phu Tho", "PROVINCE", "NORTHERN_MIDLANDS_AND_MOUNTAINS"),
+        (9, "NGHE_AN", "Nghe An", "PROVINCE", "NORTH_CENTRAL"),
+        (10, "QUANG_TRI", "Quang Tri", "PROVINCE", "NORTH_CENTRAL"),
+        (11, "QUANG_NGAI", "Quang Ngai", "PROVINCE", "SOUTH_CENTRAL_COAST_AND_CENTRAL_HIGHLANDS"),
+        (12, "KHANH_HOA", "Khanh Hoa", "PROVINCE", "SOUTH_CENTRAL_COAST_AND_CENTRAL_HIGHLANDS"),
+        (13, "DONG_NAI", "Dong Nai", "PROVINCE", "SOUTHEAST"),
+        (14, "HO_CHI_MINH_CITY", "Ho Chi Minh City", "PROVINCE", "SOUTHEAST"),
+        (15, "BRAZIL", "Brazil", "COUNTRY", None),
+        (16, "COLOMBIA", "Colombia", "COUNTRY", None),
+        (17, "INDONESIA", "Indonesia", "COUNTRY", None),
+        (18, "ETHIOPIA", "Ethiopia", "COUNTRY", None),
+        (19, "UGANDA", "Uganda", "COUNTRY", None),
+        (20, "INDIA", "India", "COUNTRY", None),
+        (21, "PERU", "Peru", "COUNTRY", None),
+        (22, "CENTRAL_AFRICAN_REPUBLIC", "Central African Republic", "COUNTRY", None),
+        (23, "HONDURAS", "Honduras", "COUNTRY", None),
+        (24, "GUATEMALA", "Guatemala", "COUNTRY", None),
+        (25, "MEXICO", "Mexico", "COUNTRY", None),
+        (26, "LAOS", "Laos", "COUNTRY", None),
+        (27, "GUINEA", "Guinea", "COUNTRY", None),
+        (28, "CHINA", "China", "COUNTRY", None),
+        (29, "NORTHERN_MIDLANDS_AND_MOUNTAINS", "Northern Midlands and Mountains", "REGION", "NORTHERN_MIDLANDS_AND_MOUNTAINS"),
+        (30, "NORTH_CENTRAL", "North Central", "REGION", "NORTH_CENTRAL"),
+        (31, "SOUTH_CENTRAL_COAST_AND_CENTRAL_HIGHLANDS", "South Central Coast and Central Highlands", "REGION", "SOUTH_CENTRAL_COAST_AND_CENTRAL_HIGHLANDS"),
+        (32, "SOUTHEAST", "Southeast", "REGION", "SOUTHEAST"),
+        (33, "WORLD", "World", "WORLD_TOTAL", None),
     ]
 
     dim_geography = spark.createDataFrame(
@@ -112,6 +144,8 @@ try:
         ("coffee_area_annual", "selected_source"),
         ("coffee_production_annual", "selected_source"),
         ("coffee_trade_annual", "selected_source"),
+        ("robusta_stock_port_daily", "selected_source"),    
+        ("robusta_stock_totals_daily", "selected_source"),
     ]
 
     sources = None
@@ -127,6 +161,14 @@ try:
             part if sources is None
             else sources.unionByName(part)
         )
+
+    # Statistics Silver retains Bronze record IDs and object keys, but its
+    # current schema does not carry the Bronze `source` field. Add the
+    # source code directly from Bronze so Gold lineage can resolve its FK.
+    statistics_sources = spark.table(
+        "lakehouse.bronze.coffee_statistics_raw"
+    ).select(F.col("source").alias("source_code"))
+    sources = sources.unionByName(statistics_sources)
 
     sources = sources.unionByName(
         spark.createDataFrame(
@@ -152,6 +194,31 @@ try:
         ).alias("source_key"),
         F.col("source_code"),
         F.col("source_code").alias("source_name")
+    )
+
+    # Port dimension from Robusta stock Silver.
+    port_codes = (
+        spark.table(
+            "lakehouse.silver.robusta_stock_port_daily"
+        )
+        .select(
+            F.upper(
+                F.trim(F.col("port_id"))
+            ).alias("port_id")
+        )
+        .filter(
+            F.col("port_id").isNotNull()
+            & (F.col("port_id") != "")
+        )
+        .distinct()
+    )
+
+    dim_port = port_codes.select(
+        F.expr(
+            "CAST(CONV(SUBSTR(SHA2(port_id, 256), "
+            "1, 15), 16, 10) AS BIGINT)"
+        ).alias("port_key"),
+        F.col("port_id")
     )
 
     dimensions = {
@@ -193,6 +260,14 @@ try:
             source_name STRING
             """,
             ["source_key"]
+        ),
+        "dim_port": (
+            dim_port,
+            """
+            port_key BIGINT,
+            port_id STRING
+            """,
+            ["port_key"]
         )
     }
 
@@ -220,7 +295,28 @@ try:
         assert unique == total
         assert null_count == 0
 
-        if name in ("dim_geography", "dim_source"):
+        if name == "dim_geography":
+            natural_unique = df.select("geography_code").distinct().count()
+            if natural_unique != total:
+                raise RuntimeError(
+                    f"dim_geography has duplicate geography_code values: "
+                    f"{natural_unique}/{total}"
+                )
+            if total != 33:
+                raise RuntimeError(
+                    f"Expected 33 geography members, found {total}"
+                )
+
+        if name == "dim_port":
+            natural_unique = (
+                df.select("port_id").distinct().count()
+            )
+
+            assert natural_unique == total, (
+                "Duplicate port_id detected"
+            )
+
+        if name in ("dim_geography", "dim_source","dim_port"):
             df.orderBy(keys[0]).show(40, truncate=False)
 
     # Guard source hash collisions.
@@ -262,17 +358,29 @@ try:
                 WHEN NOT MATCHED THEN INSERT *
             """)
 
-            actual = spark.table(target).count()
+            target_df = spark.table(target)
+            actual = target_df.count()
             expected = df.count()
+
+            # Existing dimension members are preserved; verify that every
+            # row from the current source DataFrame exists in Iceberg.
+            missing_rows = (
+                df.select(*df.columns)
+                .exceptAll(target_df.select(*df.columns))
+                .count()
+            )
 
             print(
                 "GOLD_TABLE:", target,
                 "ROWS:", actual,
+                "SOURCE_ROWS:", expected,
+                "MISSING_SOURCE_ROWS:", missing_rows,
                 flush=True
             )
 
-            assert actual == expected, (
-                f"{name}: expected {expected}, got {actual}"
+            assert missing_rows == 0, (
+                f"{name}: {missing_rows} source rows missing or mismatched "
+                "in Iceberg"
             )
 
             print(
