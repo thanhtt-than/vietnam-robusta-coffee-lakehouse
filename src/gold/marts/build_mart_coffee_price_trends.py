@@ -1,3 +1,5 @@
+import argparse
+
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark.sql.window import Window
@@ -8,6 +10,11 @@ DIM_GEOGRAPHY = "lakehouse.gold.dim_geography"
 DIM_PRICE_SERIES = "lakehouse.gold.dim_price_series"
 
 TARGET = "lakehouse.gold.mart_coffee_price_trends"
+
+# Start a new price-history segment when consecutive observations are
+# separated by more than 30 calendar days. This prevents rolling KPIs
+# from mixing observations across long periods with no source data.
+MAX_GAP_DAYS = 30
 
 def get_spark():
     return (
@@ -29,6 +36,7 @@ if __name__ == "__main__":
     print("PRICE_TRENDS_SCRIPT_READY")
     print("SOURCE_FACT:", SOURCE_FACT)
     print("TARGET:", TARGET)
+    print("MAX_GAP_DAYS:", MAX_GAP_DAYS)
 
 def load_sources(spark):
     tables = {
@@ -136,24 +144,74 @@ def build_price_base(sources):
     return base
 
 def calculate_price_kpis(base):
-    w = (
-        Window.partitionBy("price_series_key")
+    # A price series is identified by province + price_series_key.
+    # The extra province partition is deliberate protection against
+    # accidental cross-province mixing if source keys are reused later.
+    series_partition = ["province", "price_series_key"]
+    ordered_window = (
+        Window.partitionBy(*series_partition)
         .orderBy("market_date")
     )
 
-    w7 = w.rowsBetween(-6, 0)
-    w30 = w.rowsBetween(-29, 0)
+    staged = (
+        base
+        .withColumn("_previous_date", F.lag("market_date").over(ordered_window))
+        .withColumn(
+            "_previous_price",
+            F.lag("coffee_price_vnd_kg").over(ordered_window)
+        )
+        .withColumn(
+            "days_since_previous_observation",
+            F.datediff(F.col("market_date"), F.col("_previous_date"))
+        )
+        .withColumn(
+            "_new_segment_flag",
+            F.when(
+                F.col("_previous_date").isNull()
+                | (F.col("days_since_previous_observation") > MAX_GAP_DAYS),
+                F.lit(1)
+            ).otherwise(F.lit(0))
+        )
+    )
+
+    # Cumulative segment number. A gap > MAX_GAP_DAYS starts a fresh
+    # segment, so moving averages and volatility cannot reach across it.
+    segment_window = (
+        Window.partitionBy(*series_partition)
+        .orderBy("market_date")
+        .rowsBetween(Window.unboundedPreceding, Window.currentRow)
+    )
+
+    staged = staged.withColumn(
+        "_price_segment_id",
+        F.sum("_new_segment_flag").over(segment_window)
+    )
+
+    rolling_order = (
+        Window.partitionBy(*series_partition, "_price_segment_id")
+        .orderBy("market_date")
+    )
+    w7 = rolling_order.rowsBetween(-6, 0)
+    w30 = rolling_order.rowsBetween(-29, 0)
 
     result = (
-        base
+        staged
+        .withColumn(
+            "is_new_price_segment",
+            F.col("_new_segment_flag") == 1
+        )
+        # Do not compare a price with an observation from before a long gap.
         .withColumn(
             "previous_price_vnd_kg",
-            F.lag("coffee_price_vnd_kg").over(w)
+            F.when(
+                F.col("days_since_previous_observation").isNotNull()
+                & (F.col("days_since_previous_observation") <= MAX_GAP_DAYS),
+                F.col("_previous_price")
+            )
         )
         .withColumn(
             "price_change_vnd_kg",
-            F.col("coffee_price_vnd_kg")
-            - F.col("previous_price_vnd_kg")
+            F.col("coffee_price_vnd_kg") - F.col("previous_price_vnd_kg")
         )
         .withColumn(
             "price_change_pct",
@@ -167,16 +225,20 @@ def calculate_price_kpis(base):
             )
         )
         .withColumn(
+            "ma7_observation_count",
+            F.count("coffee_price_vnd_kg").over(w7)
+        )
+        .withColumn(
+            "ma30_observation_count",
+            F.count("coffee_price_vnd_kg").over(w30)
+        )
+        .withColumn(
             "ma7_vnd_kg",
-            F.round(
-                F.avg("coffee_price_vnd_kg").over(w7), 2
-            )
+            F.round(F.avg("coffee_price_vnd_kg").over(w7), 2)
         )
         .withColumn(
             "ma30_vnd_kg",
-            F.round(
-                F.avg("coffee_price_vnd_kg").over(w30), 2
-            )
+            F.round(F.avg("coffee_price_vnd_kg").over(w30), 2)
         )
         .withColumn(
             "min30_vnd_kg",
@@ -188,19 +250,21 @@ def calculate_price_kpis(base):
         )
         .withColumn(
             "volatility30_vnd_kg",
-            F.round(
-                F.stddev_samp("coffee_price_vnd_kg").over(w30),
-                2
-            )
+            F.round(F.stddev_samp("coffee_price_vnd_kg").over(w30), 2)
+        )
+        .drop(
+            "_previous_date",
+            "_previous_price",
+            "_new_segment_flag",
+            "_price_segment_id"
         )
     )
 
     print("PRICE_TRENDS_KPI_READY")
+    print("PRICE_TRENDS_MAX_GAP_DAYS:", MAX_GAP_DAYS)
     return result
 
 def validate_price_trends(base, mart):
-    from pyspark.sql import functions as F
-
     base_rows = base.count()
     mart_rows = mart.count()
 
@@ -236,11 +300,15 @@ def validate_price_trends(base, mart):
     invalid_ma7 = mart.filter(
         F.col("ma7_vnd_kg").isNull()
         | (F.col("ma7_vnd_kg") <= 0)
+        | (F.col("ma7_observation_count") < 1)
+        | (F.col("ma7_observation_count") > 7)
     ).count()
 
     invalid_ma30 = mart.filter(
         F.col("ma30_vnd_kg").isNull()
         | (F.col("ma30_vnd_kg") <= 0)
+        | (F.col("ma30_observation_count") < 1)
+        | (F.col("ma30_observation_count") > 30)
     ).count()
 
     if invalid_ma7 or invalid_ma30:
@@ -258,12 +326,53 @@ def validate_price_trends(base, mart):
             f"MA30 outside price range: {invalid_range}"
         )
 
+    # Every observation after a long gap must start a new segment:
+    # previous-price return is NULL and both rolling windows contain
+    # only the current observation at that first row.
+    bad_gap_reset = mart.filter(
+        (F.col("days_since_previous_observation") > MAX_GAP_DAYS)
+        & (
+            F.col("previous_price_vnd_kg").isNotNull()
+            | (F.col("ma7_observation_count") != 1)
+            | (F.col("ma30_observation_count") != 1)
+            | (F.col("ma7_vnd_kg") != F.col("coffee_price_vnd_kg"))
+            | (F.col("ma30_vnd_kg") != F.col("coffee_price_vnd_kg"))
+            | (F.col("is_new_price_segment") != F.lit(True))
+        )
+    ).count()
+
+    if bad_gap_reset != 0:
+        raise RuntimeError(
+            f"Rolling KPI crossed a long data gap: {bad_gap_reset}"
+        )
+
     print("PRICE_TRENDS_ROWS:", mart_rows)
     print("PRICE_TRENDS_DUPLICATE_KEYS:", duplicate_keys)
     print("PRICE_TRENDS_INVALID_PRICES:", invalid_prices)
+    print("PRICE_TRENDS_INVALID_MA7:", invalid_ma7)
+    print("PRICE_TRENDS_INVALID_MA30:", invalid_ma30)
+    print("PRICE_TRENDS_LONG_GAP_RESET_ERRORS:", bad_gap_reset)
     print("PRICE_TRENDS_VALIDATION_PASSED")
 
 def main():
+    parser = argparse.ArgumentParser(
+        description="Build the gap-aware coffee price trends Data Mart."
+    )
+    parser.add_argument(
+        "--write",
+        action="store_true",
+        help="Write the Data Mart to Iceberg. Without this flag, run DRY RUN.",
+    )
+    parser.add_argument(
+        "--replace-existing",
+        action="store_true",
+        help="Explicitly replace the existing target table. Requires --write.",
+    )
+    args = parser.parse_args()
+
+    if args.replace_existing and not args.write:
+        parser.error("--replace-existing requires --write")
+
     spark = get_spark()
     spark.sparkContext.setLogLevel("ERROR")
 
@@ -285,19 +394,25 @@ def main():
             "province",
             "source_family",
             "coffee_price_vnd_kg",
+            "days_since_previous_observation",
+            "is_new_price_segment",
             "price_change_pct",
             "ma7_vnd_kg",
+            "ma7_observation_count",
             "ma30_vnd_kg",
+            "ma30_observation_count",
             "volatility30_vnd_kg"
         ).orderBy(
             F.col("market_date").desc(),
             "province"
         ).show(20, truncate=False)
 
-        import sys
-
-        if "--write" in sys.argv[1:]:
-            write_price_trends(spark, mart)
+        if args.write:
+            write_price_trends(
+                spark,
+                mart,
+                replace_existing=args.replace_existing
+            )
         else:
             print("PRICE_TRENDS_DRY_RUN_PASSED", flush=True)
 
@@ -307,17 +422,24 @@ def main():
 
 
 
-def write_price_trends(spark, mart):
-    if spark.catalog.tableExists(TARGET):
+def write_price_trends(spark, mart, replace_existing=False):
+    target_exists = spark.catalog.tableExists(TARGET)
+
+    if target_exists and not replace_existing:
         raise RuntimeError(
-            f"Target already exists, refusing overwrite: {TARGET}"
+            f"Target already exists: {TARGET}. "
+            "Run a DRY RUN first, then use --write --replace-existing "
+            "only when you intentionally want to replace it."
         )
 
-    (
-        mart.writeTo(TARGET)
-        .using("iceberg")
-        .create()
-    )
+    writer = mart.writeTo(TARGET).using("iceberg")
+
+    if target_exists:
+        writer.replace()
+        operation = "REPLACE"
+    else:
+        writer.create()
+        operation = "CREATE"
 
     actual = spark.table(TARGET).count()
     expected = mart.count()
@@ -328,7 +450,7 @@ def write_price_trends(spark, mart):
         )
 
     print("PRICE_TRENDS_ICEBERG_ROWS:", actual, flush=True)
-    print("PRICE_TRENDS_ICEBERG_WRITE_PASSED", flush=True)
+    print(f"PRICE_TRENDS_ICEBERG_{operation}_PASSED", flush=True)
 
 
 if __name__ == "__main__":

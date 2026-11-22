@@ -22,6 +22,9 @@ NAMES = {
     "Thời tiết": "mart_weather_price_impact",
     "Nhiên liệu": "mart_fuel_price_impact",
     "Tin tức": "mart_market_news_analytics",
+    "Cung & cầu": "mart_coffee_supply_demand",
+    "Truyền dẫn giá & tỷ giá": "mart_robusta_fx_price_transmission",
+    "ML Features": "mart_robusta_ml_features_daily",
     "Phòng biểu đồ": None,
 }
 
@@ -36,7 +39,11 @@ def read_mart(name: str) -> pd.DataFrame:
     if not path.is_dir() or not list(path.glob("*.parquet")):
         raise FileNotFoundError(f"Không tìm thấy dữ liệu: {path}. Hãy chạy dashboard/export_marts.py trước.")
     df = pd.read_parquet(path)
-    for col in ("market_date", "fuel_effective_date", "diesel_quote_date", "futures_trade_date"):
+    for col in (
+        "market_date", "fx_observation_date", "fuel_effective_date",
+        "diesel_quote_date", "futures_trade_date",
+        "target_next_1_obs_date", "target_next_7_obs_date",
+    ):
         if col in df.columns:
             df[col] = pd.to_datetime(df[col], errors="coerce")
     return df
@@ -91,6 +98,45 @@ def require_data(df):
     if df.empty:
         st.warning("Không có bản ghi trong phạm vi lọc.")
         st.stop()
+
+
+def require_columns(df, required, mart_label):
+    missing = [c for c in required if c not in df.columns]
+    if missing:
+        st.error(
+            f"Schema của {mart_label} không khớp với Dashboard. "
+            f"Thiếu cột: {', '.join(missing)}. "
+            "Hãy kiểm tra lại Data Mart và chạy export_marts.py."
+        )
+        st.stop()
+
+
+def sum_numeric(df, col):
+    if col not in df.columns:
+        return float("nan")
+    values = pd.to_numeric(df[col], errors="coerce")
+    return values.sum(min_count=1)
+
+
+def select_year(df, col, label, key):
+    years = sorted(pd.to_numeric(df[col], errors="coerce").dropna().astype(int).unique().tolist())
+    if not years:
+        st.warning(f"Không có giá trị hợp lệ cho {label}.")
+        st.stop()
+    selected = st.sidebar.selectbox(label, years, index=len(years)-1, key=key)
+    return selected
+
+
+def optional_filter(df, col, label, key, all_label="Tất cả"):
+    if col not in df.columns:
+        return df
+    vals = sorted(df[col].dropna().astype(str).unique().tolist())
+    if not vals:
+        return df
+    selected = st.sidebar.selectbox(label, [all_label] + vals, key=key)
+    if selected != all_label:
+        df = df[df[col].astype(str) == selected].copy()
+    return df
 
 with st.sidebar:
     st.markdown("## ☕ Robusta Lakehouse")
@@ -270,6 +316,444 @@ elif page == "Tin tức":
     totals = df.groupby("topic_name", as_index=False)["article_count"].sum().sort_values("article_count", ascending=False)
     view_chart(px.bar(totals, x="article_count", y="topic_name", orientation="h", title="Số lượt bài theo chủ đề", labels={"article_count":"Lượt bài", "topic_name":"Chủ đề"}))
     st.caption("Một bài có thể thuộc nhiều chủ đề, nên tổng các cột chủ đề có thể lớn hơn số bài duy nhất. Ngày không có bài: topic_share_pct là NULL.")
+
+
+elif page == "Cung & cầu":
+    required = [
+        "market_year", "country_code", "country_name",
+        "production_thousand_bags_60kg",
+        "robusta_production_thousand_bags_60kg",
+        "exports_thousand_bags_60kg",
+        "domestic_consumption_thousand_bags_60kg",
+        "ending_stocks_thousand_bags_60kg",
+        "robusta_production_share_pct", "stock_to_use_pct",
+        "supply_demand_balance_thousand_bags_60kg", "quality_status",
+    ]
+    require_columns(df, required, "DM11 / mart_coffee_supply_demand")
+    df = numeric(
+        df,
+        "market_year", "production_thousand_bags_60kg",
+        "robusta_production_thousand_bags_60kg",
+        "exports_thousand_bags_60kg",
+        "domestic_consumption_thousand_bags_60kg",
+        "ending_stocks_thousand_bags_60kg",
+        "robusta_production_share_pct", "stock_to_use_pct",
+        "supply_demand_balance_thousand_bags_60kg",
+    )
+    year = select_year(df, "market_year", "Năm mùa vụ", "supply_demand_year")
+    x = df[df.market_year == year].copy()
+    x = optional_filter(x, "country_name", "Quốc gia", "supply_demand_country")
+    x = optional_filter(x, "quality_status", "Trạng thái chất lượng", "supply_demand_quality")
+    require_data(x)
+
+    st.subheader(f"Cân đối cung – cầu cà phê · mùa vụ {year}")
+    st.caption("Đơn vị sản lượng: nghìn bao 60 kg. Tổng KPI là tổng các quốc gia đang được chọn, không mặc định đồng nhất với số liệu tổng hợp toàn cầu.")
+    production = sum_numeric(x, "production_thousand_bags_60kg")
+    robusta = sum_numeric(x, "robusta_production_thousand_bags_60kg")
+    exports = sum_numeric(x, "exports_thousand_bags_60kg")
+    consumption = sum_numeric(x, "domestic_consumption_thousand_bags_60kg")
+    stocks = sum_numeric(x, "ending_stocks_thousand_bags_60kg")
+
+    a, b, c, d, e = st.columns(5)
+    a.metric("Sản lượng cà phê", n(production, 1))
+    b.metric("Sản lượng Robusta", n(robusta, 1))
+    c.metric("Xuất khẩu", n(exports, 1))
+    d.metric("Tiêu thụ nội địa", n(consumption, 1))
+    e.metric("Tồn kho cuối kỳ", n(stocks, 1))
+
+    top = x.sort_values("robusta_production_thousand_bags_60kg", ascending=False).head(15)
+    if not top.empty:
+        fig = px.bar(
+            top.sort_values("robusta_production_thousand_bags_60kg"),
+            x="robusta_production_thousand_bags_60kg", y="country_name",
+            orientation="h", color="robusta_production_share_pct",
+            color_continuous_scale="Teal",
+            title="Top 15 quốc gia theo sản lượng Robusta",
+            labels={
+                "robusta_production_thousand_bags_60kg": "Nghìn bao 60 kg",
+                "country_name": "Quốc gia",
+                "robusta_production_share_pct": "Tỷ trọng Robusta (%)",
+            },
+        )
+        view_chart(fig)
+
+    left, right = st.columns(2)
+    with left:
+        components = x[[
+            "country_name", "exports_thousand_bags_60kg",
+            "domestic_consumption_thousand_bags_60kg",
+        ]].melt(
+            id_vars="country_name", var_name="component", value_name="thousand_bags"
+        )
+        components["component"] = components["component"].map({
+            "exports_thousand_bags_60kg": "Xuất khẩu",
+            "domestic_consumption_thousand_bags_60kg": "Tiêu thụ nội địa",
+        })
+        top_components = x.nlargest(12, "production_thousand_bags_60kg")["country_name"]
+        components = components[components.country_name.isin(top_components)]
+        view_chart(px.bar(
+            components, x="country_name", y="thousand_bags", color="component",
+            barmode="group", title="Xuất khẩu và tiêu thụ nội địa · nhóm sản xuất lớn",
+            labels={"country_name": "Quốc gia", "thousand_bags": "Nghìn bao 60 kg", "component": "Chỉ tiêu"},
+        ))
+    with right:
+        stock = x.sort_values("ending_stocks_thousand_bags_60kg", ascending=False).head(15)
+        view_chart(px.bar(
+            stock.sort_values("ending_stocks_thousand_bags_60kg"),
+            x="ending_stocks_thousand_bags_60kg", y="country_name",
+            orientation="h", title="Top 15 quốc gia theo tồn kho cuối kỳ",
+            labels={"ending_stocks_thousand_bags_60kg": "Nghìn bao 60 kg", "country_name": "Quốc gia"},
+        ))
+
+    stock_use = x.dropna(subset=["stock_to_use_pct", "ending_stocks_thousand_bags_60kg"])
+    if not stock_use.empty:
+        view_chart(px.scatter(
+            stock_use, x="ending_stocks_thousand_bags_60kg", y="stock_to_use_pct",
+            size="production_thousand_bags_60kg", color="robusta_production_share_pct",
+            hover_name="country_name", title="Mức tồn kho và tỷ lệ tồn kho/sử dụng",
+            labels={
+                "ending_stocks_thousand_bags_60kg": "Tồn kho cuối kỳ (nghìn bao 60 kg)",
+                "stock_to_use_pct": "Stock-to-use (%)",
+                "production_thousand_bags_60kg": "Sản lượng (nghìn bao 60 kg)",
+                "robusta_production_share_pct": "Tỷ trọng Robusta (%)",
+            },
+        ))
+
+    table_cols = [
+        "country_name", "production_thousand_bags_60kg",
+        "robusta_production_thousand_bags_60kg", "robusta_production_share_pct",
+        "exports_thousand_bags_60kg", "domestic_consumption_thousand_bags_60kg",
+        "ending_stocks_thousand_bags_60kg", "stock_to_use_pct",
+        "supply_demand_balance_thousand_bags_60kg", "quality_status",
+    ]
+    st.subheader("Bảng phân tích theo quốc gia")
+    st.dataframe(
+        x[table_cols].sort_values("robusta_production_thousand_bags_60kg", ascending=False),
+        use_container_width=True, hide_index=True,
+    )
+    st.caption("Stock-to-use là chỉ báo mức đệm tồn kho so với mức sử dụng; không tự nó chứng minh thiếu hụt. Các giá trị 0 cần được đọc cùng phạm vi và trạng thái dữ liệu nguồn.")
+
+
+elif page == "Truyền dẫn giá & tỷ giá":
+    required = [
+        "market_date", "province", "price_series_key", "source_family",
+        "domestic_price_vnd_kg", "futures_price_usd_per_tonne",
+        "fx_currency_pair", "fx_source", "fx_rate_type",
+        "fx_observation_date", "fx_rate_vnd_per_usd", "fx_age_days",
+        "futures_price_vnd_per_kg",
+        "basis_domestic_minus_futures_vnd_kg", "basis_pct_of_futures",
+        "fx_effect_on_futures_vnd_kg", "domestic_return_pct",
+        "futures_vnd_return_pct", "domestic_futures_return_gap_pp",
+        "rolling30_pair_observation_count", "rolling30_corr_domestic_fx",
+        "rolling30_corr_domestic_futures_vnd",
+        "rolling30_beta_domestic_on_fx",
+        "rolling30_beta_domestic_on_futures_vnd", "quality_status",
+    ]
+    require_columns(df, required, "DM15 / mart_robusta_fx_price_transmission")
+    df = time_filter(df)
+    df = optional_filter(df, "source_family", "Nguồn giá nội địa", "dm15_source")
+    df = optional_filter(df, "province", "Tỉnh", "dm15_province")
+    df = optional_filter(df, "price_series_key", "Mã chuỗi giá", "dm15_series")
+    df = numeric(
+        df,
+        "domestic_price_vnd_kg", "futures_price_usd_per_tonne",
+        "fx_rate_vnd_per_usd", "fx_age_days", "futures_price_vnd_per_kg",
+        "basis_domestic_minus_futures_vnd_kg", "basis_pct_of_futures",
+        "fx_effect_on_futures_vnd_kg", "domestic_return_pct",
+        "futures_vnd_return_pct", "domestic_futures_return_gap_pp",
+        "rolling30_pair_observation_count", "rolling30_corr_domestic_fx",
+        "rolling30_corr_domestic_futures_vnd",
+        "rolling30_beta_domestic_on_fx",
+        "rolling30_beta_domestic_on_futures_vnd",
+    )
+    require_data(df)
+    x = df.sort_values(
+        ["market_date", "province", "price_series_key", "source_family"]
+    ).copy()
+    x["series_group"] = (
+        x[["province", "price_series_key", "source_family"]]
+        .astype("string")
+        .fillna("UNKNOWN")
+        .agg(" | ".join, axis=1)
+    )
+    last = x.iloc[-1]
+
+    st.subheader("Truyền dẫn tỷ giá và chênh lệch giá nội địa – London")
+    st.caption("Giá futures được quy đổi theo USD/tấn × VND/USD ÷ 1.000 = VND/kg. FX sử dụng tỷ giá USD/VND DAILY CLOSE gần nhất không vượt quá ngày thị trường; cần kiểm tra tuổi tỷ giá.")
+    a, b, c, d = st.columns(4)
+    a.metric("Giá nội địa", f"{n(last.domestic_price_vnd_kg)} đ/kg")
+    b.metric("Futures quy đổi", f"{n(last.futures_price_vnd_per_kg, 1)} đ/kg")
+    c.metric("USD/VND", n(last.fx_rate_vnd_per_usd, 2))
+    d.metric("Basis nội địa – futures", f"{n(last.basis_domestic_minus_futures_vnd_kg, 1)} đ/kg")
+
+    fx_age = x.fx_age_days.dropna()
+    age_text = f"{n(last.fx_age_days)} ngày" if pd.notna(last.fx_age_days) else "—"
+    st.info(
+        f"Tỷ giá tham chiếu: {last.fx_currency_pair} · {last.fx_source} · "
+        f"{last.fx_rate_type} · ngày tỷ giá {last.fx_observation_date:%d/%m/%Y} "
+        f"(độ trễ tại bản ghi cuối: {age_text})."
+        if pd.notna(last.fx_observation_date) else
+        f"Không có ngày tỷ giá hợp lệ ở bản ghi cuối (độ trễ: {age_text})."
+    )
+
+    view_chart(px.line(
+        x, x="market_date",
+        y=["domestic_price_vnd_kg", "futures_price_vnd_per_kg"],
+        color_discrete_sequence=px.colors.qualitative.Plotly,
+        line_group="series_group",
+        title="Giá nội địa và giá futures sau quy đổi (cùng đơn vị VND/kg)",
+        labels={"market_date": "Ngày", "value": "VND/kg", "variable": "Chuỗi giá"},
+    ))
+    left, right = st.columns(2)
+    with left:
+        view_chart(px.line(
+            x, x="market_date", y="fx_rate_vnd_per_usd",
+            line_group="series_group",
+            title="Diễn biến tỷ giá USD/VND",
+            labels={"market_date": "Ngày", "fx_rate_vnd_per_usd": "VND/USD"},
+        ))
+    with right:
+        view_chart(px.line(
+            x, x="market_date", y=["basis_domestic_minus_futures_vnd_kg", "basis_pct_of_futures"],
+            line_group="series_group",
+            title="Basis: chênh lệch tuyệt đối và tỷ lệ",
+            labels={"market_date": "Ngày", "value": "Giá trị", "variable": "Chỉ số"},
+        ))
+
+    st.subheader("Phân tích quan hệ trượt 30 quan sát")
+    corr_cols = ["rolling30_corr_domestic_fx", "rolling30_corr_domestic_futures_vnd"]
+    beta_cols = ["rolling30_beta_domestic_on_fx", "rolling30_beta_domestic_on_futures_vnd"]
+    left, right = st.columns(2)
+    with left:
+        view_chart(px.line(
+            x, x="market_date", y=corr_cols,
+            line_group="series_group",
+            title="Tương quan trượt: giá nội địa với FX và futures",
+            labels={"market_date": "Ngày", "value": "Hệ số tương quan", "variable": "Cặp biến"},
+        ))
+    with right:
+        view_chart(px.line(
+            x, x="market_date", y=beta_cols,
+            line_group="series_group",
+            title="Beta trượt: độ nhạy của giá nội địa",
+            labels={"market_date": "Ngày", "value": "Beta", "variable": "Biến giải thích"},
+        ))
+    st.caption("Tương quan và Beta là thống kê quan sát trong cửa sổ trượt, không chứng minh quan hệ nhân quả. Số quan sát trong cửa sổ được lưu tại rolling30_pair_observation_count.")
+    dm15_cols = [
+        "market_date", "province", "domestic_price_vnd_kg",
+        "futures_price_usd_per_tonne", "fx_rate_vnd_per_usd", "fx_age_days",
+        "futures_price_vnd_per_kg", "basis_domestic_minus_futures_vnd_kg",
+        "basis_pct_of_futures", "fx_effect_on_futures_vnd_kg",
+        "rolling30_corr_domestic_fx", "rolling30_corr_domestic_futures_vnd",
+        "rolling30_beta_domestic_on_fx", "rolling30_beta_domestic_on_futures_vnd",
+        "quality_status",
+    ]
+    st.subheader("Bản ghi DM15")
+    st.dataframe(x[dm15_cols].tail(500), use_container_width=True, hide_index=True)
+
+
+elif page == "ML Features":
+    required = [
+        "market_date", "province", "price_series_key", "source_family",
+        "domestic_price_vnd_kg", "domestic_return_pct",
+        "price_lag_1_obs_vnd_kg", "price_lag_7_obs_vnd_kg",
+        "price_lag_14_obs_vnd_kg", "price_lag_30_obs_vnd_kg",
+        "price_ma7_vnd_kg", "price_ma30_vnd_kg",
+        "price_volatility30_vnd_kg", "futures_price_usd_per_tonne",
+        "futures_price_vnd_per_kg", "fx_rate_vnd_per_usd",
+        "basis_domestic_minus_futures_vnd_kg",
+        "rolling30_corr_domestic_fx",
+        "weather_temperature_mean_lag_1_obs_c",
+        "weather_rain_sum_lag_1_obs_mm",
+        "fuel_price_vnd_per_unit", "fuel_age_days",
+        "target_next_1_obs_date", "target_next_1_obs_price_vnd_kg",
+        "target_next_1_obs_return_pct", "target_next_7_obs_date",
+        "target_next_7_obs_price_vnd_kg", "target_next_7_obs_return_pct",
+        "is_model_eligible_t1", "is_model_eligible_t7", "quality_status",
+    ]
+    require_columns(df, required, "DM16 / mart_robusta_ml_features_daily")
+    df = time_filter(df)
+    df = optional_filter(df, "source_family", "Nguồn giá cà phê", "dm16_source")
+    df = optional_filter(df, "province", "Tỉnh", "dm16_province")
+    df = optional_filter(df, "price_series_key", "Mã chuỗi giá", "dm16_series")
+    df = numeric(
+        df,
+        "domestic_price_vnd_kg", "domestic_return_pct",
+        "price_lag_1_obs_vnd_kg", "price_lag_7_obs_vnd_kg",
+        "price_lag_14_obs_vnd_kg", "price_lag_30_obs_vnd_kg",
+        "price_ma7_vnd_kg", "price_ma30_vnd_kg",
+        "price_volatility30_vnd_kg", "futures_price_usd_per_tonne",
+        "futures_price_vnd_per_kg", "fx_rate_vnd_per_usd",
+        "basis_domestic_minus_futures_vnd_kg",
+        "rolling30_corr_domestic_fx",
+        "weather_temperature_mean_lag_1_obs_c",
+        "weather_rain_sum_lag_1_obs_mm",
+        "fuel_price_vnd_per_unit", "fuel_age_days",
+        "target_next_1_obs_price_vnd_kg",
+        "target_next_1_obs_return_pct",
+        "target_next_7_obs_price_vnd_kg",
+        "target_next_7_obs_return_pct",
+    )
+    require_data(df)
+    x = df.sort_values(
+        ["market_date", "province", "price_series_key", "source_family"]
+    ).copy()
+    x["series_group"] = (
+        x[["province", "price_series_key", "source_family"]]
+        .astype("string")
+        .fillna("UNKNOWN")
+        .agg(" | ".join, axis=1)
+    )
+    last = x.iloc[-1]
+    eligible1 = x["is_model_eligible_t1"].fillna(False).astype(bool)
+    eligible7 = x["is_model_eligible_t7"].fillna(False).astype(bool)
+
+    st.subheader("Feature engineering và nhãn mục tiêu cho Machine Learning")
+    st.caption("DM16 có grain market_date + province + price_series_key. T1/T7 là 1 và 7 quan sát khả dụng tiếp theo trong cùng chuỗi, không nhất thiết là 1 hoặc 7 ngày lịch.")
+    a, b, c, d = st.columns(4)
+    a.metric("Số bản ghi", f"{len(x):,}")
+    b.metric("Đủ nhãn T+1", f"{eligible1.sum():,} ({eligible1.mean()*100:.1f}%)")
+    c.metric("Đủ nhãn T+7", f"{eligible7.sum():,} ({eligible7.mean()*100:.1f}%)")
+    d.metric("Giá nội địa mới nhất", f"{n(last.domestic_price_vnd_kg)} đ/kg")
+
+    st.info(
+        "Đây là Data Mart chứa feature và target đã căn chỉnh thời gian để huấn luyện/đánh giá mô hình. "
+        "Các cột target_next_* là giá/biến động thực tế ở quan sát tương lai (nhãn), không phải giá dự báo do mô hình tạo ra. "
+        "Chưa có metric dự báo như MAE/RMSE trong DM16."
+    )
+
+    feature_view = x[[
+        "market_date", "province", "price_series_key", "source_family",
+        "series_group", "domestic_price_vnd_kg",
+        "price_ma7_vnd_kg", "price_ma30_vnd_kg",
+    ]].melt(
+        id_vars=[
+            "market_date", "province", "price_series_key",
+            "source_family", "series_group",
+        ],
+        value_vars=[
+            "domestic_price_vnd_kg", "price_ma7_vnd_kg",
+            "price_ma30_vnd_kg",
+        ],
+        var_name="feature",
+        value_name="price_vnd_kg",
+    )
+    feature_view["line_group"] = (
+        feature_view["series_group"].astype(str)
+        + " | "
+        + feature_view["feature"].astype(str)
+    )
+    view_chart(px.line(
+        feature_view,
+        x="market_date",
+        y="price_vnd_kg",
+        color="feature",
+        line_group="line_group",
+        hover_data=["province", "price_series_key", "source_family"],
+        title="Giá nội địa và các đặc trưng trung bình trượt theo từng chuỗi giá",
+        labels={
+            "market_date": "Ngày",
+            "price_vnd_kg": "VND/kg",
+            "feature": "Đặc trưng",
+        },
+    ))
+
+    target_view = x[[
+        "market_date", "province", "price_series_key", "source_family",
+        "series_group", "target_next_1_obs_price_vnd_kg",
+        "target_next_7_obs_price_vnd_kg",
+    ]].melt(
+        id_vars=[
+            "market_date", "province", "price_series_key",
+            "source_family", "series_group",
+        ],
+        var_name="target",
+        value_name="target_price",
+    )
+    target_view["line_group"] = (
+        target_view["series_group"].astype(str)
+        + " | "
+        + target_view["target"].astype(str)
+    )
+    target_view["target"] = target_view["target"].map({
+        "target_next_1_obs_price_vnd_kg": "Giá thực tế T+1 quan sát",
+        "target_next_7_obs_price_vnd_kg": "Giá thực tế T+7 quan sát",
+    })
+    view_chart(px.line(
+        target_view,
+        x="market_date",
+        y="target_price",
+        color="target",
+        line_group="line_group",
+        hover_data=["province", "price_series_key", "source_family"],
+        title="Nhãn mục tiêu tương lai theo từng chuỗi giá",
+        labels={
+            "market_date": "Ngày tạo feature",
+            "target_price": "Giá mục tiêu (VND/kg)",
+            "target": "Nhãn",
+        },
+    ))
+
+    feature_cols = [
+        "domestic_return_pct", "futures_vnd_return_pct",
+        "fx_close_change_pct", "fuel_change_pct",
+        "weather_rain_sum_lag_1_obs_mm",
+        "weather_temperature_mean_lag_1_obs_c",
+        "price_volatility30_vnd_kg",
+        "rolling30_corr_domestic_fx",
+        "basis_domestic_minus_futures_vnd_kg",
+    ]
+    feature_cols = [c for c in feature_cols if c in x.columns]
+    corr_base = x[feature_cols].apply(pd.to_numeric, errors="coerce")
+    corr = corr_base.corr(min_periods=10)
+    if not corr.empty and corr.shape[1] >= 2:
+        view_chart(px.imshow(
+            corr, text_auto=".2f", aspect="auto", zmin=-1, zmax=1,
+            color_continuous_scale="RdBu_r",
+            title="Ma trận tương quan giữa các nhóm đặc trưng",
+        ))
+    else:
+        st.info("Chưa đủ dữ liệu hợp lệ để tính ma trận tương quan.")
+
+    left, right = st.columns(2)
+    with left:
+        scatter = x.dropna(subset=["price_volatility30_vnd_kg", "target_next_1_obs_return_pct"])
+        if not scatter.empty:
+            view_chart(px.scatter(
+                scatter, x="price_volatility30_vnd_kg", y="target_next_1_obs_return_pct",
+                color="province", title="Biến động giá 30 quan sát và lợi suất mục tiêu T+1",
+                labels={"price_volatility30_vnd_kg": "Độ lệch chuẩn giá 30 quan sát (VND/kg)", "target_next_1_obs_return_pct": "Lợi suất T+1 (%)", "province": "Tỉnh"},
+            ))
+    with right:
+        scatter = x.dropna(subset=["price_volatility30_vnd_kg", "target_next_7_obs_return_pct"])
+        if not scatter.empty:
+            view_chart(px.scatter(
+                scatter, x="price_volatility30_vnd_kg", y="target_next_7_obs_return_pct",
+                color="province", title="Biến động giá 30 quan sát và lợi suất mục tiêu T+7",
+                labels={"price_volatility30_vnd_kg": "Độ lệch chuẩn giá 30 quan sát (VND/kg)", "target_next_7_obs_return_pct": "Lợi suất T+7 (%)", "province": "Tỉnh"},
+            ))
+
+    coverage = pd.DataFrame({
+        "Nhóm đặc trưng": ["FX USD/VND", "Thời tiết trễ 1 quan sát", "Nhiên liệu"],
+        "Số dòng có dữ liệu": [
+            x["fx_rate_vnd_per_usd"].notna().sum(),
+            x[["weather_temperature_mean_lag_1_obs_c", "weather_rain_sum_lag_1_obs_mm"]].notna().any(axis=1).sum(),
+            x["fuel_price_vnd_per_unit"].notna().sum(),
+        ],
+    })
+    coverage["Tỷ lệ phủ (%)"] = coverage["Số dòng có dữ liệu"] / len(x) * 100
+    st.subheader("Độ phủ dữ liệu của các nhóm feature")
+    st.dataframe(coverage, hide_index=True, use_container_width=True)
+
+    target_cols = [
+        "market_date", "province", "source_family", "domestic_price_vnd_kg",
+        "target_next_1_obs_date", "target_next_1_obs_price_vnd_kg",
+        "target_next_1_obs_return_pct", "is_model_eligible_t1",
+        "target_next_7_obs_date", "target_next_7_obs_price_vnd_kg",
+        "target_next_7_obs_return_pct", "is_model_eligible_t7", "quality_status",
+    ]
+    st.subheader("Kiểm tra nhãn và điều kiện đưa vào mô hình")
+    st.dataframe(x[target_cols].tail(500), use_container_width=True, hide_index=True)
 
 st.divider()
 with st.expander("Xem dữ liệu đang lọc"):
