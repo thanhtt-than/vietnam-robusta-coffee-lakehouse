@@ -321,10 +321,15 @@ def add_coffee_kpis(mart):
     )
 
 
+
 def main():
+    import sys
+
     spark = create_spark()
+    write_mode = "--write" in sys.argv[1:]
 
     try:
+        # 1. Build mart from Silver sources
         mart = prepare_coffee(spark).join(
             prepare_weather(spark),
             ["market_date", "province"],
@@ -336,7 +341,17 @@ def main():
         mart = join_news(mart, prepare_news(spark))
         mart = add_coffee_kpis(mart)
 
+        # 2. Calculate expected grain dynamically
+        expected_rows = (
+            spark.table(SOURCES["coffee"])
+            .select("quote_date", "province")
+            .distinct()
+            .count()
+        )
+
+        # 3. Validate output
         total = mart.count()
+
         duplicates = (
             mart.groupBy("market_date", "province")
             .count()
@@ -344,23 +359,63 @@ def main():
             .count()
         )
 
+        print("EXPECTED_ROWS:", expected_rows, flush=True)
         print("MART_ROWS:", total, flush=True)
         print("MART_DUPLICATE_KEYS:", duplicates, flush=True)
 
-        if total != 5864 or duplicates != 0:
-            raise RuntimeError("Gold Mart validation failed")
+        if total != expected_rows:
+            raise RuntimeError(
+                f"Row count mismatch: expected={expected_rows}, actual={total}"
+            )
 
+        if duplicates != 0:
+            raise RuntimeError(
+                f"Duplicate market daily keys: {duplicates}"
+            )
+
+        invalid_prices = mart.filter(
+            F.col("coffee_price_vnd_kg").isNull()
+            | (F.col("coffee_price_vnd_kg") <= 0)
+        ).count()
+
+        if invalid_prices != 0:
+            raise RuntimeError(
+                f"Invalid coffee prices: {invalid_prices}"
+            )
+
+        print("MART_INVALID_PRICES:", invalid_prices, flush=True)
+        print("COFFEE_MARKET_DAILY_VALIDATION_PASSED", flush=True)
+
+        mart.orderBy(
+            F.col("market_date").desc(),
+            "province"
+        ).show(20, truncate=False)
+
+        # 4. Dry run by default; write only with --write
+        if not write_mode:
+            print("COFFEE_MARKET_DAILY_DRY_RUN_PASSED", flush=True)
+            return
+
+        # 5. Never overwrite an existing table
         if spark.catalog.tableExists(TARGET):
             raise RuntimeError(
                 f"Target already exists; refusing to overwrite: {TARGET}"
             )
 
-        print("GOLD_WRITE_START:", TARGET, flush=True)
-
+        # 6. Write Iceberg table
         mart.writeTo(TARGET).using("iceberg").create()
 
-        print("GOLD_TABLE_CREATED:", TARGET, flush=True)
-        print("GOLD_WRITE_PASSED", flush=True)
+        # 7. Verify written rows
+        actual = spark.table(TARGET).count()
+
+        if actual != expected_rows:
+            raise RuntimeError(
+                f"Iceberg row count mismatch: "
+                f"expected={expected_rows}, actual={actual}"
+            )
+
+        print("COFFEE_MARKET_DAILY_ICEBERG_ROWS:", actual, flush=True)
+        print("COFFEE_MARKET_DAILY_ICEBERG_WRITE_PASSED", flush=True)
 
     finally:
         spark.stop()
