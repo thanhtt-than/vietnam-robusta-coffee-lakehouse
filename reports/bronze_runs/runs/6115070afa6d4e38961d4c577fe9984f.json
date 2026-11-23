@@ -1,0 +1,19 @@
+{
+  "run_id": "6115070afa6d4e38961d4c577fe9984f",
+  "domain": "fuel_prices",
+  "source": "bbw_fuel",
+  "started_at_utc": "2026-11-23T03:54:41.774078+00:00",
+  "finished_at_utc": "2026-11-23T03:54:58.582320+00:00",
+  "status": "FAILED",
+  "batch_id": null,
+  "raw_object_key": null,
+  "metadata_object_key": null,
+  "size_bytes": null,
+  "error_type": "RuntimeError",
+  "error_message": "See protected process stderr for details",
+  "metrics": {
+    "api_calls": 0,
+    "uploaded_pages": 0,
+    "skipped_pages": 0
+  }
+}

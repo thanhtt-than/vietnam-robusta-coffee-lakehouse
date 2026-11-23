@@ -4,6 +4,11 @@ Default DRY RUN is read-only. --write explicitly publishes canonical source/day/
 observations to Iceberg, without modifying Bronze or MinIO raw objects.
 Run: .\run_spark.ps1 -Script 'src/iceberg/silver_coffee_prices.py'
 Optional write: --write (run_spark.ps1 may need argument forwarding).
+
+The source row count is intentionally not hard-coded: Bronze is append/merge
+ingested and may legitimately contain additional snapshots after a refresh.
+This job reports per-family counts and validates the canonical business keys
+instead of rejecting every change from an old row-count baseline.
 """
 import sys
 from pyspark.sql import SparkSession, functions as F, Window
@@ -13,6 +18,7 @@ TARGET = "lakehouse.silver.coffee_prices_daily"
 COFFEE_RAW = "lakehouse.bronze.coffee_prices_raw"
 DOMESTIC_RAW = "lakehouse.bronze.domestic_prices_raw"
 VALID_REGIONS = ["DAK_LAK", "DAK_NONG", "GIA_LAI", "LAM_DONG"]
+ALLOWED_SOURCE_FAMILIES = {"bbw_coffee", "enriched_csv", "legacy_api_json"}
 
 
 def field(name):
@@ -92,7 +98,7 @@ def build_inputs(spark):
         & (F.col("unit") == "VND/KG")
         & valid_series
     )
-    return result.withColumn("is_comparable_coffee", valid)
+    return result.withColumn("is_comparable_coffee", F.coalesce(valid, F.lit(False)))
 
 
 def make_canonical(comparable):
@@ -137,11 +143,30 @@ def main():
         df = build_inputs(spark).cache()
         total = df.count()
         print("SOURCE_TOTAL:", total, flush=True)
-        if total != 3525 + 13915:
-            raise RuntimeError(f"Expected 17440 source rows, observed {total}; review new ingestion")
+        if total == 0:
+            raise RuntimeError("No source rows found in the two Bronze input tables")
+
+        # Diagnose changing source volume instead of comparing it to a stale constant.
+        print("SOURCE_ROWS_BY_FAMILY:", flush=True)
+        family_counts = {
+            row["source_family"]: row["count"]
+            for row in df.groupBy("source_family").count().collect()
+        }
+        for family in sorted(family_counts):
+            print(f"  {family}: {family_counts[family]}", flush=True)
+        unexpected_families = set(family_counts) - ALLOWED_SOURCE_FAMILIES
+        if unexpected_families:
+            raise RuntimeError(
+                "Unexpected source families in Silver input: "
+                + ", ".join(sorted(unexpected_families))
+            )
+
+        print("SOURCE_QUALITY_BREAKDOWN:", flush=True)
         df.groupBy("source_family", "is_comparable_coffee").count().orderBy(
-            "source_family", "is_comparable_coffee").show(20, truncate=False)
-        comparable = df.filter("is_comparable_coffee").cache()
+            "source_family", "is_comparable_coffee"
+        ).show(50, truncate=False)
+
+        comparable = df.filter(F.col("is_comparable_coffee")).cache()
         accepted = comparable.count()
         excluded = total - accepted
         canonical = make_canonical(comparable).cache()
@@ -150,18 +175,30 @@ def main():
         print("EXCLUDED_NONCOMPARABLE_OR_INVALID:", excluded, flush=True)
         print("CANONICAL_SOURCE_PROVINCE_DAYS:", final_count, flush=True)
         canonical.groupBy("source_family", "quality_status").count().orderBy(
-            "source_family", "quality_status").show(truncate=False)
+            "source_family", "quality_status"
+        ).show(truncate=False)
         print("CONFLICT_EXAMPLES:", flush=True)
         canonical.filter("quality_status != 'PASS'").select(
             "source_family", "province", "quote_date", "raw_observation_count",
-            "distinct_price_count", "min_price_vnd_kg", "max_price_vnd_kg").show(12, truncate=False)
-        distinct_keys = canonical.select("source_family", "province", "quote_date").distinct().count()
-        if distinct_keys != final_count or accepted < final_count or final_count == 0:
+            "distinct_price_count", "min_price_vnd_kg", "max_price_vnd_kg"
+        ).show(12, truncate=False)
+
+        distinct_keys = canonical.select(
+            "source_family", "province", "quote_date"
+        ).distinct().count()
+        if accepted == 0 or final_count == 0:
+            raise RuntimeError(
+                "No comparable coffee observations remain after validation; "
+                "review SOURCE_QUALITY_BREAKDOWN before writing"
+            )
+        if distinct_keys != final_count or accepted < final_count:
             raise RuntimeError("Silver row accounting or business-key uniqueness failed")
+
         if not write:
             print("SILVER_COFFEE_DRY_RUN_PASSED", flush=True)
             print("NO_SILVER_TABLE_WRITTEN", flush=True)
             return
+
         spark.sql("CREATE NAMESPACE IF NOT EXISTS lakehouse.silver")
         spark.sql(f"""CREATE TABLE IF NOT EXISTS {TARGET} (
             source_family STRING, province STRING, quote_date DATE,
@@ -172,8 +209,7 @@ def main():
             silver_processed_at TIMESTAMP
         ) USING iceberg""")
         canonical.createOrReplaceTempView("coffee_prices_canonical_stage")
-        # Stable replacement of the entire canonical representation in one SQL statement.
-        # Existing Bronze remains untouched. Source scope is three known families only.
+        # Merge by stable business key; Bronze remains untouched.
         spark.sql(f"""MERGE INTO {TARGET} t USING coffee_prices_canonical_stage s
             ON t.source_family = s.source_family AND t.province = s.province AND t.quote_date = s.quote_date
             WHEN MATCHED THEN UPDATE SET
@@ -188,7 +224,10 @@ def main():
         actual = spark.table(TARGET).count()
         print("SILVER_COFFEE_TOTAL:", actual, flush=True)
         if actual != final_count:
-            raise RuntimeError("Silver table contains unexpected extra rows; review without deleting")
+            raise RuntimeError(
+                f"Silver target row count {actual} differs from current canonical "
+                f"source count {final_count}; existing extra target rows were not deleted"
+            )
         print("SILVER_COFFEE_ICEBERG_PASSED", flush=True)
     finally:
         spark.stop()

@@ -1,0 +1,19 @@
+{
+  "run_id": "99747aa33bfe4f488501107bf56ca43d",
+  "domain": "coffee_prices",
+  "source": "bbw_coffee",
+  "started_at_utc": "2026-11-23T03:50:29.193233+00:00",
+  "finished_at_utc": "2026-11-23T03:54:40.058687+00:00",
+  "status": "SUCCESS",
+  "batch_id": "20261123t105029_2884f48c",
+  "raw_object_key": null,
+  "metadata_object_key": null,
+  "size_bytes": null,
+  "error_type": null,
+  "error_message": null,
+  "metrics": {
+    "api_calls": 168,
+    "uploaded_pages": 4,
+    "skipped_pages": 164
+  }
+}

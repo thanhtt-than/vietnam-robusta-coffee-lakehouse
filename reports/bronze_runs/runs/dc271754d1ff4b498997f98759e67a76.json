@@ -1,0 +1,19 @@
+{
+  "run_id": "dc271754d1ff4b498997f98759e67a76",
+  "domain": "weather",
+  "source": "open_meteo_archive",
+  "started_at_utc": "2026-11-23T04:33:32.100648+00:00",
+  "finished_at_utc": "2026-11-23T04:33:41.068350+00:00",
+  "status": "FAILED",
+  "batch_id": null,
+  "raw_object_key": null,
+  "metadata_object_key": null,
+  "size_bytes": null,
+  "error_type": "RuntimeError",
+  "error_message": "See protected process stderr for details",
+  "metrics": {
+    "total_stations": 4,
+    "succeeded_stations": 2,
+    "failed_stations": 2
+  }
+}

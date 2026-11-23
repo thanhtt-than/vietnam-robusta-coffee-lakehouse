@@ -69,7 +69,15 @@ try:
     input_total = weather.count()
     print("WEATHER_SILVER_TOTAL:", input_total, flush=True)
 
-    assert input_total == 97620
+    if input_total <= 0:
+        raise RuntimeError(
+            "Silver Weather is empty; refusing to build Gold Fact."
+        )
+    print(
+        "WEATHER_ROW_COUNT_CHECK: non-empty Silver input; "
+        "using dynamic row count",
+        flush=True,
+    )
 
     # 2. Verify source and dimension granularity.
     verify_unique(
@@ -92,7 +100,11 @@ try:
         location_count,
         flush=True
     )
-    assert location_count == 12
+    if location_count <= 0:
+        raise RuntimeError(
+            "Gold Weather Location dimension is empty; "
+            "refusing to build Gold Fact."
+        )
 
     # 3. Resolve foreign keys.
     joined = (

@@ -1,0 +1,23 @@
+{
+  "run_id": "e0f0a6f3444047fd90fd569ae423cf9a",
+  "domain": "vicofa",
+  "source": "vicofa_website",
+  "started_at_utc": "2026-11-23T05:23:59.799773+00:00",
+  "finished_at_utc": "2026-11-23T05:24:00.862844+00:00",
+  "status": "FAILED",
+  "batch_id": null,
+  "raw_object_key": null,
+  "metadata_object_key": null,
+  "size_bytes": null,
+  "error_type": "RuntimeError",
+  "error_message": "See protected process stderr for details",
+  "metrics": {
+    "pages_scanned": 0,
+    "known_articles": 0,
+    "new_articles": 0,
+    "new_detail_records": 0,
+    "uploaded_snapshots": 0,
+    "used_existing_checkpoint": 0,
+    "stale_fallback": 0
+  }
+}

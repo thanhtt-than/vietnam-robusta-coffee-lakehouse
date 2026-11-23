@@ -159,8 +159,14 @@ def main():
         total = raw.count()
         print('VICOFA_BRONZE_TOTAL:', total, flush=True)
         raw.groupBy('record_type').count().show(truncate=False)
-        if total != 2436:
-            raise RuntimeError(f'Unexpected Bronze VICOFA rows: {total}; no writes')
+        list_count = raw.filter(F.col('record_type') == 'vicofa_article_list').count()
+        detail_count = raw.filter(F.col('record_type') == 'vicofa_article_detail').count()
+        print('VICOFA_LIST_DETAIL_COUNTS:', list_count, detail_count, flush=True)
+        if (total != list_count + detail_count or list_count == 0
+                or detail_count == 0 or list_count != detail_count):
+            raise RuntimeError(
+                f'Unexpected Bronze VICOFA list/detail counts: {list_count}/{detail_count}; no writes'
+            )
         listing = source_rows(raw, 'vicofa_article_list', 'list').cache()
         detail = source_rows(raw, 'vicofa_article_detail', 'detail').cache()
         for name, data in [('LIST', listing), ('DETAIL', detail)]:
@@ -169,8 +175,8 @@ def main():
             invalid = data.filter(F.col('article_id').isNull()).count()
             print(f'VICOFA_{name}_ROWS: {count}', flush=True)
             print(f'VICOFA_{name}_UNIQUE_IDS: {unique}', flush=True)
-            if count != 1218 or unique != count or invalid:
-                raise RuntimeError(f'{name}: unexpected/missing/duplicate ids; no writes')
+            if count == 0 or unique != count or invalid:
+                raise RuntimeError(f'{name}: empty/missing/duplicate ids; no writes')
         joined = detail.join(listing, 'article_id', 'full_outer')
         missing_pairs = joined.filter(
             F.col('detail_bronze_record_id').isNull() |
@@ -241,8 +247,11 @@ def main():
         print('VICOFA_CATEGORY_EXAMPLES:', flush=True)
         result.select('article_id', 'title', 'primary_category',
                       'keyword_categories', 'matched_keywords').orderBy('article_id').show(12, truncate=90)
-        if rows != 1218 or unique != rows:
-            raise RuntimeError(f'Expected 1218 unique article ids, got {rows}/{unique}')
+        if rows == 0 or rows != list_count or rows != detail_count or unique != rows:
+            raise RuntimeError(
+                f'Expected one canonical row per paired VICOFA ID; got rows={rows}, '
+                f'list={list_count}, detail={detail_count}, unique={unique}'
+            )
         critical = result.filter(F.col('url').isNull() | F.col('title').isNull() |
                                  F.col('published_date').isNull() | F.col('url_mismatch_review')).count()
         if critical:
@@ -259,9 +268,15 @@ def main():
             stored = spark.table(TARGET)
             stored_total = stored.count()
             stored_unique = stored.select('article_id').distinct().count()
+            current_ids = result.select('article_id').distinct()
+            current_ids_present = stored.join(current_ids, 'article_id', 'inner').count()
             print('SILVER_VICOFA_TOTAL:', stored_total, flush=True)
-            if stored_total != 1218 or stored_unique != stored_total:
-                raise RuntimeError(f'VICOFA Iceberg verification failed {stored_total}/{stored_unique}')
+            print('SILVER_VICOFA_CURRENT_SOURCE_IDS_PRESENT:', current_ids_present, flush=True)
+            if current_ids_present != rows or stored_unique != stored_total:
+                raise RuntimeError(
+                    f'VICOFA Iceberg verification failed: total={stored_total}, '
+                    f'unique={stored_unique}, current_source_present={current_ids_present}/{rows}'
+                )
             print('SILVER_VICOFA_ICEBERG_PASSED', flush=True)
         else:
             print('NO_SILVER_TABLE_WRITTEN', flush=True)

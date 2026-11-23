@@ -1,0 +1,69 @@
+TLCN - DANH SACH THU VIEN CAN CAI DAT
+
+1. CAC THU VIEN PYTHON CAN CO TRONG CONTAINER tlcn-spark
+
+requests beautifulsoup4 minio python-dotenv
+
+Vai tro: - requests: goi HTTP API BBW, Open-Meteo va truy cap website
+VICOFA. - beautifulsoup4: phan tich HTML cua website VICOFA (import
+trong code bang bs4). - minio: ket noi va doc/ghi object tren MinIO. -
+python-dotenv: doc cau hinh bien moi truong tu file .env.
+
+Lenh cai dat trong PowerShell: docker exec tlcn-spark python3 -m pip
+install –no-cache-dir requests beautifulsoup4 minio python-dotenv
+
+Lenh kiem tra: docker exec tlcn-spark python3 -c “import requests, bs4,
+minio, dotenv; print(‘INGESTION_DEPS_OK’)”
+
+2. CAC GOI DA DUOC CAI QUA DOCKERFILE CUA AIRFLOW
+
+apache-airflow==3.4.0 apache-airflow-providers-fab
+apache-airflow-providers-standard
+
+Ghi chu: - Dockerfile infrastructure/airflow-v3/Dockerfile da cai cac
+goi tren. - Khong can cai lai trong container tlcn-spark. -
+apache-airflow-providers-standard cung cap BashOperator duoc DAG su
+dung. - apache-airflow-providers-fab duoc dung boi FAB auth manager
+trong docker-compose.yml.
+
+3. CAC THANH PHAN HE THONG - KHONG CAI BANG PIP
+
+-   Docker CLI: duoc cai trong Airflow Dockerfile bang apt.
+-   Apache Spark 3.5.1: da co trong image apache/spark.
+-   Java 17: da co trong Spark image.
+-   PySpark: di kem moi truong Spark.
+-   Iceberg runtime JAR va Iceberg AWS bundle: duoc mount/su dung boi
+    cac lenh spark-submit.
+-   MinIO va Nessie: la cac service Docker, khong phai thu vien Python.
+
+4. LUU Y KHI CAI DAT
+
+-   Cac task ingestion trong DAG duoc thuc thi ben trong container
+    tlcn-spark.
+-   Vi vay, cac goi requests, beautifulsoup4, minio va python-dotenv
+    phai co trong tlcn-spark.
+-   Preflight cua DAG se kiem tra import cac module requests, bs4,
+    minio, dotenv va kiem tra MinIO bucket.
+-   Khong can cai apache-airflow vao tlcn-spark.
+-   Khong cai pyspark bang pip de thay the Spark runtime/JAR dang duoc
+    cau hinh san.
+-   urllib3 la dependency cua requests/minio va duoc cai tu dong; khong
+    can cai rieng.
+
+Lenh cai dat day du cho ingestion: docker exec tlcn-spark python3 -m pip
+install –no-cache-dir requests beautifulsoup4 minio python-dotenv
+
+Lenh kiem tra nhanh: docker exec -w /workspace -e PYTHONPATH=/workspace
+tlcn-spark python3 -c “import requests, bs4, minio, dotenv; from
+src.bronze.minio_client import get_minio_client, get_bucket_name; assert
+get_minio_client().bucket_exists(get_bucket_name());
+print(‘TLCN_INGESTION_PREFLIGHT_PASSED’)”
+
+5. PHAM VI
+
+Danh sach tren tap trung vao cac thu vien can thiet cho cac script
+ingestion da cap nhat va moi truong Airflow/Spark hien tai cua du an.
+
+Cac thu vien phuc vu notebook, dashboard, machine learning hoac cong cu
+phat trien rieng khong duoc liet ke neu khong duoc cac script va cau
+hinh DAG hien tai yeu cau.

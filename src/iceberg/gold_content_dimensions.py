@@ -1,4 +1,9 @@
-﻿import sys
+"""Gold content dimensions from Silver sources; dry-run unless --write.
+
+Dimension row counts are derived from current source data, not historical
+fixed baselines. Primary/natural keys and referential checks remain enforced.
+"""
+import sys
 from pyspark.sql import SparkSession, functions as F
 
 WRITE = "--write" in sys.argv[1:]
@@ -49,9 +54,16 @@ def verify(name, df, pk, natural_key):
     print("UNIQUE_NATURAL_KEYS:", unique_natural, flush=True)
     print("NULL_KEYS:", null_keys, flush=True)
 
-    assert total > 0
-    assert total == unique_pk == unique_natural
-    assert null_keys == 0
+    if total <= 0:
+        raise RuntimeError(f"{name}: dimension is empty")
+    if total != unique_pk or total != unique_natural:
+        raise RuntimeError(
+            f"{name}: duplicate primary/natural keys "
+            f"(rows={total}, unique_pk={unique_pk}, "
+            f"unique_natural={unique_natural})"
+        )
+    if null_keys:
+        raise RuntimeError(f"{name}: found {null_keys} null dimension keys")
 
     return total
 
@@ -115,7 +127,8 @@ try:
         )
     )
 
-    # Article: exactly one row per article ID.
+    # Article: one row per article ID. The row count is data-driven;
+    # VICOFA ingestion can legitimately add articles over time.
     article = (
         articles.select(
             "article_id",
@@ -181,9 +194,10 @@ try:
         .count()
     )
 
-    assert unknown_topics == 0, (
-        "Unknown news categories found"
-    )
+    if unknown_topics:
+        raise RuntimeError(
+            f"Unknown news categories found: {unknown_topics}"
+        )
 
     dimensions = {
         "dim_destination": (
@@ -241,16 +255,31 @@ try:
             name, df, pk, natural
         )
 
-    assert counts["dim_article"] == 1218
-    assert counts["dim_hs_product"] == 1
-    assert counts["dim_news_topic"] == 9
+    # Article and HS product counts are source-driven, not fixed baselines.
+    # The topic dimension is a controlled vocabulary defined by TOPICS.
+    print(
+        "SOURCE_ARTICLE_COUNT:",
+        counts["dim_article"],
+        flush=True
+    )
+    print(
+        "SOURCE_HS_PRODUCT_COUNT:",
+        counts["dim_hs_product"],
+        flush=True
+    )
+    if counts["dim_news_topic"] != len(TOPICS):
+        raise RuntimeError(
+            "News topic dimension does not match the controlled TOPICS vocabulary"
+        )
 
     world = destination.filter(
         F.col("partner_code") == "000"
     )
 
-    assert world.count() == 1
-    assert world.first()["is_world_aggregate"] is True
+    if world.count() != 1:
+        raise RuntimeError("Expected exactly one world aggregate destination")
+    if world.first()["is_world_aggregate"] is not True:
+        raise RuntimeError("World aggregate partner code 000 is not flagged correctly")
 
     print(
         "WORLD_AGGREGATE_VERIFIED",
@@ -315,7 +344,11 @@ try:
             .count()
         )
 
-        assert unmatched_dates == 0
+        if unmatched_dates:
+            raise RuntimeError(
+                f"{unmatched_dates} article publication dates are missing "
+                "from lakehouse.gold.dim_date"
+            )
 
         spark.sql(
             "CREATE NAMESPACE IF NOT EXISTS lakehouse.gold"
@@ -345,21 +378,79 @@ try:
                 WHEN NOT MATCHED THEN INSERT *
             """)
 
-            actual = spark.table(target).count()
-            unique = (
-                spark.table(target)
-                .select(natural)
-                .distinct()
-                .count()
+            stored = spark.table(target)
+            actual = stored.count()
+            unique_pk = stored.select(pk).distinct().count()
+            unique_natural = stored.select(natural).distinct().count()
+            null_keys = stored.filter(
+                F.col(pk).isNull() | F.col(natural).isNull()
+            ).count()
+
+            # Dimensions are maintained as durable lookup tables. A natural key
+            # that disappears from today's Silver snapshot may still be referenced
+            # by historical Gold facts, so do not delete it just to force row-count
+            # equality. Instead, require every current source key to exist in Gold.
+            source_keys = df.select(natural).distinct()
+            stored_keys = stored.select(natural).distinct()
+
+            missing_source_keys = (
+                source_keys.join(
+                    stored_keys,
+                    on=natural,
+                    how="left_anti"
+                ).count()
             )
 
-            assert actual == counts[name] == unique
+            retained_historical_keys = (
+                stored_keys.join(
+                    source_keys,
+                    on=natural,
+                    how="left_anti"
+                )
+            )
 
+            retained_historical_count = retained_historical_keys.count()
+
+            print(name.upper() + "_ICEBERG_TOTAL:", actual, flush=True)
+            print(name.upper() + "_ICEBERG_SOURCE_TOTAL:", counts[name], flush=True)
+            print(name.upper() + "_ICEBERG_UNIQUE_PK:", unique_pk, flush=True)
+            print(name.upper() + "_ICEBERG_UNIQUE_NATURAL:", unique_natural, flush=True)
+            print(name.upper() + "_ICEBERG_NULL_KEYS:", null_keys, flush=True)
             print(
-                name.upper() + "_ICEBERG_TOTAL:",
-                actual,
+                name.upper() + "_ICEBERG_MISSING_SOURCE_KEYS:",
+                missing_source_keys,
                 flush=True
             )
+            print(
+                name.upper() + "_ICEBERG_RETAINED_HISTORICAL_KEYS:",
+                retained_historical_count,
+                flush=True
+            )
+
+            if retained_historical_count:
+                print(
+                    name.upper() + "_HISTORICAL_KEYS_RETAINED_SAMPLE:",
+                    flush=True
+                )
+                retained_historical_keys.orderBy(natural).show(
+                    20, truncate=False
+                )
+
+            if missing_source_keys:
+                raise RuntimeError(
+                    f"{target}: {missing_source_keys} current source keys "
+                    "are missing from Gold after MERGE"
+                )
+            if actual != unique_pk or actual != unique_natural or null_keys:
+                raise RuntimeError(
+                    f"{target}: Iceberg key integrity check failed"
+                )
+            if actual < counts[name]:
+                raise RuntimeError(
+                    f"{target}: Gold has fewer rows ({actual}) than the "
+                    f"current source ({counts[name]})"
+                )
+
             print(
                 name.upper() + "_ICEBERG_PASSED",
                 flush=True

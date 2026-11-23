@@ -1,0 +1,22 @@
+{
+  "run_id": "6a30e317cd8e43c1800937e53312dddc",
+  "domain": "weather",
+  "source": "open_meteo_archive",
+  "started_at_utc": "2026-11-23T05:22:48.024925+00:00",
+  "finished_at_utc": "2026-11-23T05:23:58.112974+00:00",
+  "status": "SUCCESS",
+  "batch_id": "6a30e317cd8e43c1800937e53312dddc",
+  "raw_object_key": null,
+  "metadata_object_key": null,
+  "size_bytes": null,
+  "error_type": null,
+  "error_message": null,
+  "metrics": {
+    "total_stations": 4,
+    "succeeded_stations": 4,
+    "failed_stations": 0,
+    "fetch_days": 12,
+    "refresh_days": 12,
+    "uploaded_chunks": 4
+  }
+}

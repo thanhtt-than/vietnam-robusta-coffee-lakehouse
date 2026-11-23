@@ -1,0 +1,23 @@
+{
+  "run_id": "96b07596093b4a0da1697997f05f0ce8",
+  "domain": "vicofa",
+  "source": "vicofa_website",
+  "started_at_utc": "2026-11-23T05:06:14.373427+00:00",
+  "finished_at_utc": "2026-11-23T05:08:06.126982+00:00",
+  "status": "DRY_RUN",
+  "batch_id": null,
+  "raw_object_key": null,
+  "metadata_object_key": null,
+  "size_bytes": null,
+  "error_type": null,
+  "error_message": null,
+  "metrics": {
+    "pages_scanned": 4,
+    "known_articles": 1223,
+    "new_articles": 5,
+    "new_detail_records": 5,
+    "uploaded_snapshots": 0,
+    "used_existing_checkpoint": 1,
+    "stale_fallback": 0
+  }
+}

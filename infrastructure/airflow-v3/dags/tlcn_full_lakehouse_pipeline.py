@@ -87,6 +87,10 @@ with DAG(
 docker inspect {CONTAINER} >/dev/null
 docker exec {CONTAINER} test -x {SUBMIT}
 docker exec {CONTAINER} test -f {GUARD_PATH}
+docker exec {CONTAINER} test -f /workspace/data/open-meteo-12.48N107.97E419m_DakNong.csv
+docker exec {CONTAINER} test -f /workspace/data/open-meteo-12.83N108.13E481m_DaKLak.csv
+docker exec -w /workspace -e PYTHONPATH=/workspace {CONTAINER} python3 -c 'import requests, bs4, minio, dotenv; from src.bronze.minio_client import get_minio_client, get_bucket_name; assert get_minio_client().bucket_exists(get_bucket_name()), "MinIO bucket unavailable"'
+echo TLCN_INGESTION_PREFLIGHT_PASSED
 echo TLCN_PIPELINE_PREFLIGHT_PASSED""",
         2,
     )
@@ -101,7 +105,8 @@ echo TLCN_PIPELINE_PREFLIGHT_PASSED""",
             task("ingest_open_meteo", python_job(
                 "src/bronze/ingest_open_meteo.py",
                 ["--station", "all", "--refresh-days", "3"]), 90),
-            task("crawl_vicofa", python_job("src/bronze/crawl_vicofa.py"), 45),
+            task("crawl_vicofa", python_job(
+                "src/bronze/crawl_vicofa.py", ["--allow-stale"]), 45),
         ]
         chain(*ingest_tasks)
 
@@ -155,7 +160,7 @@ echo TLCN_PIPELINE_PREFLIGHT_PASSED""",
             ("gold_fact_futures_price", "src/iceberg/gold_fact_futures_price.py"),
             ("gold_fact_coffee_trade_monthly", "src/iceberg/gold_fact_coffee_trade_monthly.py"),
             ("gold_fact_export", "src/iceberg/gold_fact_export.py"),
-            ("gold_fact_production", "src/iceberg/gold_fact_production.py"),
+            ("gold_fact_production", "src/iceberg/gold_fact_production_v2_staging.py"),
             ("gold_fact_psd", "src/iceberg/gold_fact_psd.py"),
             ("gold_fact_robusta_stock_port", "src/iceberg/gold_fact_robusta_stock_port.py"),
             ("gold_fact_robusta_stock_totals", "src/iceberg/gold_fact_robusta_stock_totals.py"),

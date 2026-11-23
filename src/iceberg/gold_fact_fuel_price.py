@@ -1,4 +1,4 @@
-﻿import sys
+import sys
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 
@@ -38,9 +38,10 @@ def verify_unique(df, keys, name):
         flush=True
     )
 
-    assert total == unique, (
-        f"Duplicate business keys in {name}"
-    )
+    if total != unique:
+        raise RuntimeError(
+            f"Duplicate business keys in {name}: rows={total}, unique={unique}"
+        )
 
 
 def stable_hash(column_name):
@@ -52,7 +53,7 @@ def stable_hash(column_name):
 
 
 try:
-    # 1. Load Silver Fuel.
+    # 1. Load Silver Fuel and Gold Dimensions.
     fuel = spark.table(
         "lakehouse.silver.fuel_price_observations"
     )
@@ -70,12 +71,15 @@ try:
     ).select("fuel_series_key", "fuel_series_id")
 
     input_total = fuel.count()
-
     print("FUEL_SILVER_TOTAL:", input_total, flush=True)
 
-    assert input_total == 1704
+    if input_total == 0:
+        raise RuntimeError(
+            "Silver fuel_price_observations is empty; refusing to build Fact"
+        )
 
-    # 2. Check the natural grain.
+    # 2. Check the natural Silver grain. Do not hardcode its row count:
+    # new Bronze ingestion can legitimately add canonical observations.
     grain = [
         "source_family",
         "series_code",
@@ -97,22 +101,20 @@ try:
         series, ["fuel_series_id"], "gold.dim_fuel_series"
     )
 
-    # Every component is required to construct a
-    # lossless composite business key.
     for column in grain:
-        nulls = fuel.filter(
-            F.col(column).isNull()
-        ).count()
+        nulls = fuel.filter(F.col(column).isNull()).count()
 
         print(
             "FUEL_NULL_GRAIN:", column, nulls,
             flush=True
         )
 
-        assert nulls == 0
+        if nulls:
+            raise RuntimeError(
+                f"Silver fuel has {nulls} NULL values in grain column {column}"
+            )
 
-    # 3. Build exactly the same fuel series ID
-    # used by dim_fuel_series.
+    # 3. Build the same fuel_series_id used by dim_fuel_series.
     fuel = (
         fuel
         .withColumn(
@@ -132,79 +134,57 @@ try:
                 "source_family",
                 "series_code",
                 "region",
-                F.date_format(
-                    "quote_date", "yyyy-MM-dd"
-                ),
+                F.date_format("quote_date", "yyyy-MM-dd"),
                 "unit"
             )
         )
     )
 
-    # 4. Resolve dimension keys.
+    # 4. Resolve dimension keys with left joins, then verify coverage.
     joined = (
         fuel.alias("f")
         .join(
             dates.alias("d"),
-            F.col("f.quote_date")
-            == F.col("d.full_date"),
+            F.col("f.quote_date") == F.col("d.full_date"),
             "left"
         )
         .join(
             sources.alias("s"),
-            F.col("f.source_family")
-            == F.col("s.source_code"),
+            F.col("f.source_family") == F.col("s.source_code"),
             "left"
         )
         .join(
             series.alias("p"),
-            F.col("f.fuel_series_id")
-            == F.col("p.fuel_series_id"),
+            F.col("f.fuel_series_id") == F.col("p.fuel_series_id"),
             "left"
         )
     )
 
     joined_total = joined.count()
+    print("FUEL_JOINED_ROWS:", joined_total, flush=True)
 
-    print(
-        "FUEL_JOINED_ROWS:", joined_total,
-        flush=True
-    )
-
-    assert joined_total == input_total
-
-    for key in [
-        "date_key",
-        "source_key",
-        "fuel_series_key"
-    ]:
-        unmatched = joined.filter(
-            F.col(key).isNull()
-        ).count()
-
-        print(
-            "UNMATCHED_FK:", key, unmatched,
-            flush=True
+    if joined_total != input_total:
+        raise RuntimeError(
+            f"Dimension joins changed row count: Silver={input_total}, joined={joined_total}"
         )
 
-        assert unmatched == 0
+    for key in ["date_key", "source_key", "fuel_series_key"]:
+        unmatched = joined.filter(F.col(key).isNull()).count()
+
+        print("UNMATCHED_FK:", key, unmatched, flush=True)
+
+        if unmatched:
+            raise RuntimeError(
+                f"Gold dimension lookup failed for {key}: {unmatched} unmatched rows"
+            )
 
     # 5. Build Fact.
     fact = joined.select(
-        stable_hash("f.fuel_fact_id").alias(
-            "fuel_fact_key"
-        ),
+        stable_hash("f.fuel_fact_id").alias("fuel_fact_key"),
 
-        F.col("d.date_key").cast("int").alias(
-            "date_key"
-        ),
-
-        F.col("s.source_key").cast("bigint").alias(
-            "source_key"
-        ),
-
-        F.col("p.fuel_series_key").cast(
-            "bigint"
-        ).alias("fuel_series_key"),
+        F.col("d.date_key").cast("int").alias("date_key"),
+        F.col("s.source_key").cast("bigint").alias("source_key"),
+        F.col("p.fuel_series_key").cast("bigint").alias("fuel_series_key"),
 
         F.col("f.price_vnd_per_unit").cast(
             "decimal(18,2)"
@@ -214,13 +194,8 @@ try:
             "decimal(12,3)"
         ).alias("price_change_percent"),
 
-        F.col("f.price_jump_review").alias(
-            "price_jump_review"
-        ),
-
-        F.col("f.quality_status").alias(
-            "quality_status"
-        ),
+        F.col("f.price_jump_review").alias("price_jump_review"),
+        F.col("f.quality_status").alias("quality_status"),
 
         F.col("f.raw_observation_count").cast(
             "bigint"
@@ -230,37 +205,23 @@ try:
             "bigint"
         ).alias("distinct_price_count"),
 
-        F.col("f.min_price").cast(
-            "decimal(18,2)"
-        ).alias("min_price"),
+        F.col("f.min_price").cast("decimal(18,2)").alias("min_price"),
+        F.col("f.max_price").cast("decimal(18,2)").alias("max_price"),
 
-        F.col("f.max_price").cast(
-            "decimal(18,2)"
-        ).alias("max_price"),
-
-        F.col("f.selected_quoted_at").alias(
-            "selected_quoted_at"
-        ),
-
+        F.col("f.selected_quoted_at").alias("selected_quoted_at"),
         F.col("f.selected_bronze_record_id").alias(
             "selected_bronze_record_id"
         ),
-
         F.col("f.selected_bronze_object_key").alias(
             "selected_bronze_object_key"
         ),
 
-        F.current_timestamp().alias(
-            "gold_processed_at"
-        )
+        F.current_timestamp().alias("gold_processed_at")
     ).cache()
 
-    # 6. Validate the Fact.
+    # 6. Validate Fact row preservation, primary key and lineage.
     total = fact.count()
-
-    unique_keys = fact.select(
-        "fuel_fact_key"
-    ).distinct().count()
+    unique_keys = fact.select("fuel_fact_key").distinct().count()
 
     null_keys = fact.filter(
         F.col("fuel_fact_key").isNull()
@@ -275,54 +236,51 @@ try:
     ).count()
 
     print("FACT_FUEL_PRICE_ROWS:", total, flush=True)
-    print(
-        "FACT_FUEL_PRICE_UNIQUE_KEYS:",
-        unique_keys,
-        flush=True
-    )
+    print("FACT_FUEL_PRICE_UNIQUE_KEYS:", unique_keys, flush=True)
     print("FACT_FUEL_NULL_KEYS:", null_keys, flush=True)
-    print(
-        "FACT_FUEL_NULL_LINEAGE:", null_lineage,
-        flush=True
-    )
+    print("FACT_FUEL_NULL_LINEAGE:", null_lineage, flush=True)
 
-    assert total == input_total == unique_keys
-    assert null_keys == 0
-    assert null_lineage == 0
+    if total != input_total:
+        raise RuntimeError(
+            f"Fact row count differs from Silver: Silver={input_total}, Fact={total}"
+        )
+    if unique_keys != total:
+        raise RuntimeError(
+            f"Fact primary key is not unique: rows={total}, unique={unique_keys}"
+        )
+    if null_keys:
+        raise RuntimeError(f"Fact contains {null_keys} NULL keys")
+    if null_lineage:
+        raise RuntimeError(
+            f"Fact contains {null_lineage} rows without complete Bronze lineage"
+        )
 
-    # 7. Preserve Silver quality classifications.
+    # 7. Preserve Silver quality labels without freezing their counts.
     print("FACT_FUEL_QUALITY_STATUS:", flush=True)
+    fact.groupBy("quality_status").count().show(truncate=False)
 
-    fact.groupBy("quality_status").count().show(
-        truncate=False
-    )
+    allowed_quality = [
+        "PASS",
+        "PRICE_CONFLICT_REVIEW",
+        "PRICE_JUMP_REVIEW"
+    ]
 
-    expected_quality = {
-        "PASS": 1638,
-        "PRICE_CONFLICT_REVIEW": 24,
-        "PRICE_JUMP_REVIEW": 42
-    }
+    invalid_quality = fact.filter(
+        F.col("quality_status").isNull()
+        | ~F.col("quality_status").isin(*allowed_quality)
+    ).count()
 
-    observed_quality = {
-        row["quality_status"]: row["count"]
-        for row in fact.groupBy(
-            "quality_status"
-        ).count().collect()
-    }
-
-    assert observed_quality == expected_quality, (
-        "Fuel quality distribution differs from Silver"
-    )
+    if invalid_quality:
+        raise RuntimeError(
+            f"Fact contains {invalid_quality} rows with NULL or unknown quality_status"
+        )
 
     print("FACT_FUEL_BY_SOURCE:", flush=True)
-
-    fuel.groupBy("source_family").count().show(
-        truncate=False
-    )
+    fuel.groupBy("source_family").count().show(truncate=False)
 
     print("FACT_FUEL_PRICE_VALIDATED", flush=True)
 
-    # 8. Write only with --write.
+    # 8. Write only when explicitly called with --write.
     if WRITE:
         spark.sql(
             "CREATE NAMESPACE IF NOT EXISTS lakehouse.gold"
@@ -351,13 +309,9 @@ try:
         """)
 
         if spark.table(TARGET).columns != fact.columns:
-            raise RuntimeError(
-                "Fact Fuel schema mismatch"
-            )
+            raise RuntimeError("Fact Fuel schema mismatch")
 
-        fact.createOrReplaceTempView(
-            "stage_fact_fuel_price"
-        )
+        fact.createOrReplaceTempView("stage_fact_fuel_price")
 
         spark.sql(f"""
             MERGE INTO {TARGET} t
@@ -368,34 +322,48 @@ try:
         """)
 
         saved = spark.table(TARGET)
-
         actual = saved.count()
-        actual_unique = saved.select(
-            "fuel_fact_key"
-        ).distinct().count()
+        actual_unique = saved.select("fuel_fact_key").distinct().count()
 
-        print(
-            "FACT_FUEL_PRICE_ICEBERG_TOTAL:",
-            actual,
-            flush=True
-        )
+        source_keys = fact.select("fuel_fact_key").distinct()
+        saved_keys = saved.select("fuel_fact_key").distinct()
 
-        assert actual == total == actual_unique
+        missing_source_keys = source_keys.join(
+            saved_keys,
+            on="fuel_fact_key",
+            how="left_anti"
+        ).count()
 
-        print(
-            "FACT_FUEL_PRICE_ICEBERG_PASSED",
-            flush=True
-        )
+        existing_extra_keys = saved_keys.join(
+            source_keys,
+            on="fuel_fact_key",
+            how="left_anti"
+        ).count()
+
+        print("FACT_FUEL_PRICE_ICEBERG_TOTAL:", actual, flush=True)
+        print("FACT_FUEL_PRICE_SOURCE_TOTAL:", total, flush=True)
+        print("FACT_FUEL_PRICE_ICEBERG_UNIQUE_KEYS:", actual_unique, flush=True)
+        print("FACT_FUEL_PRICE_MISSING_SOURCE_KEYS:", missing_source_keys, flush=True)
+        print("FACT_FUEL_PRICE_EXISTING_EXTRA_KEYS:", existing_extra_keys, flush=True)
+
+        if missing_source_keys:
+            raise RuntimeError(
+                f"Gold Fact is missing {missing_source_keys} current Silver keys after MERGE"
+            )
+        if actual != actual_unique:
+            raise RuntimeError(
+                f"Gold Fact contains duplicate primary keys: rows={actual}, unique={actual_unique}"
+            )
+        if actual < total:
+            raise RuntimeError(
+                f"Gold Fact has fewer rows ({actual}) than current Silver source ({total})"
+            )
+
+        print("FACT_FUEL_PRICE_ICEBERG_PASSED", flush=True)
 
     else:
-        print(
-            "FACT_FUEL_PRICE_DRY_RUN_PASSED",
-            flush=True
-        )
-        print(
-            "NO_GOLD_FACT_WRITTEN",
-            flush=True
-        )
+        print("FACT_FUEL_PRICE_DRY_RUN_PASSED", flush=True)
+        print("NO_GOLD_FACT_WRITTEN", flush=True)
 
 finally:
     spark.stop()

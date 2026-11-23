@@ -1,4 +1,4 @@
-"""Silver Weather daily from Iceberg Bronze (read-only dry run by default).
+'''Silver Weather daily from Iceberg Bronze (read-only dry run by default).
 
 PowerShell:
   .\run_spark.ps1 -Script 'src/iceberg/silver_weather_daily.py'
@@ -6,7 +6,10 @@ PowerShell:
 
 Never mutates MinIO raw or Bronze. source_series_id includes the source name,
 actual coordinates, elevation and timezone, NOT the changing JSON request metadata.
-"""
+
+Bronze is append-only and may grow when ingestion refreshes or backfills weather
+ranges. Do not use a historical fixed Bronze row count as a validity condition.
+'''
 import sys
 from pyspark.sql import SparkSession, Window, functions as F
 
@@ -133,9 +136,16 @@ def run():
         src = build_observations(spark).cache()
         total = src.count()
         print('WEATHER_SOURCE_TOTAL:', total, flush=True)
-        if total != 156108:
-            raise RuntimeError(f'Unexpected Bronze Weather row count {total}; review before write')
-        src.groupBy('source', 'record_type', 'is_valid_weather').count().orderBy('source', 'record_type').show(30, False)
+        if total == 0:
+            raise RuntimeError('No rows found in the Bronze Weather source table')
+
+        # Report actual ingested volume by source/type. Do not compare it with a
+        # stale fixed baseline: refreshes and historical backfills append Bronze rows.
+        print('WEATHER_SOURCE_BREAKDOWN:', flush=True)
+        src.groupBy('source', 'record_type', 'is_valid_weather').count().orderBy(
+            'source', 'record_type', 'is_valid_weather'
+        ).show(100, truncate=False)
+
         valid = src.filter('is_valid_weather').cache()
         accepted = valid.count()
         print('WEATHER_VALID_OBSERVATIONS:', accepted, flush=True)
@@ -144,7 +154,11 @@ def run():
             raise RuntimeError('No valid Weather observations')
         if accepted != total:
             print('WEATHER_INVALID_EXAMPLES:', flush=True)
-            src.filter('NOT is_valid_weather').select('source', 'object_key', 'record_id', 'observation_date', 'province').show(15, False)
+            src.filter('NOT is_valid_weather').select(
+                'source', 'record_type', 'object_key', 'record_id',
+                'observation_date', 'province'
+            ).show(20, truncate=False)
+
         canonical = canonicalize(valid).cache()
         rows = canonical.count()
         distinct_keys = canonical.select(*KEY).distinct().count()
@@ -152,21 +166,38 @@ def run():
         print('WEATHER_CANONICAL_ROWS:', rows, flush=True)
         print('WEATHER_STATION_SERIES:', stations, flush=True)
         print('WEATHER_UNIQUE_KEYS:', distinct_keys, flush=True)
-        canonical.groupBy('source', 'province', 'quality_status').count().orderBy('source', 'province', 'quality_status').show(50, False)
+        canonical.groupBy('source', 'province', 'quality_status').count().orderBy(
+            'source', 'province', 'quality_status'
+        ).show(50, truncate=False)
         print('WEATHER_CONFLICT_EXAMPLES:', flush=True)
-        canonical.filter('distinct_measurement_count > 1').select('source_series_id', 'observation_date', 'raw_observation_count', 'distinct_measurement_count').show(20, False)
+        canonical.filter('distinct_measurement_count > 1').select(
+            'source_series_id', 'observation_date',
+            'raw_observation_count', 'distinct_measurement_count'
+        ).show(20, truncate=False)
         print('WEATHER_STATION_EXAMPLES:', flush=True)
-        canonical.groupBy('source_series_id', 'source', 'province').agg(F.count('*').alias('days'), F.min('observation_date').alias('first_day'), F.max('observation_date').alias('last_day')).orderBy('source_series_id').show(40, False)
+        canonical.groupBy('source_series_id', 'source', 'province').agg(
+            F.count('*').alias('days'),
+            F.min('observation_date').alias('first_day'),
+            F.max('observation_date').alias('last_day')
+        ).orderBy('source_series_id').show(40, truncate=False)
         if rows <= 0 or rows > accepted or rows != distinct_keys:
             raise RuntimeError('Invalid canonical Weather counts / keys')
-        if canonical.filter('selected_bronze_record_id IS NULL OR selected_bronze_object_key IS NULL').limit(1).count():
+        if canonical.filter(
+            'selected_bronze_record_id IS NULL OR selected_bronze_object_key IS NULL'
+        ).limit(1).count():
             raise RuntimeError('Missing Bronze lineage')
         if not write:
             print('SILVER_WEATHER_DRY_RUN_PASSED', flush=True)
             print('NO_SILVER_TABLE_WRITTEN', flush=True)
             return
+        # Keep the data-quality gate: an unexpected invalid/unsupported record
+        # must be reviewed before Silver is written, even though source row growth
+        # itself is no longer treated as an error.
         if accepted != total:
-            raise RuntimeError('Weather contains invalid observations; review dry-run before using --write')
+            raise RuntimeError(
+                f'Weather has {total - accepted} invalid/unsupported Bronze rows; '
+                'review WEATHER_SOURCE_BREAKDOWN and invalid examples before writing'
+            )
         spark.sql('CREATE NAMESPACE IF NOT EXISTS lakehouse.silver')
         spark.sql(f'''CREATE TABLE IF NOT EXISTS {TARGET} (
             source_series_id STRING, source STRING, province STRING, observation_date DATE,

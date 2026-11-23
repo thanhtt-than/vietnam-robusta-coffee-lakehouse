@@ -1,4 +1,4 @@
-﻿import sys
+import sys
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 
@@ -69,26 +69,37 @@ try:
 
     # 2. Prevent many-to-many joins.
     check_unique(dates, ["full_date"], "dim_date")
-    check_unique(
-        geography, ["geography_code"], "dim_geography"
-    )
+    check_unique(geography, ["geography_code"], "dim_geography")
     check_unique(sources, ["source_code"], "dim_source")
     check_unique(series, ["series_code"], "dim_price_series")
 
     input_count = coffee.count()
-
     print("COFFEE_SILVER_TOTAL:", input_count, flush=True)
 
-    assert input_count == 9409
+    if input_count == 0:
+        raise RuntimeError("Silver coffee_prices_daily is empty; refusing to build Fact")
+
+    # Silver grain: one row per source_family + province + quote_date.
+    source_grain = ["source_family", "province", "quote_date"]
+    check_unique(coffee, source_grain, "silver.coffee_prices_daily")
+
+    null_source_keys = coffee.filter(
+        F.col("source_family").isNull()
+        | F.col("province").isNull()
+        | F.col("quote_date").isNull()
+    ).count()
+
+    if null_source_keys:
+        raise RuntimeError(
+            f"Silver coffee has {null_source_keys} rows with null business keys"
+        )
 
     # Stable natural identity for source/province/date.
     coffee = (
         coffee
         .withColumn(
             "series_code",
-            F.concat_ws(
-                "|", "source_family", "province"
-            )
+            F.concat_ws("|", "source_family", "province")
         )
         .withColumn(
             "price_fact_id",
@@ -96,9 +107,7 @@ try:
                 "|",
                 "source_family",
                 "province",
-                F.date_format(
-                    "quote_date", "yyyy-MM-dd"
-                )
+                F.date_format("quote_date", "yyyy-MM-dd")
             )
         )
     )
@@ -108,26 +117,22 @@ try:
         coffee.alias("c")
         .join(
             dates.alias("d"),
-            F.col("c.quote_date")
-            == F.col("d.full_date"),
+            F.col("c.quote_date") == F.col("d.full_date"),
             "left"
         )
         .join(
             geography.alias("g"),
-            F.col("c.province")
-            == F.col("g.geography_code"),
+            F.col("c.province") == F.col("g.geography_code"),
             "left"
         )
         .join(
             sources.alias("s"),
-            F.col("c.source_family")
-            == F.col("s.source_code"),
+            F.col("c.source_family") == F.col("s.source_code"),
             "left"
         )
         .join(
             series.alias("p"),
-            F.col("c.series_code")
-            == F.col("p.series_code"),
+            F.col("c.series_code") == F.col("p.series_code"),
             "left"
         )
     )
@@ -141,19 +146,11 @@ try:
     ]
 
     for key in fk_columns:
-        missing = joined.filter(
-            F.col(key).isNull()
-        ).count()
-
-        print(
-            "UNMATCHED_FK:", key, missing,
-            flush=True
-        )
+        missing = joined.filter(F.col(key).isNull()).count()
+        print("UNMATCHED_FK:", key, missing, flush=True)
 
         if missing != 0:
-            raise RuntimeError(
-                f"Unmatched Gold dimension: {key}"
-            )
+            raise RuntimeError(f"Unmatched Gold dimension: {key}")
 
     # 5. Build Fact with deterministic primary key.
     fact = joined.select(
@@ -180,50 +177,53 @@ try:
         F.current_timestamp().alias("gold_processed_at")
     ).cache()
 
-    # 6. Validate the Fact grain.
+    # 6. Validate the Fact grain and row preservation.
     total = fact.count()
-    unique = fact.select(
-        "price_fact_key"
-    ).distinct().count()
+    unique = fact.select("price_fact_key").distinct().count()
 
     print("FACT_DOMESTIC_PRICE_ROWS:", total, flush=True)
     print("FACT_DOMESTIC_PRICE_UNIQUE_KEYS:", unique, flush=True)
 
-    assert total == input_count
-    assert unique == total
+    if total != input_count:
+        raise RuntimeError(
+            f"Join changed row count: Silver={input_count}, Fact={total}"
+        )
+    if unique != total:
+        raise RuntimeError(
+            f"Fact primary-key collision or duplicate: rows={total}, unique={unique}"
+        )
 
-    null_pk = fact.filter(
-        F.col("price_fact_key").isNull()
-    ).count()
-
+    null_pk = fact.filter(F.col("price_fact_key").isNull()).count()
     null_lineage = fact.filter(
         F.col("selected_bronze_record_id").isNull()
     ).count()
 
-    assert null_pk == 0
-    assert null_lineage == 0
+    if null_pk:
+        raise RuntimeError(f"Fact contains {null_pk} null primary keys")
+    if null_lineage:
+        raise RuntimeError(f"Fact contains {null_lineage} rows without Bronze lineage")
 
+    # Do not freeze the number of conflicts: new ingestion can legitimately
+    # introduce new conflict-review rows. Validate the allowed status domain.
     print("FACT_QUALITY_STATUS:", flush=True)
+    fact.groupBy("quality_status").count().show(truncate=False)
 
-    fact.groupBy(
-        "quality_status"
-    ).count().show(truncate=False)
+    invalid_quality = fact.filter(
+        F.col("quality_status").isNull()
+        | ~F.col("quality_status").isin("PASS", "PRICE_CONFLICT_REVIEW")
+    ).count()
 
-    assert fact.filter(
-        F.col("quality_status")
-        == "PRICE_CONFLICT_REVIEW"
-    ).count() == 18
+    if invalid_quality:
+        raise RuntimeError(
+            f"Fact contains {invalid_quality} rows with unknown quality_status"
+        )
 
     print("FACT_SAMPLE:", flush=True)
-
     fact.orderBy(
         "date_key", "geography_key", "source_key"
     ).show(8, truncate=False)
 
-    print(
-        "FACT_DOMESTIC_PRICE_VALIDATED",
-        flush=True
-    )
+    print("FACT_DOMESTIC_PRICE_VALIDATED", flush=True)
 
     if WRITE:
         spark.sql(
@@ -251,13 +251,9 @@ try:
         """)
 
         if spark.table(TARGET).columns != fact.columns:
-            raise RuntimeError(
-                "Gold Fact schema mismatch"
-            )
+            raise RuntimeError("Gold Fact schema mismatch")
 
-        fact.createOrReplaceTempView(
-            "stage_fact_domestic_price"
-        )
+        fact.createOrReplaceTempView("stage_fact_domestic_price")
 
         spark.sql(f"""
             MERGE INTO {TARGET} t
@@ -267,33 +263,48 @@ try:
             WHEN NOT MATCHED THEN INSERT *
         """)
 
-        actual = spark.table(TARGET).count()
+        stored = spark.table(TARGET)
+        actual = stored.count()
+        actual_unique = stored.select("price_fact_key").distinct().count()
 
-        actual_unique = (
-            spark.table(TARGET)
-            .select("price_fact_key")
-            .distinct()
-            .count()
-        )
+        source_keys = fact.select("price_fact_key").distinct()
+        stored_keys = stored.select("price_fact_key").distinct()
 
-        print(
-            "FACT_DOMESTIC_PRICE_ICEBERG_TOTAL:",
-            actual,
-            flush=True
-        )
+        missing_source_keys = source_keys.join(
+            stored_keys,
+            on="price_fact_key",
+            how="left_anti"
+        ).count()
 
-        assert actual == total == actual_unique
+        retained_existing_keys = stored_keys.join(
+            source_keys,
+            on="price_fact_key",
+            how="left_anti"
+        ).count()
 
-        print(
-            "FACT_DOMESTIC_PRICE_ICEBERG_PASSED",
-            flush=True
-        )
+        print("FACT_DOMESTIC_PRICE_ICEBERG_TOTAL:", actual, flush=True)
+        print("FACT_DOMESTIC_PRICE_SOURCE_TOTAL:", total, flush=True)
+        print("FACT_DOMESTIC_PRICE_ICEBERG_UNIQUE_KEYS:", actual_unique, flush=True)
+        print("FACT_DOMESTIC_PRICE_MISSING_SOURCE_KEYS:", missing_source_keys, flush=True)
+        print("FACT_DOMESTIC_PRICE_RETAINED_EXISTING_KEYS:", retained_existing_keys, flush=True)
+
+        if missing_source_keys:
+            raise RuntimeError(
+                f"Gold Fact is missing {missing_source_keys} current source keys after MERGE"
+            )
+        if actual != actual_unique:
+            raise RuntimeError(
+                f"Gold Fact contains duplicate primary keys: rows={actual}, unique={actual_unique}"
+            )
+        if actual < total:
+            raise RuntimeError(
+                f"Gold Fact has fewer rows ({actual}) than current source ({total})"
+            )
+
+        print("FACT_DOMESTIC_PRICE_ICEBERG_PASSED", flush=True)
 
     else:
-        print(
-            "FACT_DOMESTIC_PRICE_DRY_RUN_PASSED",
-            flush=True
-        )
+        print("FACT_DOMESTIC_PRICE_DRY_RUN_PASSED", flush=True)
         print("NO_GOLD_FACT_WRITTEN", flush=True)
 
 finally:
