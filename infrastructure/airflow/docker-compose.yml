@@ -1,0 +1,122 @@
+﻿name: tlcn-airflow
+
+x-airflow-common: &airflow-common
+  build:
+    context: .
+    dockerfile: Dockerfile
+
+  image: tlcn-airflow:2.10.5
+
+  # Local development: root is used for Docker socket access.
+  user: "0:0"
+
+  environment:
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:${AIRFLOW_DB_PASSWORD}@airflow-db:5432/airflow
+    AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY}
+    AIRFLOW__WEBSERVER__SECRET_KEY: ${AIRFLOW_SECRET_KEY}
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+    AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "false"
+
+    AIRFLOW_ADMIN_USERNAME: ${AIRFLOW_ADMIN_USERNAME}
+    AIRFLOW_ADMIN_PASSWORD: ${AIRFLOW_ADMIN_PASSWORD}
+    AIRFLOW_ADMIN_EMAIL: ${AIRFLOW_ADMIN_EMAIL}
+
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./logs:/opt/airflow/logs
+    - ./config:/opt/airflow/config
+    - ../..:/workspace:ro
+    - /var/run/docker.sock:/var/run/docker.sock
+
+  networks:
+    - lakehouse
+
+  depends_on:
+    airflow-db:
+      condition: service_healthy
+
+  restart: unless-stopped
+
+services:
+
+  airflow-db:
+    image: postgres:16
+    container_name: tlcn-airflow-db
+
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: ${AIRFLOW_DB_PASSWORD}
+      POSTGRES_DB: airflow
+
+    volumes:
+      - airflow_db_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U airflow -d airflow"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+    networks:
+      - lakehouse
+
+    restart: unless-stopped
+
+  airflow-init:
+    <<: *airflow-common
+
+    profiles:
+      - init
+
+    entrypoint: /bin/bash
+
+    command:
+      - -c
+      - |
+        set -e
+
+        airflow db migrate
+
+        airflow users create \
+          --username "$${AIRFLOW_ADMIN_USERNAME}" \
+          --password "$${AIRFLOW_ADMIN_PASSWORD}" \
+          --firstname Local \
+          --lastname Admin \
+          --role Admin \
+          --email "$${AIRFLOW_ADMIN_EMAIL}"
+
+    restart: "no"
+
+  airflow-webserver:
+    <<: *airflow-common
+
+    container_name: tlcn-airflow-webserver
+
+    command: webserver
+
+    ports:
+      - "127.0.0.1:8080:8080"
+
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  airflow-scheduler:
+    <<: *airflow-common
+
+    container_name: tlcn-airflow-scheduler
+
+    command: scheduler
+
+volumes:
+  airflow_db_data:
+
+networks:
+  lakehouse:
+    external: true
+    name: tlcn-lakehouse

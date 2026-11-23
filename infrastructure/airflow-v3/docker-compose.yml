@@ -1,0 +1,183 @@
+name: tlcn-airflow-v3
+
+x-airflow-common: &airflow-common
+  build:
+    context: .
+    dockerfile: Dockerfile
+
+  image: tlcn-airflow-v3:3.4.0
+
+  user: "0:0"
+
+  env_file:
+    - .env
+
+  environment:
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+
+    AIRFLOW__CORE__AUTH_MANAGER: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
+
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg://airflow:${AIRFLOW_DB_PASSWORD}@airflow-v3-db:5432/airflow
+
+    AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY}
+
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+
+    AIRFLOW__CORE__EXECUTION_API_SERVER_URL: http://airflow-v3-api-server:8080/execution/
+
+    AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW_API_JWT_SECRET}
+
+    AIRFLOW__API_AUTH__JWT_ISSUER: airflow
+
+    AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: "true"
+
+    AIRFLOW_CONFIG: /opt/airflow/config/airflow.cfg
+
+    AIRFLOW_ADMIN_USERNAME: ${AIRFLOW_ADMIN_USERNAME}
+
+    AIRFLOW_ADMIN_PASSWORD: ${AIRFLOW_ADMIN_PASSWORD}
+
+    AIRFLOW_ADMIN_EMAIL: ${AIRFLOW_ADMIN_EMAIL}
+
+    AIRFLOW__API__SECRET_KEY: ${AIRFLOW_API_SECRET_KEY}
+
+    AIRFLOW__API__BASE_URL: http://localhost:8081
+
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./logs:/opt/airflow/logs
+    - ./config:/opt/airflow/config
+    - ../..:/workspace:ro
+    - /var/run/docker.sock:/var/run/docker.sock
+
+  networks:
+    - lakehouse
+
+  depends_on:
+    airflow-v3-db:
+      condition: service_healthy
+
+  restart: unless-stopped
+
+services:
+  airflow-v3-db:
+    image: postgres:16
+
+    container_name: tlcn-airflow-v3-db
+
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: ${AIRFLOW_DB_PASSWORD}
+      POSTGRES_DB: airflow
+
+    volumes:
+      - airflow_v3_db_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U airflow -d airflow"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+    networks:
+      - lakehouse
+
+    restart: unless-stopped
+
+  airflow-v3-init:
+    <<: *airflow-common
+
+    profiles:
+      - init
+
+    entrypoint: /bin/bash
+
+    command:
+      - -c
+      - |
+        set -e
+
+        airflow db migrate
+
+        airflow users create \
+          --username "$${AIRFLOW_ADMIN_USERNAME}" \
+          --password "$${AIRFLOW_ADMIN_PASSWORD}" \
+          --firstname Local \
+          --lastname Admin \
+          --role Admin \
+          --email "$${AIRFLOW_ADMIN_EMAIL}"
+
+    restart: "no"
+
+  airflow-v3-api-server:
+    <<: *airflow-common
+
+    container_name: tlcn-airflow-v3-api-server
+
+    command: api-server
+
+    ports:
+      - "127.0.0.1:8081:8080"
+
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - --fail
+        - http://localhost:8080/api/v2/monitor/health
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  airflow-v3-scheduler:
+    <<: *airflow-common
+
+    container_name: tlcn-airflow-v3-scheduler
+
+    command: scheduler
+
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'airflow jobs check --job-type SchedulerJob --hostname "$${HOSTNAME}"'
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  airflow-v3-dag-processor:
+    <<: *airflow-common
+
+    container_name: tlcn-airflow-v3-dag-processor
+
+    command: dag-processor
+
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'airflow jobs check --job-type DagProcessorJob --hostname "$${HOSTNAME}"'
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  airflow-v3-triggerer:
+    <<: *airflow-common
+
+    profiles:
+      - optional
+
+    container_name: tlcn-airflow-v3-triggerer
+
+    command: triggerer
+
+volumes:
+  airflow_v3_db_data:
+
+networks:
+  lakehouse:
+    external: true
+    name: tlcn-lakehouse

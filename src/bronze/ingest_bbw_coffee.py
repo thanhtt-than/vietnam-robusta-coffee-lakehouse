@@ -95,8 +95,12 @@ def existing_pages(client, bucket: str) -> set[tuple[str, str, int]]:
 
 def request_page(session: requests.Session, start: date, end: date, page: int, limit: int):
     params = {
-        "product": "COFFEE", "from": start.isoformat(), "to": end.isoformat(),
-        "limit": limit, "page": page, "sort": "newest", "snapshot_mode": "date_range",
+    "product": "COFFEE",
+    "from": start.isoformat(),
+    "to": end.isoformat(),
+    "limit": limit,
+    "page": page,
+    "sort": "newest",
     }
     resp = session.get(API_URL, params=params, timeout=(15, 90))
     if resp.status_code >= 400:

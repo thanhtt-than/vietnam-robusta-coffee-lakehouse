@@ -1,0 +1,19 @@
+{
+  "run_id": "889dd83cef72453dbbe1a8ac23aff50b",
+  "domain": "coffee_prices",
+  "source": "bbw_coffee",
+  "started_at_utc": "2026-11-23T03:38:42.831908+00:00",
+  "finished_at_utc": "2026-11-23T03:38:54.388639+00:00",
+  "status": "FAILED",
+  "batch_id": null,
+  "raw_object_key": null,
+  "metadata_object_key": null,
+  "size_bytes": null,
+  "error_type": "RuntimeError",
+  "error_message": "See protected process stderr for details",
+  "metrics": {
+    "api_calls": 0,
+    "uploaded_pages": 0,
+    "skipped_pages": 0
+  }
+}
