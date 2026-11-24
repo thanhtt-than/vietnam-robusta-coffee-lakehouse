@@ -1,0 +1,19 @@
+{
+  "run_id": "6d4c55ad71914fb8abca43036a222496",
+  "domain": "coffee_futures",
+  "source": "giacaphe_london_robusta",
+  "started_at_utc": "2026-11-24T08:00:14.993976+00:00",
+  "finished_at_utc": "2026-11-24T08:00:15.411119+00:00",
+  "status": "DRY_RUN",
+  "batch_id": null,
+  "raw_object_key": null,
+  "metadata_object_key": null,
+  "size_bytes": null,
+  "error_type": null,
+  "error_message": null,
+  "metrics": {
+    "api_requests": 1,
+    "quote_records": 5,
+    "raw_objects_uploaded": 0
+  }
+}

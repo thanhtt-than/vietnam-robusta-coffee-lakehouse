@@ -1,0 +1,15 @@
+{
+  "run_id": "a5b0b6f59bb340df98b0129aa23c4cff",
+  "domain": "exchange_rate",
+  "source": "googlefinance_sheet",
+  "started_at_utc": "2026-11-24T12:47:26.234274+00:00",
+  "finished_at_utc": "2026-11-24T12:47:30.810661+00:00",
+  "status": "SUCCESS",
+  "batch_id": "googlefinance-manual-test",
+  "raw_object_key": "bronze/exchange_rate/source=googlefinance_sheet/ingestion_date=2026-11-24/batch_id=googlefinance-manual-test/raw/googlefinance_exchange_rate.json",
+  "metadata_object_key": "bronze/exchange_rate/source=googlefinance_sheet/ingestion_date=2026-11-24/batch_id=googlefinance-manual-test/metadata.json",
+  "size_bytes": 103,
+  "error_type": null,
+  "error_message": null,
+  "metrics": {}
+}

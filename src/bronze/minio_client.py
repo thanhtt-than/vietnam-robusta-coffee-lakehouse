@@ -9,6 +9,8 @@ load_dotenv()
 
 def get_minio_client():
     endpoint = os.getenv("MINIO_ENDPOINT")
+    if os.name == "nt":
+        endpoint = "localhost:9000"
     access_key = os.getenv("MINIO_ACCESS_KEY")
     secret_key = os.getenv("MINIO_SECRET_KEY")
     secure = os.getenv("MINIO_SECURE", "false").lower() == "true"

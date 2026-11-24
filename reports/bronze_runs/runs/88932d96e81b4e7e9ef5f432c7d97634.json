@@ -1,0 +1,19 @@
+{
+  "run_id": "88932d96e81b4e7e9ef5f432c7d97634",
+  "domain": "london_futures",
+  "source": "giacaphe_london_robusta",
+  "started_at_utc": "2026-11-24T11:04:25.387606+00:00",
+  "finished_at_utc": "2026-11-24T11:04:25.555586+00:00",
+  "status": "DRY_RUN",
+  "batch_id": null,
+  "raw_object_key": null,
+  "metadata_object_key": null,
+  "size_bytes": null,
+  "error_type": null,
+  "error_message": null,
+  "metrics": {
+    "api_requests": 1,
+    "quote_records": 5,
+    "raw_objects_uploaded": 0
+  }
+}

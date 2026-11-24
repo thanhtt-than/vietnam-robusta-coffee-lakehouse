@@ -1,4 +1,4 @@
-﻿"""Ingest 5 exchange-rate sources from MinIO into Bronze Iceberg."""
+"""Ingest the five historical FX sources plus incremental GoogleFinance JSON."""
 
 import hashlib
 import io
@@ -12,20 +12,21 @@ from pyspark.sql.types import (
 )
 
 from minio_direct import (
-    MinioDirect, csv_records, json_record,
+    MinioDirect, csv_records, googlefinance_sheet_records, json_record,
     record_id_for, spark_session, merge_into_bronze
 )
 
 TABLE = "lakehouse.bronze.exchange_rate_raw"
 PREFIX = "bronze/exchange_rate/"
 
-EXPECTED_SOURCES = {
+REQUIRED_HISTORICAL_SOURCES = {
     "usd_vnd_csv",
     "eur_vnd_csv",
     "usd_vnd_excel",
     "eur_vnd_excel",
     "imf_exchange_rate",
 }
+SUPPORTED_SOURCES = REQUIRED_HISTORICAL_SOURCES | {"googlefinance_sheet"}
 
 SCHEMA = StructType([
     StructField("record_id", StringType(), False),
@@ -89,9 +90,12 @@ def excel_records(raw):
 def main():
     minio = MinioDirect()
 
+    # Only raw data objects are parsed; metadata.json is retained in MinIO
+    # for lineage but is not an exchange-rate observation file.
     keys = sorted(
         key for key in minio.list_keys(PREFIX)
-        if key.lower().endswith((".csv", ".xlsx"))
+        if "/raw/" in key.lower()
+        and key.lower().endswith((".csv", ".xlsx", ".json"))
     )
 
     sources = {
@@ -101,9 +105,13 @@ def main():
         if part.startswith("source=")
     }
 
-    if len(keys) != 5 or sources != EXPECTED_SOURCES:
+    missing = REQUIRED_HISTORICAL_SOURCES - sources
+    unsupported = sources - SUPPORTED_SOURCES
+    if not keys or missing or unsupported:
         raise RuntimeError(
-            f"Expected 5 sources; found {len(keys)} files: {sorted(sources)}"
+            "Invalid FX source inventory: "
+            f"missing={sorted(missing)}, unsupported={sorted(unsupported)}, "
+            f"objects={len(keys)}"
         )
 
     rows = []
@@ -122,6 +130,11 @@ def main():
         if key.lower().endswith(".xlsx"):
             record_type = "excel"
             iterator = excel_records(raw)
+        elif key.lower().endswith(".json"):
+            if source != "googlefinance_sheet":
+                raise ValueError(f"JSON is only supported for googlefinance_sheet: {key}")
+            record_type = "json"
+            iterator = enumerate(googlefinance_sheet_records(key, raw), start=1)
         else:
             record_type = "csv"
             iterator = enumerate(csv_records(key, raw), start=1)
@@ -146,10 +159,15 @@ def main():
             counts[source] += 1
 
         if len(rows) == before:
+            if source == "googlefinance_sheet":
+                print(f"GOOGLEFINANCE_EMPTY_OBJECT_SKIPPED: {key}", flush=True)
+                continue
             raise RuntimeError(f"Empty source file: {key}")
 
     print("SOURCE_OBJECTS:", len(keys), flush=True)
     print("RECORDS_BY_SOURCE:", dict(counts), flush=True)
+    if counts["googlefinance_sheet"]:
+        print("GOOGLEFINANCE_BRONZE_ROWS:", counts["googlefinance_sheet"], flush=True)
 
     spark = spark_session("TLCN-Bronze-Exchange-Rate")
 
