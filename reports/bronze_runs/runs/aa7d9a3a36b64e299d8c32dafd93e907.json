@@ -1,0 +1,21 @@
+{
+  "run_id": "aa7d9a3a36b64e299d8c32dafd93e907",
+  "domain": "exchange_rate",
+  "source": "googlefinance_sheet",
+  "started_at_utc": "2026-11-24T20:01:39.356703+00:00",
+  "finished_at_utc": "2026-11-24T20:01:46.120357+00:00",
+  "status": "DRY_RUN",
+  "batch_id": null,
+  "raw_object_key": null,
+  "metadata_object_key": null,
+  "size_bytes": null,
+  "error_type": null,
+  "error_message": null,
+  "metrics": {
+    "api_requests": 1,
+    "response_bytes": 243915,
+    "raw_objects_uploaded": 0,
+    "usd_vnd_records": 3219,
+    "eur_vnd_records": 3537
+  }
+}

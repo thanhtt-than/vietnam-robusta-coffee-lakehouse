@@ -1,6 +1,8 @@
-"""TLCN Lakehouse bootstrap DAG for Airflow 3.4.0.
-Runs existing jobs through Docker CLI -> tlcn-spark -> spark-submit.
-schedule=None until the first end-to-end bootstrap succeeds.
+"""TLCN end-to-end Lakehouse pipeline for Airflow 3.4.0.
+Runs ingestion -> Bronze -> Silver -> Gold -> Data Marts in one DAG.
+Weekday schedule: 06:00 Asia/Ho_Chi_Minh; no historical catchup.
+Existing Data Marts are intentionally guarded because their builders are
+create-only; scheduled runs refresh Silver/Gold but skip existing marts.
 The ML feature mart is deliberately excluded.
 """
 from datetime import datetime, timedelta
@@ -71,9 +73,12 @@ fi
 
 with DAG(
     dag_id="tlcn_full_lakehouse_pipeline",
-    description="Dynamic ingestion -> Bronze -> Silver -> Gold -> Data Marts",
+    description=(
+        "Weekday incremental ingestion -> Bronze -> Silver -> Gold; "
+        "create missing Data Marts only"
+    ),
     start_date=datetime(2026, 11, 20, tzinfo=TZ),
-    schedule=None,
+    schedule="0 6 * * 1-5",
     catchup=False,
     max_active_runs=1,
     max_active_tasks=1,
@@ -85,11 +90,18 @@ with DAG(
         "preflight_docker_spark",
         f"""command -v docker >/dev/null
 docker inspect {CONTAINER} >/dev/null
+docker inspect -f '{{{{.State.Running}}}}' {CONTAINER} | grep -qx true
 docker exec {CONTAINER} test -x {SUBMIT}
 docker exec {CONTAINER} test -f {GUARD_PATH}
+docker exec {CONTAINER} test -f /workspace/src/bronze/ingest_googlefinance_fx.py
+docker exec {CONTAINER} test -f /workspace/src/bronze/ingest_giacaphe_london.py
+docker exec {CONTAINER} test -f /workspace/src/iceberg/bronze_exchange_rate.py
+docker exec {CONTAINER} test -f /workspace/src/iceberg/bronze_london_futures.py
+docker exec {CONTAINER} test -f /workspace/src/iceberg/silver_exchange_rate.py
+docker exec {CONTAINER} test -f /workspace/src/iceberg/silver_london_futures.py
 docker exec {CONTAINER} test -f /workspace/data/open-meteo-12.48N107.97E419m_DakNong.csv
 docker exec {CONTAINER} test -f /workspace/data/open-meteo-12.83N108.13E481m_DaKLak.csv
-docker exec -w /workspace -e PYTHONPATH=/workspace {CONTAINER} python3 -c 'import requests, bs4, minio, dotenv; from src.bronze.minio_client import get_minio_client, get_bucket_name; assert get_minio_client().bucket_exists(get_bucket_name()), "MinIO bucket unavailable"'
+docker exec -w /workspace -e PYTHONPATH=/workspace {CONTAINER} python3 -c 'import requests, bs4, minio, dotenv, openpyxl; from src.bronze.minio_client import get_minio_client, get_bucket_name; assert get_minio_client().bucket_exists(get_bucket_name()), "MinIO bucket unavailable"'
 echo TLCN_INGESTION_PREFLIGHT_PASSED
 echo TLCN_PIPELINE_PREFLIGHT_PASSED""",
         2,
@@ -107,6 +119,10 @@ echo TLCN_PIPELINE_PREFLIGHT_PASSED""",
                 ["--station", "all", "--refresh-days", "3"]), 90),
             task("crawl_vicofa", python_job(
                 "src/bronze/crawl_vicofa.py", ["--allow-stale"]), 45),
+            task("ingest_googlefinance_fx", python_job(
+                "src/bronze/ingest_googlefinance_fx.py"), 30),
+            task("ingest_giacaphe_london", python_job(
+                "src/bronze/ingest_giacaphe_london.py"), 45),
         ]
         chain(*ingest_tasks)
 
@@ -119,6 +135,10 @@ echo TLCN_PIPELINE_PREFLIGHT_PASSED""",
             task("bronze_fuel", spark("src/iceberg/bronze_fuel.py")),
             task("bronze_weather", spark("src/iceberg/bronze_weather.py")),
             task("bronze_vicofa", spark("src/iceberg/bronze_vicofa.py")),
+            task("bronze_exchange_rate", spark(
+                "src/iceberg/bronze_exchange_rate.py"), 60),
+            task("bronze_london_futures", spark(
+                "src/iceberg/bronze_london_futures.py"), 90),
         ]
         chain(*bronze_tasks)
 
@@ -172,6 +192,8 @@ echo TLCN_PIPELINE_PREFLIGHT_PASSED""",
             for tid, path in fact_specs
         ])
 
+    # These builders are create-only. The guard creates a missing mart once
+    # and explicitly skips an existing one; it never claims to refresh it.
     with TaskGroup(group_id="gold_data_marts") as marts:
         mart_specs = [
             ("mart_coffee_market_daily", "src/gold/marts/build_mart_coffee_market_daily.py", "lakehouse.gold.mart_coffee_market_daily"),

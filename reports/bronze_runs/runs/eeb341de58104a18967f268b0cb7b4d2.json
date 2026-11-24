@@ -1,0 +1,21 @@
+{
+  "run_id": "eeb341de58104a18967f268b0cb7b4d2",
+  "domain": "exchange_rate",
+  "source": "googlefinance_sheet",
+  "started_at_utc": "2026-11-24T20:01:55.716494+00:00",
+  "finished_at_utc": "2026-11-24T20:02:08.762934+00:00",
+  "status": "SUCCESS",
+  "batch_id": "20261124T200208Z_244c8813",
+  "raw_object_key": "bronze/exchange_rate/source=googlefinance_sheet/ingestion_date=2026-11-24/batch_id=20261124t200208z_244c8813/raw/googlefinance_exchange_rate.json",
+  "metadata_object_key": "bronze/exchange_rate/source=googlefinance_sheet/ingestion_date=2026-11-24/batch_id=20261124t200208z_244c8813/metadata.json",
+  "size_bytes": 243915,
+  "error_type": null,
+  "error_message": null,
+  "metrics": {
+    "api_requests": 1,
+    "response_bytes": 243915,
+    "raw_objects_uploaded": 1,
+    "usd_vnd_records": 3219,
+    "eur_vnd_records": 3537
+  }
+}
