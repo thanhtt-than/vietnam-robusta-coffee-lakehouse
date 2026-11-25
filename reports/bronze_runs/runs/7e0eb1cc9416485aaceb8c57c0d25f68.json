@@ -1,0 +1,22 @@
+{
+  "run_id": "7e0eb1cc9416485aaceb8c57c0d25f68",
+  "domain": "fuel_prices",
+  "source": "bbw_fuel",
+  "started_at_utc": "2026-11-25T04:21:25.345070+00:00",
+  "finished_at_utc": "2026-11-25T04:21:35.732951+00:00",
+  "status": "SUCCESS",
+  "batch_id": "20261125t112125_16e3c6ab",
+  "raw_object_key": null,
+  "metadata_object_key": null,
+  "size_bytes": null,
+  "error_type": null,
+  "error_message": null,
+  "metrics": {
+    "api_calls": 3,
+    "uploaded_pages": 3,
+    "skipped_pages": 0,
+    "complete_windows_skipped": 23,
+    "planned_windows": 3,
+    "refreshed_days": 3
+  }
+}

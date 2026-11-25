@@ -133,12 +133,31 @@ def main():
                                   F.countDistinct('object_sha256').alias('sha256_values')).show(truncate=False)
         invalid_dates = src.filter('trade_date IS NULL').count()
         print('LONDON_INVALID_DATES:', invalid_dates, flush=True)
-        if total != 9510 or invalid_dates:
-            raise RuntimeError('Unexpected Bronze record count or invalid date; review before writing.')
+        # Bronze is append-only and may gain rows when new source objects arrive.
+        # Do not pin this validation to a historical raw-row count.
+        if total <= 0:
+            raise RuntimeError('No Bronze London Futures records found.')
+        if invalid_dates:
+            raise RuntimeError(
+                f'Bronze contains {invalid_dates} invalid trade dates; review before writing.'
+            )
+
+        distinct_source_dates = src.select('trade_date').distinct().count()
+        duplicate_date_rows = total - distinct_source_dates
+        date_bounds = src.agg(
+            F.min('trade_date').alias('min_trade_date'),
+            F.max('trade_date').alias('max_trade_date')
+        ).first()
+        print('LONDON_DISTINCT_SOURCE_DATES:', distinct_source_dates, flush=True)
+        print('LONDON_DUPLICATE_DATE_ROWS:', duplicate_date_rows, flush=True)
+        print('LONDON_DATE_MIN:', date_bounds['min_trade_date'], flush=True)
+        print('LONDON_DATE_MAX:', date_bounds['max_trade_date'], flush=True)
+
         canonical = canonicalize(src).cache()
         n = canonical.count()
+        unique_dates = canonical.select('trade_date').distinct().count()
         print('LONDON_CANONICAL_ROWS:', n, flush=True)
-        print('LONDON_UNIQUE_DATES:', canonical.select('trade_date').distinct().count(), flush=True)
+        print('LONDON_UNIQUE_DATES:', unique_dates, flush=True)
         print('LONDON_OHLC_REVIEW:', canonical.filter('ohlc_review').count(), flush=True)
         print('LONDON_VOLUME_MISSING:', canonical.filter('volume_missing').count(), flush=True)
         print('LONDON_SOURCE_VERSION_CONFLICTS:', canonical.filter('raw_version_conflict').count(), flush=True)
@@ -147,8 +166,12 @@ def main():
         canonical.filter('ohlc_review OR volume_missing OR raw_version_conflict').select(
             'trade_date', 'last_price', 'open_price', 'high_price', 'low_price',
             'volume_normalized', 'ohlc_review', 'volume_missing', 'quality_status').orderBy('trade_date').show(16, truncate=False)
-        if n != 4755 or n != canonical.select('trade_date').distinct().count():
-            raise RuntimeError('Unexpected canonical count/duplicate date; check source before publishing.')
+        # Canonical output must contain exactly one row per valid trade date.
+        # The number of dates is data-driven, not fixed to the previous Bronze snapshot.
+        if n <= 0 or n != unique_dates or n != distinct_source_dates:
+            raise RuntimeError(
+                'Canonical row/date-key validation failed; inspect source coverage before publishing.'
+            )
         if canonical.filter('selected_bronze_record_id IS NULL OR selected_bronze_object_key IS NULL').limit(1).count():
             raise RuntimeError('Missing Bronze lineage')
         if not write:

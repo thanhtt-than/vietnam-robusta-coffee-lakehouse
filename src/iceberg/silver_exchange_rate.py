@@ -4,7 +4,8 @@ The job is incremental and append-only:
 - it accepts any non-zero number of valid Bronze observations;
 - identical daily duplicates are collapsed by business key;
 - historical CSV wins over GoogleFinance JSON for the same business key;
-- conflicting values within the same file type stop the write;
+- conflicting GoogleFinance JSON snapshots use the newest ingestion batch;
+- conflicting rows within the same snapshot or CSV file type stop the write;
 - existing Silver rows are never deleted or overwritten.
 """
 from __future__ import annotations
@@ -208,12 +209,29 @@ def business_key(record):
     )
 
 
-def deduplicate_observations(observations):
-    """Deduplicate by business key, preferring historical CSV over API JSON.
+def _googlefinance_snapshot_order(record):
+    """Return the ingestion date/batch ordering encoded in a Bronze object key."""
+    object_key = str(record.get("object_key", ""))
+    date_match = re.search(
+        r"(?:^|/)ingestion_date=(\d{4}-\d{2}-\d{2})(?:/|$)",
+        object_key,
+    )
+    batch_match = re.search(
+        r"(?:^|/)batch_id=([^/]+)(?:/|$)",
+        object_key,
+    )
+    if not date_match or not batch_match:
+        return None
+    return date_match.group(1), batch_match.group(1)
 
-    CSV is the established historical source. GoogleFinance JSON is an
-    enrichment source: when both represent the same business key, CSV wins.
-    Conflicts between two records of the same type remain hard errors.
+
+def deduplicate_observations(observations):
+    """Deduplicate by business key with explicit source/snapshot precedence.
+
+    Historical CSV wins over GoogleFinance JSON. When two JSON records for
+    the same key come from different, identifiable ingestion batches, the
+    newest batch wins. Conflicts within one JSON batch, between CSV rows, or
+    between other same-type records remain hard errors.
     """
     priority = {"csv": 0, "json": 1}
     by_key = {}
@@ -236,13 +254,19 @@ def deduplicate_observations(observations):
 
         if previous_rate == incoming_rate:
             duplicate_count += 1
-            # Keep the preferred lineage even if input ordering changes.
-            if priority.get(incoming_type, 99) < priority.get(previous_type, 99):
+            # Keep preferred lineage, and the newest snapshot for equal JSON
+            # values, so provenance is deterministic regardless of row order.
+            if (
+                previous_type == incoming_type == "json"
+                and (_googlefinance_snapshot_order(record) or ("", ""))
+                > (_googlefinance_snapshot_order(previous) or ("", ""))
+            ):
+                by_key[key] = record
+            elif priority.get(incoming_type, 99) < priority.get(previous_type, 99):
                 by_key[key] = record
             continue
 
-        # Resolve only a CSV-vs-JSON disagreement. Do not silently resolve
-        # conflicting CSV rows, conflicting JSON rows, or other source types.
+        # Resolve CSV-vs-JSON disagreements in favor of historical CSV.
         if {previous_type, incoming_type} == {"csv", "json"}:
             winner = (
                 previous
@@ -260,6 +284,34 @@ def deduplicate_observations(observations):
                 "csv_preferred_over_json",
             ))
             continue
+
+        # GoogleFinance stores a complete response snapshot on each run.
+        # The same historical date can therefore be revised by a later
+        # snapshot. Prefer the newest identifiable batch, but do not resolve
+        # conflicting rows inside the same batch (or without batch metadata).
+        if previous_type == incoming_type == "json":
+            previous_snapshot = _googlefinance_snapshot_order(previous)
+            incoming_snapshot = _googlefinance_snapshot_order(record)
+            if (
+                previous_snapshot is not None
+                and incoming_snapshot is not None
+                and previous_snapshot != incoming_snapshot
+            ):
+                winner, loser = (
+                    (record, previous)
+                    if incoming_snapshot > previous_snapshot
+                    else (previous, record)
+                )
+                by_key[key] = winner
+                resolved_conflicts.append((
+                    key,
+                    winner["rate_vnd"],
+                    loser["rate_vnd"],
+                    winner["object_key"],
+                    loser["object_key"],
+                    "latest_googlefinance_snapshot_preferred",
+                ))
+                continue
 
         conflicts.append((
             key,
@@ -364,15 +416,44 @@ def write_silver(spark, observations):
                 "reconcile before incremental write"
             )
 
-        # If the exact same observation_id is already stored, all its values
-        # and lineage must still match. Never overwrite changed old rows.
-        id_comparison = df.alias("incoming").join(
+        # Existing Silver is append-only. If a later GoogleFinance snapshot
+        # changes a previously stored business key, retain the committed row
+        # and report the difference instead of failing or overwriting it.
+        incoming_compare = df.select(
+            *business_columns,
+            F.col("rate_vnd").alias("incoming_rate_vnd"),
+        )
+        stored_compare = existing.select(
+            *business_columns,
+            F.col("rate_vnd").alias("stored_rate_vnd"),
+        )
+        business_comparison = incoming_compare.join(
+            stored_compare,
+            on=business_columns,
+            how="inner",
+        )
+        preserved_existing = business_comparison.count()
+        changed_existing = business_comparison.filter(
+            ~F.col("incoming_rate_vnd").eqNullSafe(F.col("stored_rate_vnd"))
+        ).count()
+        print("SILVER_EXISTING_BUSINESS_KEYS_PRESERVED:", preserved_existing, flush=True)
+        print("SILVER_EXISTING_RATE_CHANGES_IGNORED:", changed_existing, flush=True)
+
+        # Only genuinely new business keys are candidates for insertion.
+        # Check observation_id collisions on those new keys; a collision with
+        # a different stored key remains a hard validation error.
+        new_df = df.join(
+            existing.select(*business_columns),
+            on=business_columns,
+            how="left_anti",
+        ).cache()
+        id_comparison = new_df.alias("incoming").join(
             existing.alias("stored"),
             on="observation_id",
             how="inner",
         )
         id_mismatch = None
-        for name in df.columns:
+        for name in new_df.columns:
             if name == "observation_id":
                 continue
             difference = ~F.col(
@@ -383,30 +464,8 @@ def write_silver(spark, observations):
             )
         if id_comparison.filter(id_mismatch).limit(1).count():
             raise RuntimeError(
-                "Existing Silver observation_id has changed values; refusing overwrite"
+                "New Silver observation_id collides with a different stored row"
             )
-
-        # Compare business keys separately from observation_id. This prevents
-        # an old CSV observation and a new GoogleFinance snapshot of the same
-        # date from becoming two Silver rows just because their Bronze IDs differ.
-        business_comparison = df.alias("incoming").join(
-            existing.alias("stored"),
-            on=business_columns,
-            how="inner",
-        )
-        if business_comparison.filter(
-            ~F.col("incoming.rate_vnd").eqNullSafe(F.col("stored.rate_vnd"))
-        ).limit(1).count():
-            raise RuntimeError(
-                "Same Silver business key has a different rate in Bronze and "
-                "existing Silver; refusing to overwrite historical data"
-            )
-
-        new_df = df.join(
-            existing.select(*business_columns),
-            on=business_columns,
-            how="left_anti",
-        ).cache()
         try:
             new_count = new_df.count()
             print("SILVER_NEW_RECORDS:", new_count, flush=True)
@@ -516,7 +575,7 @@ def main():
 
         print("IDENTICAL_BUSINESS_DUPLICATES_COLLAPSED:", duplicate_count, flush=True)
         print(
-            "CSV_PREFERRED_CONFLICTS_RESOLVED:",
+            "RESOLVED_SOURCE_CONFLICTS:",
             len(resolved_conflicts),
             flush=True,
         )

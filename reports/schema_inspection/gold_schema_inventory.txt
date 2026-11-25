@@ -1,0 +1,1584 @@
+========================================================================================
+GOLD SCHEMA INVENTORY: lakehouse.gold
+MODE: READ ONLY - NO ICEBERG TABLE WILL BE WRITTEN
+========================================================================================
+TABLE_COUNT: 44
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`dim_article`
+ROW_COUNT: 1223
+COLUMN_COUNT: 7
+SCHEMA:
+  - article_key : bigint [NULLABLE]
+  - article_id : string [NULLABLE]
+  - canonical_url : string [NULLABLE]
+  - title : string [NULLABLE]
+  - summary : string [NULLABLE]
+  - published_date : date [NULLABLE]
+  - content_missing : boolean [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - article_key (bigint): distinct=1223, nulls=0 => UNIQUE + NOT NULL
+  - article_id (string): distinct=1223, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`dim_coffee_exporter`
+ROW_COUNT: 11
+COLUMN_COUNT: 3
+SCHEMA:
+  - exporter_key : bigint [NULLABLE]
+  - exporter_code : string [NULLABLE]
+  - exporter_name : string [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - exporter_key (bigint): distinct=11, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`dim_coffee_product`
+ROW_COUNT: 1
+COLUMN_COUNT: 6
+SCHEMA:
+  - coffee_product_key : int [NULLABLE]
+  - product_code : string [NULLABLE]
+  - product_name : string [NULLABLE]
+  - variety : string [NULLABLE]
+  - grade : string [NULLABLE]
+  - is_variety_specified : boolean [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - coffee_product_key (int): distinct=1, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`dim_currency_pair`
+ROW_COUNT: 2
+COLUMN_COUNT: 5
+SCHEMA:
+  - currency_pair_key : bigint [NULLABLE]
+  - currency_pair : string [NULLABLE]
+  - base_currency : string [NULLABLE]
+  - quote_currency : string [NULLABLE]
+  - rate_unit : string [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - currency_pair_key (bigint): distinct=2, nulls=0 => UNIQUE + NOT NULL
+  - currency_pair (string): distinct=2, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`dim_date`
+ROW_COUNT: 9862
+COLUMN_COUNT: 5
+SCHEMA:
+  - date_key : int [NULLABLE]
+  - full_date : date [NULLABLE]
+  - month : int [NULLABLE]
+  - quarter : int [NULLABLE]
+  - year : int [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - date_key (int): distinct=9862, nulls=0 => UNIQUE + NOT NULL
+  - full_date (date): distinct=9862, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`dim_destination`
+ROW_COUNT: 164
+COLUMN_COUNT: 4
+SCHEMA:
+  - destination_key : bigint [NULLABLE]
+  - partner_code : string [NULLABLE]
+  - partner_name : string [NULLABLE]
+  - is_world_aggregate : boolean [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - destination_key (bigint): distinct=164, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`dim_fuel_series`
+ROW_COUNT: 60
+COLUMN_COUNT: 6
+SCHEMA:
+  - fuel_series_key : bigint [NULLABLE]
+  - fuel_series_id : string [NULLABLE]
+  - source_family : string [NULLABLE]
+  - series_code : string [NULLABLE]
+  - region : string [NULLABLE]
+  - unit : string [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - fuel_series_key (bigint): distinct=60, nulls=0 => UNIQUE + NOT NULL
+  - fuel_series_id (string): distinct=60, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`dim_geography`
+ROW_COUNT: 112
+COLUMN_COUNT: 5
+SCHEMA:
+  - geography_key : int [NULLABLE]
+  - geography_code : string [NULLABLE]
+  - geography_name : string [NULLABLE]
+  - geography_level : string [NULLABLE]
+  - region_name : string [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - geography_key (int): distinct=112, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`dim_hs_product`
+ROW_COUNT: 1
+COLUMN_COUNT: 3
+SCHEMA:
+  - hs_product_key : bigint [NULLABLE]
+  - product_code : string [NULLABLE]
+  - product_name : string [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - hs_product_key (bigint): distinct=1, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`dim_news_topic`
+ROW_COUNT: 9
+COLUMN_COUNT: 4
+SCHEMA:
+  - topic_key : int [NULLABLE]
+  - topic_code : string [NULLABLE]
+  - topic_name : string [NULLABLE]
+  - classification_method : string [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - topic_key (int): distinct=9, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`dim_port`
+ROW_COUNT: 13
+COLUMN_COUNT: 2
+SCHEMA:
+  - port_key : bigint [NULLABLE]
+  - port_id : string [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - port_key (bigint): distinct=13, nulls=0 => UNIQUE + NOT NULL
+  - port_id (string): distinct=13, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`dim_price_series`
+ROW_COUNT: 12
+COLUMN_COUNT: 6
+SCHEMA:
+  - price_series_key : bigint [NULLABLE]
+  - series_code : string [NULLABLE]
+  - source_family : string [NULLABLE]
+  - province_code : string [NULLABLE]
+  - quote_type : string [NULLABLE]
+  - market : string [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - price_series_key (bigint): distinct=12, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`dim_source`
+ROW_COUNT: 24
+COLUMN_COUNT: 3
+SCHEMA:
+  - source_key : bigint [NULLABLE]
+  - source_code : string [NULLABLE]
+  - source_name : string [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - source_key (bigint): distinct=24, nulls=0 => UNIQUE + NOT NULL
+  - source_code (string): distinct=24, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`dim_weather_location`
+ROW_COUNT: 12
+COLUMN_COUNT: 9
+SCHEMA:
+  - weather_location_key : bigint [NULLABLE]
+  - source_series_id : string [NULLABLE]
+  - source : string [NULLABLE]
+  - province_code : string [NULLABLE]
+  - latitude : double [NULLABLE]
+  - longitude : double [NULLABLE]
+  - elevation_m : double [NULLABLE]
+  - source_timezone : string [NULLABLE]
+  - is_corrected : boolean [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - weather_location_key (bigint): distinct=12, nulls=0 => UNIQUE + NOT NULL
+  - source_series_id (string): distinct=12, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`dim_year`
+ROW_COUNT: 67
+COLUMN_COUNT: 2
+SCHEMA:
+  - year_key : int [NULLABLE]
+  - calendar_year : int [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - year_key (int): distinct=67, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`fact_coffee_trade_monthly`
+ROW_COUNT: 1312
+COLUMN_COUNT: 16
+SCHEMA:
+  - trade_fact_key : string [NULLABLE]
+  - date_key : int [NULLABLE]
+  - destination_key : bigint [NULLABLE]
+  - source_key : bigint [NULLABLE]
+  - geography_key : int [NULLABLE]
+  - year : int [NULLABLE]
+  - month : int [NULLABLE]
+  - market_code : string [NULLABLE]
+  - market_type : string [NULLABLE]
+  - quantity_tonnes : decimal(20,3) [NULLABLE]
+  - value_usd_thousand : decimal(20,3) [NULLABLE]
+  - quality_status : string [NULLABLE]
+  - bronze_record_id : string [NULLABLE]
+  - object_key : string [NULLABLE]
+  - record_position : bigint [NULLABLE]
+  - silver_observation_id : string [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - trade_fact_key (string): distinct=1312, nulls=0 => UNIQUE + NOT NULL
+  - date_key (int): distinct=141, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - destination_key (bigint): distinct=10, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - source_key (bigint): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - geography_key (int): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - bronze_record_id (string): distinct=115, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - object_key (string): distinct=24, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - silver_observation_id (string): distinct=1312, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`fact_domestic_price`
+ROW_COUNT: 9577
+COLUMN_COUNT: 14
+SCHEMA:
+  - price_fact_key : bigint [NULLABLE]
+  - date_key : int [NULLABLE]
+  - geography_key : int [NULLABLE]
+  - source_key : bigint [NULLABLE]
+  - price_series_key : bigint [NULLABLE]
+  - price_vnd_kg : decimal(18,2) [NULLABLE]
+  - quality_status : string [NULLABLE]
+  - raw_observation_count : bigint [NULLABLE]
+  - distinct_price_count : bigint [NULLABLE]
+  - min_price_vnd_kg : decimal(18,2) [NULLABLE]
+  - max_price_vnd_kg : decimal(18,2) [NULLABLE]
+  - selected_bronze_record_id : string [NULLABLE]
+  - selected_bronze_object_key : string [NULLABLE]
+  - gold_processed_at : timestamp [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - price_fact_key (bigint): distinct=9577, nulls=0 => UNIQUE + NOT NULL
+  - date_key (int): distinct=1914, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - geography_key (int): distinct=4, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - source_key (bigint): distinct=3, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - price_series_key (bigint): distinct=12, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - selected_bronze_record_id (string): distinct=9577, nulls=0 => UNIQUE + NOT NULL
+  - selected_bronze_object_key (string): distinct=86, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`fact_exchange_rate`
+ROW_COUNT: 8186
+COLUMN_COUNT: 12
+SCHEMA:
+  - observation_id : string [NULLABLE]
+  - date_key : int [NULLABLE]
+  - source_key : bigint [NULLABLE]
+  - currency_pair_key : bigint [NULLABLE]
+  - observation_date : date [NULLABLE]
+  - currency_pair : string [NULLABLE]
+  - source : string [NULLABLE]
+  - frequency : string [NULLABLE]
+  - rate_type : string [NULLABLE]
+  - rate_vnd : decimal(28,12) [NULLABLE]
+  - bronze_record_id : string [NULLABLE]
+  - object_key : string [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - observation_id (string): distinct=8186, nulls=0 => UNIQUE + NOT NULL
+  - date_key (int): distinct=3616, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - source_key (bigint): distinct=5, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - currency_pair_key (bigint): distinct=2, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - currency_pair (string): distinct=2, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - bronze_record_id (string): distinct=7488, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - object_key (string): distinct=6, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`fact_export`
+ROW_COUNT: 3888
+COLUMN_COUNT: 16
+SCHEMA:
+  - export_fact_key : bigint [NULLABLE]
+  - year_key : int [NULLABLE]
+  - geography_key : int [NULLABLE]
+  - destination_key : bigint [NULLABLE]
+  - hs_product_key : bigint [NULLABLE]
+  - source_key : bigint [NULLABLE]
+  - reporter_code : string [NULLABLE]
+  - is_world_aggregate : boolean [NULLABLE]
+  - value_usd_thousand : decimal(20,3) [NULLABLE]
+  - quality_status : string [NULLABLE]
+  - raw_observation_count : bigint [NULLABLE]
+  - distinct_values_count : bigint [NULLABLE]
+  - selected_bronze_record_id : string [NULLABLE]
+  - selected_bronze_object_key : string [NULLABLE]
+  - selected_bronze_record_position : bigint [NULLABLE]
+  - gold_processed_at : timestamp [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - export_fact_key (bigint): distinct=3888, nulls=0 => UNIQUE + NOT NULL
+  - year_key (int): distinct=24, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - geography_key (int): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - destination_key (bigint): distinct=162, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - hs_product_key (bigint): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - source_key (bigint): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - selected_bronze_record_id (string): distinct=162, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - selected_bronze_object_key (string): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`fact_fuel_price`
+ROW_COUNT: 1802
+COLUMN_COUNT: 16
+SCHEMA:
+  - fuel_fact_key : bigint [NULLABLE]
+  - date_key : int [NULLABLE]
+  - source_key : bigint [NULLABLE]
+  - fuel_series_key : bigint [NULLABLE]
+  - price_vnd_per_unit : decimal(18,2) [NULLABLE]
+  - price_change_percent : decimal(12,3) [NULLABLE]
+  - price_jump_review : boolean [NULLABLE]
+  - quality_status : string [NULLABLE]
+  - raw_observation_count : bigint [NULLABLE]
+  - distinct_price_count : bigint [NULLABLE]
+  - min_price : decimal(18,2) [NULLABLE]
+  - max_price : decimal(18,2) [NULLABLE]
+  - selected_quoted_at : timestamp [NULLABLE]
+  - selected_bronze_record_id : string [NULLABLE]
+  - selected_bronze_object_key : string [NULLABLE]
+  - gold_processed_at : timestamp [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - fuel_fact_key (bigint): distinct=1802, nulls=0 => UNIQUE + NOT NULL
+  - date_key (int): distinct=56, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - source_key (bigint): distinct=3, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - fuel_series_key (bigint): distinct=60, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - selected_bronze_record_id (string): distinct=1802, nulls=0 => UNIQUE + NOT NULL
+  - selected_bronze_object_key (string): distinct=20, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`fact_futures_price`
+ROW_COUNT: 4812
+COLUMN_COUNT: 21
+SCHEMA:
+  - futures_fact_key : bigint [NULLABLE]
+  - trade_date_key : int [NULLABLE]
+  - source_key : bigint [NULLABLE]
+  - open_price : decimal(18,2) [NULLABLE]
+  - high_price : decimal(18,2) [NULLABLE]
+  - low_price : decimal(18,2) [NULLABLE]
+  - last_price : decimal(18,2) [NULLABLE]
+  - volume_normalized : decimal(20,2) [NULLABLE]
+  - change_percent : decimal(12,3) [NULLABLE]
+  - ohlc_review : boolean [NULLABLE]
+  - volume_missing : boolean [NULLABLE]
+  - volume_invalid : boolean [NULLABLE]
+  - change_missing : boolean [NULLABLE]
+  - raw_version_conflict : boolean [NULLABLE]
+  - quality_status : string [NULLABLE]
+  - raw_observation_count : bigint [NULLABLE]
+  - distinct_raw_version_count : bigint [NULLABLE]
+  - selected_bronze_record_id : string [NULLABLE]
+  - selected_bronze_object_key : string [NULLABLE]
+  - selected_bronze_record_position : bigint [NULLABLE]
+  - gold_processed_at : timestamp [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - futures_fact_key (bigint): distinct=4812, nulls=0 => UNIQUE + NOT NULL
+  - trade_date_key (int): distinct=4812, nulls=0 => UNIQUE + NOT NULL
+  - source_key (bigint): distinct=2, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - selected_bronze_record_id (string): distinct=4812, nulls=0 => UNIQUE + NOT NULL
+  - selected_bronze_object_key (string): distinct=3, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`fact_global_coffee_exports`
+ROW_COUNT: 11
+COLUMN_COUNT: 9
+SCHEMA:
+  - export_fact_id : string [NULLABLE]
+  - year_key : int [NULLABLE]
+  - exporter_key : bigint [NULLABLE]
+  - source_key : bigint [NULLABLE]
+  - quantity_tonnes : decimal(20,3) [NULLABLE]
+  - quantity_share_pct : decimal(8,3) [NULLABLE]
+  - value_usd_thousand : decimal(20,3) [NULLABLE]
+  - value_share_pct : decimal(8,3) [NULLABLE]
+  - bronze_record_id : string [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - export_fact_id (string): distinct=11, nulls=0 => UNIQUE + NOT NULL
+  - year_key (int): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - exporter_key (bigint): distinct=11, nulls=0 => UNIQUE + NOT NULL
+  - source_key (bigint): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - bronze_record_id (string): distinct=11, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`fact_news_topic`
+ROW_COUNT: 1481
+COLUMN_COUNT: 13
+SCHEMA:
+  - news_topic_fact_key : bigint [NULLABLE]
+  - article_key : bigint [NULLABLE]
+  - topic_key : int [NULLABLE]
+  - date_key : int [NULLABLE]
+  - source_key : bigint [NULLABLE]
+  - is_primary_topic : boolean [NULLABLE]
+  - topic_article_count : int [NULLABLE]
+  - quality_status : string [NULLABLE]
+  - content_missing : boolean [NULLABLE]
+  - selected_bronze_record_id : string [NULLABLE]
+  - selected_bronze_object_key : string [NULLABLE]
+  - list_bronze_record_id : string [NULLABLE]
+  - gold_processed_at : timestamp [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - news_topic_fact_key (bigint): distinct=1481, nulls=0 => UNIQUE + NOT NULL
+  - article_key (bigint): distinct=1223, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - topic_key (int): distinct=9, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - date_key (int): distinct=928, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - source_key (bigint): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - selected_bronze_record_id (string): distinct=1223, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - selected_bronze_object_key (string): distinct=2, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - list_bronze_record_id (string): distinct=1223, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`fact_production`
+ROW_COUNT: 141
+COLUMN_COUNT: 48
+SCHEMA:
+  - production_fact_key : bigint [NULLABLE]
+  - year_key : int [NULLABLE]
+  - geography_key : int [NULLABLE]
+  - coffee_product_key : int [NULLABLE]
+  - dataset_code : string [NULLABLE]
+  - area_measure_type : string [NULLABLE]
+  - is_preliminary : boolean [NULLABLE]
+  - publication_status_code : string [NULLABLE]
+  - coffee_area_thousand_ha : decimal(18,3) [NULLABLE]
+  - coffee_production_thousand_tons : decimal(18,3) [NULLABLE]
+  - yield_tons_per_ha : decimal(18,3) [NULLABLE]
+  - area_growth_index_prev_year_100 : decimal(18,3) [NULLABLE]
+  - production_growth_index_prev_year_100 : decimal(18,3) [NULLABLE]
+  - area_source_key : bigint [NULLABLE]
+  - production_source_key : bigint [NULLABLE]
+  - yield_source_key : bigint [NULLABLE]
+  - area_publication_status : string [NULLABLE]
+  - production_publication_status : string [NULLABLE]
+  - yield_publication_status : string [NULLABLE]
+  - area_quality_status : string [NULLABLE]
+  - production_quality_status : string [NULLABLE]
+  - yield_quality_status : string [NULLABLE]
+  - area_raw_observation_count : bigint [NULLABLE]
+  - production_raw_observation_count : bigint [NULLABLE]
+  - yield_raw_observation_count : bigint [NULLABLE]
+  - area_silver_record_id : string [NULLABLE]
+  - production_silver_record_id : string [NULLABLE]
+  - yield_silver_record_id : string [NULLABLE]
+  - area_bronze_record_id : string [NULLABLE]
+  - production_bronze_record_id : string [NULLABLE]
+  - yield_bronze_record_id : string [NULLABLE]
+  - area_bronze_object_key : string [NULLABLE]
+  - production_bronze_object_key : string [NULLABLE]
+  - yield_bronze_object_key : string [NULLABLE]
+  - area_bronze_record_position : bigint [NULLABLE]
+  - production_bronze_record_position : bigint [NULLABLE]
+  - yield_bronze_record_position : bigint [NULLABLE]
+  - area_object_sha256 : string [NULLABLE]
+  - production_object_sha256 : string [NULLABLE]
+  - yield_object_sha256 : string [NULLABLE]
+  - area_source_filename : string [NULLABLE]
+  - production_source_filename : string [NULLABLE]
+  - yield_source_filename : string [NULLABLE]
+  - area_source_table : string [NULLABLE]
+  - production_source_table : string [NULLABLE]
+  - yield_source_table : string [NULLABLE]
+  - yield_method : string [NULLABLE]
+  - gold_processed_at : timestamp [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - production_fact_key (bigint): distinct=141, nulls=0 => UNIQUE + NOT NULL
+  - year_key (int): distinct=20, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - geography_key (int): distinct=32, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - coffee_product_key (int): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - area_source_key (bigint): distinct=2, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - production_source_key (bigint): distinct=2, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - yield_source_key (bigint): distinct=1, nulls=84 => NOT A UNIQUE NON-NULL KEY
+  - area_silver_record_id (string): distinct=122, nulls=19 => NOT A UNIQUE NON-NULL KEY
+  - production_silver_record_id (string): distinct=122, nulls=19 => NOT A UNIQUE NON-NULL KEY
+  - yield_silver_record_id (string): distinct=57, nulls=84 => NOT A UNIQUE NON-NULL KEY
+  - area_bronze_record_id (string): distinct=64, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - production_bronze_record_id (string): distinct=64, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - yield_bronze_record_id (string): distinct=32, nulls=84 => NOT A UNIQUE NON-NULL KEY
+  - area_bronze_object_key (string): distinct=5, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - production_bronze_object_key (string): distinct=5, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - yield_bronze_object_key (string): distinct=3, nulls=84 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`fact_production_v1_backup`
+ROW_COUNT: 19
+COLUMN_COUNT: 20
+SCHEMA:
+  - production_fact_key : bigint [NULLABLE]
+  - year_key : int [NULLABLE]
+  - geography_key : int [NULLABLE]
+  - area_source_key : bigint [NULLABLE]
+  - production_source_key : bigint [NULLABLE]
+  - coffee_area_thousand_ha : decimal(18,3) [NULLABLE]
+  - coffee_production_thousand_tons : decimal(18,3) [NULLABLE]
+  - area_growth_index_prev_year_100 : decimal(18,3) [NULLABLE]
+  - production_growth_index_prev_year_100 : decimal(18,3) [NULLABLE]
+  - area_publication_status : string [NULLABLE]
+  - production_publication_status : string [NULLABLE]
+  - area_quality_status : string [NULLABLE]
+  - production_quality_status : string [NULLABLE]
+  - area_raw_observation_count : bigint [NULLABLE]
+  - production_raw_observation_count : bigint [NULLABLE]
+  - area_bronze_record_id : string [NULLABLE]
+  - production_bronze_record_id : string [NULLABLE]
+  - area_bronze_object_key : string [NULLABLE]
+  - production_bronze_object_key : string [NULLABLE]
+  - gold_processed_at : timestamp [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - production_fact_key (bigint): distinct=19, nulls=0 => UNIQUE + NOT NULL
+  - year_key (int): distinct=19, nulls=0 => UNIQUE + NOT NULL
+  - geography_key (int): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - area_source_key (bigint): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - production_source_key (bigint): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - area_bronze_record_id (string): distinct=19, nulls=0 => UNIQUE + NOT NULL
+  - production_bronze_record_id (string): distinct=19, nulls=0 => UNIQUE + NOT NULL
+  - area_bronze_object_key (string): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - production_bronze_object_key (string): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`fact_production_v2_staging`
+ROW_COUNT: 141
+COLUMN_COUNT: 48
+SCHEMA:
+  - production_fact_key : bigint [NULLABLE]
+  - year_key : int [NULLABLE]
+  - geography_key : int [NULLABLE]
+  - coffee_product_key : int [NULLABLE]
+  - dataset_code : string [NULLABLE]
+  - area_measure_type : string [NULLABLE]
+  - is_preliminary : boolean [NULLABLE]
+  - publication_status_code : string [NULLABLE]
+  - coffee_area_thousand_ha : decimal(18,3) [NULLABLE]
+  - coffee_production_thousand_tons : decimal(18,3) [NULLABLE]
+  - yield_tons_per_ha : decimal(18,3) [NULLABLE]
+  - area_growth_index_prev_year_100 : decimal(18,3) [NULLABLE]
+  - production_growth_index_prev_year_100 : decimal(18,3) [NULLABLE]
+  - area_source_key : bigint [NULLABLE]
+  - production_source_key : bigint [NULLABLE]
+  - yield_source_key : bigint [NULLABLE]
+  - area_publication_status : string [NULLABLE]
+  - production_publication_status : string [NULLABLE]
+  - yield_publication_status : string [NULLABLE]
+  - area_quality_status : string [NULLABLE]
+  - production_quality_status : string [NULLABLE]
+  - yield_quality_status : string [NULLABLE]
+  - area_raw_observation_count : bigint [NULLABLE]
+  - production_raw_observation_count : bigint [NULLABLE]
+  - yield_raw_observation_count : bigint [NULLABLE]
+  - area_silver_record_id : string [NULLABLE]
+  - production_silver_record_id : string [NULLABLE]
+  - yield_silver_record_id : string [NULLABLE]
+  - area_bronze_record_id : string [NULLABLE]
+  - production_bronze_record_id : string [NULLABLE]
+  - yield_bronze_record_id : string [NULLABLE]
+  - area_bronze_object_key : string [NULLABLE]
+  - production_bronze_object_key : string [NULLABLE]
+  - yield_bronze_object_key : string [NULLABLE]
+  - area_bronze_record_position : bigint [NULLABLE]
+  - production_bronze_record_position : bigint [NULLABLE]
+  - yield_bronze_record_position : bigint [NULLABLE]
+  - area_object_sha256 : string [NULLABLE]
+  - production_object_sha256 : string [NULLABLE]
+  - yield_object_sha256 : string [NULLABLE]
+  - area_source_filename : string [NULLABLE]
+  - production_source_filename : string [NULLABLE]
+  - yield_source_filename : string [NULLABLE]
+  - area_source_table : string [NULLABLE]
+  - production_source_table : string [NULLABLE]
+  - yield_source_table : string [NULLABLE]
+  - yield_method : string [NULLABLE]
+  - gold_processed_at : timestamp [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - production_fact_key (bigint): distinct=141, nulls=0 => UNIQUE + NOT NULL
+  - year_key (int): distinct=20, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - geography_key (int): distinct=32, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - coffee_product_key (int): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - area_source_key (bigint): distinct=2, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - production_source_key (bigint): distinct=2, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - yield_source_key (bigint): distinct=1, nulls=84 => NOT A UNIQUE NON-NULL KEY
+  - area_silver_record_id (string): distinct=122, nulls=19 => NOT A UNIQUE NON-NULL KEY
+  - production_silver_record_id (string): distinct=122, nulls=19 => NOT A UNIQUE NON-NULL KEY
+  - yield_silver_record_id (string): distinct=57, nulls=84 => NOT A UNIQUE NON-NULL KEY
+  - area_bronze_record_id (string): distinct=64, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - production_bronze_record_id (string): distinct=64, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - yield_bronze_record_id (string): distinct=32, nulls=84 => NOT A UNIQUE NON-NULL KEY
+  - area_bronze_object_key (string): distinct=5, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - production_bronze_object_key (string): distinct=5, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - yield_bronze_object_key (string): distinct=3, nulls=84 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`fact_psd`
+ROW_COUNT: 87704
+COLUMN_COUNT: 30
+SCHEMA:
+  - psd_fact_key : string [NULLABLE]
+  - geography_key : int [NULLABLE]
+  - market_year_key : int [NULLABLE]
+  - calendar_year_key : int [NULLABLE]
+  - source_key : bigint [NULLABLE]
+  - country_code : string [NULLABLE]
+  - country_name : string [NULLABLE]
+  - commodity_code : string [NULLABLE]
+  - commodity_description : string [NULLABLE]
+  - market_year : string [NULLABLE]
+  - market_year_start : int [NULLABLE]
+  - market_year_end : int [NULLABLE]
+  - calendar_year : int [NULLABLE]
+  - month : int [NULLABLE]
+  - period_type : string [NULLABLE]
+  - attribute_id : string [NULLABLE]
+  - attribute_description : string [NULLABLE]
+  - unit_id : string [NULLABLE]
+  - unit_description : string [NULLABLE]
+  - value : decimal(24,6) [NULLABLE]
+  - raw_value : string [NULLABLE]
+  - quality_status : string [NULLABLE]
+  - silver_record_id : string [NULLABLE]
+  - bronze_record_id : string [NULLABLE]
+  - bronze_object_key : string [NULLABLE]
+  - bronze_record_position : bigint [NULLABLE]
+  - source_filename : string [NULLABLE]
+  - object_sha256 : string [NULLABLE]
+  - silver_processed_at : timestamp [NULLABLE]
+  - gold_processed_at : timestamp [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - psd_fact_key (string): distinct=87704, nulls=0 => UNIQUE + NOT NULL
+  - geography_key (int): distinct=94, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - market_year_key (int): distinct=67, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - calendar_year_key (int): distinct=65, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - source_key (bigint): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - attribute_id (string): distinct=19, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - unit_id (string): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - silver_record_id (string): distinct=87704, nulls=0 => UNIQUE + NOT NULL
+  - bronze_record_id (string): distinct=87704, nulls=0 => UNIQUE + NOT NULL
+  - bronze_object_key (string): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`fact_robusta_stock_port`
+ROW_COUNT: 3152
+COLUMN_COUNT: 21
+SCHEMA:
+  - stock_port_fact_key : string [NULLABLE]
+  - date_key : int [NULLABLE]
+  - port_key : bigint [NULLABLE]
+  - source_key : bigint [NULLABLE]
+  - cutoff_date : date [NULLABLE]
+  - port_id : string [NULLABLE]
+  - commodity : string [NULLABLE]
+  - lots_with_val_cert : bigint [NULLABLE]
+  - lots_non_tend : bigint [NULLABLE]
+  - lots_suspended : bigint [NULLABLE]
+  - raw_observation_count : bigint [NULLABLE]
+  - distinct_values_count : bigint [NULLABLE]
+  - quality_status : string [NULLABLE]
+  - selected_source : string [NULLABLE]
+  - selected_source_file : string [NULLABLE]
+  - selected_bronze_object_key : string [NULLABLE]
+  - selected_bronze_record_id : string [NULLABLE]
+  - selected_bronze_record_position : bigint [NULLABLE]
+  - selected_object_sha256 : string [NULLABLE]
+  - silver_processed_at : timestamp [NULLABLE]
+  - gold_processed_at : timestamp [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - stock_port_fact_key (string): distinct=3152, nulls=0 => UNIQUE + NOT NULL
+  - date_key (int): distinct=252, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - port_key (bigint): distinct=13, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - source_key (bigint): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - port_id (string): distinct=13, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - selected_bronze_object_key (string): distinct=252, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - selected_bronze_record_id (string): distinct=3152, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`fact_robusta_stock_totals`
+ROW_COUNT: 252
+COLUMN_COUNT: 26
+SCHEMA:
+  - stock_totals_fact_key : string [NULLABLE]
+  - date_key : int [NULLABLE]
+  - source_key : bigint [NULLABLE]
+  - cutoff_date : date [NULLABLE]
+  - total_lots_with_val_cert : bigint [NULLABLE]
+  - total_lots_non_tend : bigint [NULLABLE]
+  - total_lots_suspended : bigint [NULLABLE]
+  - port_sum_lots_with_val_cert : bigint [NULLABLE]
+  - port_sum_lots_non_tend : bigint [NULLABLE]
+  - port_sum_lots_suspended : bigint [NULLABLE]
+  - delta_lots_with_val_cert : bigint [NULLABLE]
+  - delta_lots_non_tend : bigint [NULLABLE]
+  - delta_lots_suspended : bigint [NULLABLE]
+  - port_count : bigint [NULLABLE]
+  - raw_observation_count : bigint [NULLABLE]
+  - distinct_values_count : bigint [NULLABLE]
+  - reconciliation_status : string [NULLABLE]
+  - quality_status : string [NULLABLE]
+  - selected_source : string [NULLABLE]
+  - selected_source_file : string [NULLABLE]
+  - selected_bronze_object_key : string [NULLABLE]
+  - selected_bronze_record_id : string [NULLABLE]
+  - selected_bronze_record_position : bigint [NULLABLE]
+  - selected_object_sha256 : string [NULLABLE]
+  - silver_processed_at : timestamp [NULLABLE]
+  - gold_processed_at : timestamp [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - stock_totals_fact_key (string): distinct=252, nulls=0 => UNIQUE + NOT NULL
+  - date_key (int): distinct=252, nulls=0 => UNIQUE + NOT NULL
+  - source_key (bigint): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - selected_bronze_object_key (string): distinct=252, nulls=0 => UNIQUE + NOT NULL
+  - selected_bronze_record_id (string): distinct=252, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`fact_weather_daily`
+ROW_COUNT: 97792
+COLUMN_COUNT: 19
+SCHEMA:
+  - weather_fact_key : bigint [NULLABLE]
+  - date_key : int [NULLABLE]
+  - geography_key : int [NULLABLE]
+  - source_key : bigint [NULLABLE]
+  - weather_location_key : bigint [NULLABLE]
+  - weather_code : int [NULLABLE]
+  - temperature_2m_mean : double [NULLABLE]
+  - temperature_2m_min : double [NULLABLE]
+  - temperature_2m_max : double [NULLABLE]
+  - rain_sum : double [NULLABLE]
+  - precipitation_sum : double [NULLABLE]
+  - et0_fao_evapotranspiration : double [NULLABLE]
+  - raw_observation_count : bigint [NULLABLE]
+  - distinct_measurement_count : bigint [NULLABLE]
+  - quality_status : string [NULLABLE]
+  - selected_bronze_record_id : string [NULLABLE]
+  - selected_bronze_object_key : string [NULLABLE]
+  - selected_bronze_record_position : bigint [NULLABLE]
+  - gold_processed_at : timestamp [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - weather_fact_key (bigint): distinct=97792, nulls=0 => UNIQUE + NOT NULL
+  - date_key (int): distinct=9826, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - geography_key (int): distinct=4, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - source_key (bigint): distinct=6, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - weather_location_key (bigint): distinct=12, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - selected_bronze_record_id (string): distinct=97792, nulls=0 => UNIQUE + NOT NULL
+  - selected_bronze_object_key (string): distinct=76, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`mart_coffee_export_annual`
+ROW_COUNT: 3888
+COLUMN_COUNT: 21
+SCHEMA:
+  - export_fact_key : bigint [NULLABLE]
+  - export_year : int [NULLABLE]
+  - reporter_code : string [NULLABLE]
+  - geography_code : string [NULLABLE]
+  - hs_product_key : bigint [NULLABLE]
+  - source_key : bigint [NULLABLE]
+  - year_key : int [NULLABLE]
+  - destination_key : bigint [NULLABLE]
+  - partner_code : string [NULLABLE]
+  - partner_name : string [NULLABLE]
+  - product_code : string [NULLABLE]
+  - product_name : string [NULLABLE]
+  - is_world_aggregate : boolean [NULLABLE]
+  - export_value_usd_thousand : decimal(20,3) [NULLABLE]
+  - quality_status : string [NULLABLE]
+  - raw_observation_count : bigint [NULLABLE]
+  - distinct_values_count : bigint [NULLABLE]
+  - world_export_value_usd_thousand : decimal(20,3) [NULLABLE]
+  - export_growth_yoy_pct : decimal(29,3) [NULLABLE]
+  - destination_share_pct : decimal(28,3) [NULLABLE]
+  - destination_rank : int [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - export_fact_key (bigint): distinct=3888, nulls=0 => UNIQUE + NOT NULL
+  - hs_product_key (bigint): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - source_key (bigint): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - year_key (int): distinct=24, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - destination_key (bigint): distinct=162, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`mart_coffee_market_daily`
+ROW_COUNT: 5864
+COLUMN_COUNT: 32
+SCHEMA:
+  - market_date : date [NULLABLE]
+  - province : string [NULLABLE]
+  - coffee_price_vnd_kg : decimal(18,2) [NULLABLE]
+  - coffee_source : string [NULLABLE]
+  - coffee_quality_status : string [NULLABLE]
+  - coffee_source_count : bigint [NULLABLE]
+  - coffee_distinct_price_count : bigint [NULLABLE]
+  - price_conflict_flag : boolean [NULLABLE]
+  - price_spread_vnd_kg : decimal(19,2) [NULLABLE]
+  - temperature_mean_c : double [NULLABLE]
+  - rain_mm : double [NULLABLE]
+  - precipitation_mm : double [NULLABLE]
+  - weather_source : string [NULLABLE]
+  - weather_series_id : string [NULLABLE]
+  - weather_quality_status : string [NULLABLE]
+  - diesel_quote_date : date [NULLABLE]
+  - diesel_price_vnd_l : decimal(18,2) [NULLABLE]
+  - diesel_distinct_prices : bigint [NULLABLE]
+  - diesel_age_days : int [NULLABLE]
+  - diesel_status : string [NULLABLE]
+  - futures_trade_date : date [NULLABLE]
+  - futures_last_price : decimal(18,2) [NULLABLE]
+  - futures_quality_status : string [NULLABLE]
+  - futures_age_days : int [NULLABLE]
+  - futures_status : string [NULLABLE]
+  - news_article_count : bigint [NULLABLE]
+  - news_price_market_count : bigint [NULLABLE]
+  - news_export_trade_count : bigint [NULLABLE]
+  - news_has_articles : boolean [NULLABLE]
+  - coffee_change_vnd_kg : decimal(19,2) [NULLABLE]
+  - coffee_change_pct : decimal(12,3) [NULLABLE]
+  - coffee_ma7_vnd_kg : decimal(19,2) [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - weather_series_id (string): distinct=6, nulls=4 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`mart_coffee_price_trends`
+ROW_COUNT: 9409
+COLUMN_COUNT: 22
+SCHEMA:
+  - price_fact_key : bigint [NULLABLE]
+  - market_date : date [NULLABLE]
+  - province : string [NULLABLE]
+  - price_series_key : bigint [NULLABLE]
+  - source_family : string [NULLABLE]
+  - series_code : string [NULLABLE]
+  - coffee_price_vnd_kg : decimal(18,2) [NULLABLE]
+  - quality_status : string [NULLABLE]
+  - raw_observation_count : bigint [NULLABLE]
+  - distinct_price_count : bigint [NULLABLE]
+  - days_since_previous_observation : int [NULLABLE]
+  - is_new_price_segment : boolean [NULLABLE]
+  - previous_price_vnd_kg : decimal(18,2) [NULLABLE]
+  - price_change_vnd_kg : decimal(19,2) [NULLABLE]
+  - price_change_pct : decimal(27,3) [NULLABLE]
+  - ma7_observation_count : bigint [NULLABLE]
+  - ma30_observation_count : bigint [NULLABLE]
+  - ma7_vnd_kg : decimal(19,2) [NULLABLE]
+  - ma30_vnd_kg : decimal(19,2) [NULLABLE]
+  - min30_vnd_kg : decimal(18,2) [NULLABLE]
+  - max30_vnd_kg : decimal(18,2) [NULLABLE]
+  - volatility30_vnd_kg : double [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - price_fact_key (bigint): distinct=9409, nulls=0 => UNIQUE + NOT NULL
+  - price_series_key (bigint): distinct=12, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`mart_coffee_production_annual`
+ROW_COUNT: 141
+COLUMN_COUNT: 61
+SCHEMA:
+  - production_fact_key : bigint [NULLABLE]
+  - year_key : int [NULLABLE]
+  - production_year : int [NULLABLE]
+  - geography_key : int [NULLABLE]
+  - geography_code : string [NULLABLE]
+  - geography_name : string [NULLABLE]
+  - geography_level : string [NULLABLE]
+  - region_name : string [NULLABLE]
+  - coffee_product_key : int [NULLABLE]
+  - product_code : string [NULLABLE]
+  - product_name : string [NULLABLE]
+  - variety : string [NULLABLE]
+  - grade : string [NULLABLE]
+  - is_variety_specified : boolean [NULLABLE]
+  - dataset_code : string [NULLABLE]
+  - area_measure_type : string [NULLABLE]
+  - is_preliminary : boolean [NULLABLE]
+  - publication_status_code : string [NULLABLE]
+  - coffee_area_thousand_ha : decimal(18,3) [NULLABLE]
+  - coffee_production_thousand_tons : decimal(18,3) [NULLABLE]
+  - yield_tons_per_ha : decimal(18,3) [NULLABLE]
+  - yield_source_reported_tons_per_ha : decimal(18,3) [NULLABLE]
+  - yield_calculated_tons_per_ha : decimal(18,3) [NULLABLE]
+  - yield_display_method : string [NULLABLE]
+  - area_growth_pct : decimal(18,3) [NULLABLE]
+  - production_growth_pct : decimal(18,3) [NULLABLE]
+  - area_source_key : bigint [NULLABLE]
+  - production_source_key : bigint [NULLABLE]
+  - yield_source_key : bigint [NULLABLE]
+  - area_publication_status : string [NULLABLE]
+  - production_publication_status : string [NULLABLE]
+  - yield_publication_status : string [NULLABLE]
+  - area_quality_status : string [NULLABLE]
+  - production_quality_status : string [NULLABLE]
+  - yield_quality_status : string [NULLABLE]
+  - area_raw_observation_count : bigint [NULLABLE]
+  - production_raw_observation_count : bigint [NULLABLE]
+  - yield_raw_observation_count : bigint [NULLABLE]
+  - yield_source_method : string [NULLABLE]
+  - area_silver_record_id : string [NULLABLE]
+  - production_silver_record_id : string [NULLABLE]
+  - yield_silver_record_id : string [NULLABLE]
+  - area_bronze_record_id : string [NULLABLE]
+  - production_bronze_record_id : string [NULLABLE]
+  - yield_bronze_record_id : string [NULLABLE]
+  - area_bronze_object_key : string [NULLABLE]
+  - production_bronze_object_key : string [NULLABLE]
+  - yield_bronze_object_key : string [NULLABLE]
+  - area_bronze_record_position : bigint [NULLABLE]
+  - production_bronze_record_position : bigint [NULLABLE]
+  - yield_bronze_record_position : bigint [NULLABLE]
+  - area_object_sha256 : string [NULLABLE]
+  - production_object_sha256 : string [NULLABLE]
+  - yield_object_sha256 : string [NULLABLE]
+  - area_source_filename : string [NULLABLE]
+  - production_source_filename : string [NULLABLE]
+  - yield_source_filename : string [NULLABLE]
+  - area_source_table : string [NULLABLE]
+  - production_source_table : string [NULLABLE]
+  - yield_source_table : string [NULLABLE]
+  - gold_processed_at : timestamp [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - production_fact_key (bigint): distinct=141, nulls=0 => UNIQUE + NOT NULL
+  - year_key (int): distinct=20, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - geography_key (int): distinct=32, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - coffee_product_key (int): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - area_source_key (bigint): distinct=2, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - production_source_key (bigint): distinct=2, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - yield_source_key (bigint): distinct=1, nulls=84 => NOT A UNIQUE NON-NULL KEY
+  - area_silver_record_id (string): distinct=122, nulls=19 => NOT A UNIQUE NON-NULL KEY
+  - production_silver_record_id (string): distinct=122, nulls=19 => NOT A UNIQUE NON-NULL KEY
+  - yield_silver_record_id (string): distinct=57, nulls=84 => NOT A UNIQUE NON-NULL KEY
+  - area_bronze_record_id (string): distinct=64, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - production_bronze_record_id (string): distinct=64, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - yield_bronze_record_id (string): distinct=32, nulls=84 => NOT A UNIQUE NON-NULL KEY
+  - area_bronze_object_key (string): distinct=5, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - production_bronze_object_key (string): distinct=5, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - yield_bronze_object_key (string): distinct=3, nulls=84 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`mart_coffee_supply_demand`
+ROW_COUNT: 2354
+COLUMN_COUNT: 47
+SCHEMA:
+  - supply_demand_fact_key : string [NULLABLE]
+  - geography_key : int [NULLABLE]
+  - country_code : string [NULLABLE]
+  - country_name : string [NULLABLE]
+  - commodity_code : string [NULLABLE]
+  - commodity_description : string [NULLABLE]
+  - market_year : string [NULLABLE]
+  - market_year_start : int [NULLABLE]
+  - market_year_end : int [NULLABLE]
+  - calendar_year : int [NULLABLE]
+  - unit_id : string [NULLABLE]
+  - unit_description : string [NULLABLE]
+  - beginning_stocks_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - production_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - arabica_production_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - robusta_production_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - other_production_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - imports_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - bean_imports_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - roast_ground_imports_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - soluble_imports_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - total_supply_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - exports_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - bean_exports_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - roast_ground_exports_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - soluble_exports_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - domestic_consumption_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - roast_ground_domestic_consumption_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - soluble_domestic_consumption_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - ending_stocks_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - total_distribution_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - robusta_production_share_pct : double [NULLABLE]
+  - arabica_production_share_pct : double [NULLABLE]
+  - export_to_production_pct : double [NULLABLE]
+  - stock_to_use_pct : double [NULLABLE]
+  - domestic_consumption_share_of_distribution_pct : double [NULLABLE]
+  - supply_demand_balance_thousand_bags_60kg : decimal(23,3) [NULLABLE]
+  - production_yoy_pct : double [NULLABLE]
+  - robusta_production_yoy_pct : double [NULLABLE]
+  - exports_yoy_pct : double [NULLABLE]
+  - imports_yoy_pct : double [NULLABLE]
+  - domestic_consumption_yoy_pct : double [NULLABLE]
+  - ending_stocks_yoy_pct : double [NULLABLE]
+  - source_record_count : bigint [NULLABLE]
+  - attribute_count : bigint [NULLABLE]
+  - quality_review_count : bigint [NULLABLE]
+  - quality_status : string [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - supply_demand_fact_key (string): distinct=2354, nulls=0 => UNIQUE + NOT NULL
+  - geography_key (int): distinct=58, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - unit_id (string): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`mart_coffee_supply_demand_snapshot`
+ROW_COUNT: 2262
+COLUMN_COUNT: 50
+SCHEMA:
+  - supply_demand_snapshot_fact_key : string [NULLABLE]
+  - geography_key : int [NULLABLE]
+  - market_year_key : int [NULLABLE]
+  - calendar_year_key : int [NULLABLE]
+  - source_key : bigint [NULLABLE]
+  - country_code : string [NULLABLE]
+  - country_name : string [NULLABLE]
+  - commodity_code : string [NULLABLE]
+  - commodity_description : string [NULLABLE]
+  - market_year : string [NULLABLE]
+  - market_year_start : int [NULLABLE]
+  - market_year_end : int [NULLABLE]
+  - reporting_year : int [NULLABLE]
+  - reporting_month : int [NULLABLE]
+  - reporting_period : string [NULLABLE]
+  - reporting_period_date : date [NULLABLE]
+  - unit_id : string [NULLABLE]
+  - unit_description : string [NULLABLE]
+  - beginning_stocks_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - production_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - arabica_production_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - robusta_production_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - other_production_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - imports_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - bean_imports_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - roast_ground_imports_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - soluble_imports_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - total_supply_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - exports_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - bean_exports_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - roast_ground_exports_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - soluble_exports_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - domestic_consumption_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - roast_ground_domestic_consumption_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - soluble_domestic_consumption_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - ending_stocks_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - total_distribution_thousand_bags_60kg : decimal(24,6) [NULLABLE]
+  - robusta_production_share_pct : double [NULLABLE]
+  - arabica_production_share_pct : double [NULLABLE]
+  - export_to_production_pct : double [NULLABLE]
+  - import_share_of_total_supply_pct : double [NULLABLE]
+  - stock_to_use_pct : double [NULLABLE]
+  - domestic_consumption_share_of_distribution_pct : double [NULLABLE]
+  - net_exports_thousand_bags_60kg : decimal(23,3) [NULLABLE]
+  - supply_demand_balance_thousand_bags_60kg : decimal(23,3) [NULLABLE]
+  - is_latest_available_market_year : boolean [NULLABLE]
+  - source_record_count : bigint [NULLABLE]
+  - attribute_count : bigint [NULLABLE]
+  - quality_review_count : bigint [NULLABLE]
+  - quality_status : string [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - supply_demand_snapshot_fact_key (string): distinct=2262, nulls=0 => UNIQUE + NOT NULL
+  - geography_key (int): distinct=93, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - market_year_key (int): distinct=28, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - calendar_year_key (int): distinct=21, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - source_key (bigint): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - unit_id (string): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`mart_coffee_trade_monthly`
+ROW_COUNT: 1312
+COLUMN_COUNT: 50
+SCHEMA:
+  - month_start_date : date [NULLABLE]
+  - geography_key : int [NULLABLE]
+  - trade_fact_key : string [NULLABLE]
+  - date_key : int [NULLABLE]
+  - trade_year : int [NULLABLE]
+  - trade_month : int [NULLABLE]
+  - calendar_month : string [NULLABLE]
+  - trade_quarter : int [NULLABLE]
+  - destination_key : bigint [NULLABLE]
+  - destination_code : string [NULLABLE]
+  - market_name : string [NULLABLE]
+  - source_key : bigint [NULLABLE]
+  - source_code : string [NULLABLE]
+  - source_name : string [NULLABLE]
+  - geography_code : string [NULLABLE]
+  - geography_name : string [NULLABLE]
+  - geography_level : string [NULLABLE]
+  - region_name : string [NULLABLE]
+  - market_code : string [NULLABLE]
+  - market_type : string [NULLABLE]
+  - is_national_total : boolean [NULLABLE]
+  - quantity_tonnes : decimal(20,3) [NULLABLE]
+  - value_usd_thousand : decimal(20,3) [NULLABLE]
+  - quality_status : string [NULLABLE]
+  - bronze_record_id : string [NULLABLE]
+  - object_key : string [NULLABLE]
+  - record_position : bigint [NULLABLE]
+  - silver_observation_id : string [NULLABLE]
+  - average_export_price_usd_per_tonne : decimal(29,3) [NULLABLE]
+  - has_quantity : boolean [NULLABLE]
+  - has_value : boolean [NULLABLE]
+  - is_complete_measurement : boolean [NULLABLE]
+  - is_partial_measurement : boolean [NULLABLE]
+  - previous_month_quantity_tonnes : decimal(20,3) [NULLABLE]
+  - previous_month_value_usd_thousand : decimal(20,3) [NULLABLE]
+  - previous_month_average_price_usd_per_tonne : decimal(29,3) [NULLABLE]
+  - previous_year_quantity_tonnes : decimal(20,3) [NULLABLE]
+  - previous_year_value_usd_thousand : decimal(20,3) [NULLABLE]
+  - previous_year_average_price_usd_per_tonne : decimal(29,3) [NULLABLE]
+  - export_value_mom_pct : decimal(29,3) [NULLABLE]
+  - export_quantity_mom_pct : decimal(29,3) [NULLABLE]
+  - average_price_mom_pct : decimal(36,3) [NULLABLE]
+  - export_value_yoy_pct : decimal(29,3) [NULLABLE]
+  - export_quantity_yoy_pct : decimal(29,3) [NULLABLE]
+  - average_price_yoy_pct : decimal(36,3) [NULLABLE]
+  - national_export_value_usd_thousand : decimal(20,3) [NULLABLE]
+  - national_export_quantity_tonnes : decimal(20,3) [NULLABLE]
+  - destination_value_share_of_national_pct : double [NULLABLE]
+  - destination_quantity_share_of_national_pct : double [NULLABLE]
+  - destination_rank_by_value : int [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - geography_key (int): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - trade_fact_key (string): distinct=1312, nulls=0 => UNIQUE + NOT NULL
+  - date_key (int): distinct=141, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - destination_key (bigint): distinct=10, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - source_key (bigint): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - source_code (string): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - bronze_record_id (string): distinct=115, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - object_key (string): distinct=24, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - silver_observation_id (string): distinct=1312, nulls=0 => UNIQUE + NOT NULL
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`mart_fuel_price_impact`
+ROW_COUNT: 177218
+COLUMN_COUNT: 20
+SCHEMA:
+  - market_date : date [NULLABLE]
+  - province : string [NULLABLE]
+  - price_series_key : bigint [NULLABLE]
+  - coffee_source_family : string [NULLABLE]
+  - coffee_price_vnd_kg : decimal(18,2) [NULLABLE]
+  - coffee_change_pct : decimal(27,3) [NULLABLE]
+  - coffee_quality_status : string [NULLABLE]
+  - fuel_series_key : bigint [NULLABLE]
+  - fuel_series_code : string [NULLABLE]
+  - fuel_source_family : string [NULLABLE]
+  - fuel_region : string [NULLABLE]
+  - fuel_unit : string [NULLABLE]
+  - fuel_effective_date : date [NULLABLE]
+  - fuel_price_vnd_per_unit : decimal(18,2) [NULLABLE]
+  - fuel_change_pct : decimal(12,3) [NULLABLE]
+  - price_jump_review : boolean [NULLABLE]
+  - fuel_quality_status : string [NULLABLE]
+  - fuel_age_days : int [NULLABLE]
+  - is_fuel_update_day : boolean [NULLABLE]
+  - change_gap_percentage_points : decimal(29,3) [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - price_series_key (bigint): distinct=12, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - fuel_series_key (bigint): distinct=58, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`mart_futures_domestic_spread`
+ROW_COUNT: 8124
+COLUMN_COUNT: 13
+SCHEMA:
+  - market_date : date [NULLABLE]
+  - province : string [NULLABLE]
+  - price_series_key : bigint [NULLABLE]
+  - source_family : string [NULLABLE]
+  - domestic_price_vnd_kg : decimal(18,2) [NULLABLE]
+  - domestic_quality_status : string [NULLABLE]
+  - domestic_change_pct : decimal(27,3) [NULLABLE]
+  - futures_avg_last_price : decimal(19,2) [NULLABLE]
+  - futures_avg_change_pct : decimal(13,3) [NULLABLE]
+  - futures_observation_count : bigint [NULLABLE]
+  - futures_valid_price_count : bigint [NULLABLE]
+  - futures_ohlc_review_count : bigint [NULLABLE]
+  - change_gap_percentage_points : decimal(29,3) [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - price_series_key (bigint): distinct=12, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`mart_market_news_analytics`
+ROW_COUNT: 27027
+COLUMN_COUNT: 13
+SCHEMA:
+  - market_date : date [NULLABLE]
+  - topic_key : int [NULLABLE]
+  - topic_code : string [NULLABLE]
+  - topic_name : string [NULLABLE]
+  - classification_method : string [NULLABLE]
+  - article_count : bigint [NULLABLE]
+  - primary_article_count : bigint [NULLABLE]
+  - content_missing_count : bigint [NULLABLE]
+  - quality_review_count : bigint [NULLABLE]
+  - daily_unique_article_count : bigint [NULLABLE]
+  - article_change_pct : double [NULLABLE]
+  - article_ma7 : double [NULLABLE]
+  - topic_share_pct : double [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - topic_key (int): distinct=9, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`mart_robusta_fx_price_transmission`
+ROW_COUNT: 8124
+COLUMN_COUNT: 33
+SCHEMA:
+  - market_date : date [NULLABLE]
+  - province : string [NULLABLE]
+  - price_series_key : bigint [NULLABLE]
+  - source_family : string [NULLABLE]
+  - domestic_price_vnd_kg : decimal(18,2) [NULLABLE]
+  - domestic_quality_status : string [NULLABLE]
+  - domestic_change_pct : decimal(27,3) [NULLABLE]
+  - futures_price_usd_per_tonne : decimal(19,2) [NULLABLE]
+  - futures_avg_change_pct : decimal(13,3) [NULLABLE]
+  - futures_observation_count : bigint [NULLABLE]
+  - futures_valid_price_count : bigint [NULLABLE]
+  - futures_ohlc_review_count : bigint [NULLABLE]
+  - fx_currency_pair : string [NULLABLE]
+  - fx_source : string [NULLABLE]
+  - fx_rate_type : string [NULLABLE]
+  - fx_observation_date : date [NULLABLE]
+  - fx_rate_vnd_per_usd : double [NULLABLE]
+  - fx_age_days : int [NULLABLE]
+  - fx_close_change_pct : double [NULLABLE]
+  - fx_quality_status : string [NULLABLE]
+  - futures_price_vnd_per_kg : double [NULLABLE]
+  - basis_domestic_minus_futures_vnd_kg : double [NULLABLE]
+  - basis_pct_of_futures : double [NULLABLE]
+  - fx_effect_on_futures_vnd_kg : double [NULLABLE]
+  - domestic_return_pct : double [NULLABLE]
+  - futures_vnd_return_pct : double [NULLABLE]
+  - domestic_futures_return_gap_pp : double [NULLABLE]
+  - rolling30_pair_observation_count : bigint [NULLABLE]
+  - rolling30_corr_domestic_fx : double [NULLABLE]
+  - rolling30_corr_domestic_futures_vnd : double [NULLABLE]
+  - rolling30_beta_domestic_on_fx : double [NULLABLE]
+  - rolling30_beta_domestic_on_futures_vnd : double [NULLABLE]
+  - quality_status : string [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - price_series_key (bigint): distinct=12, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`mart_robusta_ml_features_daily`
+ROW_COUNT: 8124
+COLUMN_COUNT: 87
+SCHEMA:
+  - feature_fact_key : bigint [NULLABLE]
+  - market_date : date [NULLABLE]
+  - province : string [NULLABLE]
+  - price_series_key : bigint [NULLABLE]
+  - source_family : string [NULLABLE]
+  - domestic_price_vnd_kg : double [NULLABLE]
+  - domestic_quality_status : string [NULLABLE]
+  - quality_status : string [NULLABLE]
+  - domestic_change_pct : double [NULLABLE]
+  - domestic_return_pct : double [NULLABLE]
+  - price_lag_1_obs_vnd_kg : double [NULLABLE]
+  - price_lag_7_obs_vnd_kg : double [NULLABLE]
+  - price_lag_14_obs_vnd_kg : double [NULLABLE]
+  - price_lag_30_obs_vnd_kg : double [NULLABLE]
+  - price_ma7_vnd_kg : double [NULLABLE]
+  - price_ma30_vnd_kg : double [NULLABLE]
+  - price_volatility30_vnd_kg : double [NULLABLE]
+  - price_min30_vnd_kg : double [NULLABLE]
+  - price_max30_vnd_kg : double [NULLABLE]
+  - price_rolling_mean_7_obs_vnd_kg : double [NULLABLE]
+  - price_rolling_mean_30_obs_vnd_kg : double [NULLABLE]
+  - price_rolling_std_7_obs_vnd_kg : double [NULLABLE]
+  - price_rolling_std_30_obs_vnd_kg : double [NULLABLE]
+  - price_rolling_min_30_obs_vnd_kg : double [NULLABLE]
+  - price_rolling_max_30_obs_vnd_kg : double [NULLABLE]
+  - days_since_prev_observation : int [NULLABLE]
+  - futures_price_usd_per_tonne : double [NULLABLE]
+  - futures_price_vnd_per_kg : double [NULLABLE]
+  - futures_avg_change_pct : double [NULLABLE]
+  - futures_vnd_return_pct : double [NULLABLE]
+  - futures_observation_count : bigint [NULLABLE]
+  - futures_valid_price_count : bigint [NULLABLE]
+  - futures_ohlc_review_count : bigint [NULLABLE]
+  - basis_domestic_minus_futures_vnd_kg : double [NULLABLE]
+  - basis_pct_of_futures : double [NULLABLE]
+  - fx_effect_on_futures_vnd_kg : double [NULLABLE]
+  - domestic_futures_return_gap_pp : double [NULLABLE]
+  - rolling30_pair_observation_count : bigint [NULLABLE]
+  - rolling30_corr_domestic_fx : double [NULLABLE]
+  - rolling30_corr_domestic_futures_vnd : double [NULLABLE]
+  - rolling30_beta_domestic_on_fx : double [NULLABLE]
+  - rolling30_beta_domestic_on_futures_vnd : double [NULLABLE]
+  - fx_currency_pair : string [NULLABLE]
+  - fx_source : string [NULLABLE]
+  - fx_rate_type : string [NULLABLE]
+  - fx_observation_date : date [NULLABLE]
+  - fx_rate_vnd_per_usd : double [NULLABLE]
+  - fx_age_days : int [NULLABLE]
+  - fx_close_change_pct : double [NULLABLE]
+  - fx_quality_status : string [NULLABLE]
+  - weather_temperature_mean_lag_1_obs_c : double [NULLABLE]
+  - weather_rain_sum_lag_1_obs_mm : double [NULLABLE]
+  - weather_precipitation_lag_1_obs_mm : double [NULLABLE]
+  - weather_station_count_lag_1_obs : bigint [NULLABLE]
+  - weather_review_count_lag_1_obs : bigint [NULLABLE]
+  - weather_rain_price_corr30_lag_1_obs : double [NULLABLE]
+  - weather_temperature_price_corr30_lag_1_obs : double [NULLABLE]
+  - fuel_series_key : bigint [NULLABLE]
+  - fuel_series_code : string [NULLABLE]
+  - fuel_region : string [NULLABLE]
+  - fuel_unit : string [NULLABLE]
+  - fuel_effective_date : date [NULLABLE]
+  - fuel_price_vnd_per_unit : double [NULLABLE]
+  - fuel_change_pct : double [NULLABLE]
+  - fuel_quality_status : string [NULLABLE]
+  - fuel_age_days : int [NULLABLE]
+  - is_fuel_update_day : boolean [NULLABLE]
+  - price_jump_review : boolean [NULLABLE]
+  - calendar_year : int [NULLABLE]
+  - calendar_month : int [NULLABLE]
+  - calendar_quarter : int [NULLABLE]
+  - calendar_day_of_week : int [NULLABLE]
+  - calendar_day_of_year : int [NULLABLE]
+  - calendar_month_sin : double [NULLABLE]
+  - calendar_month_cos : double [NULLABLE]
+  - calendar_day_of_year_sin : double [NULLABLE]
+  - calendar_day_of_year_cos : double [NULLABLE]
+  - target_next_1_obs_date : date [NULLABLE]
+  - target_next_1_obs_price_vnd_kg : double [NULLABLE]
+  - target_next_1_obs_return_pct : double [NULLABLE]
+  - target_next_7_obs_date : date [NULLABLE]
+  - target_next_7_obs_price_vnd_kg : double [NULLABLE]
+  - target_next_7_obs_return_pct : double [NULLABLE]
+  - is_model_eligible_t1 : boolean [NULLABLE]
+  - is_model_eligible_t7 : boolean [NULLABLE]
+  - feature_version : string [NULLABLE]
+  - gold_processed_at : timestamp [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - feature_fact_key (bigint): distinct=8124, nulls=0 => UNIQUE + NOT NULL
+  - price_series_key (bigint): distinct=12, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - fuel_series_key (bigint): distinct=1, nulls=4508 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`mart_robusta_stock_analysis`
+ROW_COUNT: 3152
+COLUMN_COUNT: 58
+SCHEMA:
+  - stock_port_fact_key : string [NULLABLE]
+  - stock_totals_fact_key : string [NULLABLE]
+  - date_key : int [NULLABLE]
+  - cutoff_date : date [NULLABLE]
+  - stock_year : int [NULLABLE]
+  - stock_month : int [NULLABLE]
+  - stock_quarter : int [NULLABLE]
+  - port_key : bigint [NULLABLE]
+  - port_id : string [NULLABLE]
+  - commodity : string [NULLABLE]
+  - source_key : bigint [NULLABLE]
+  - source_code : string [NULLABLE]
+  - source_name : string [NULLABLE]
+  - lots_with_val_cert : bigint [NULLABLE]
+  - lots_non_tend : bigint [NULLABLE]
+  - lots_suspended : bigint [NULLABLE]
+  - raw_observation_count : bigint [NULLABLE]
+  - distinct_values_count : bigint [NULLABLE]
+  - port_quality_status : string [NULLABLE]
+  - selected_source : string [NULLABLE]
+  - selected_source_file : string [NULLABLE]
+  - selected_bronze_object_key : string [NULLABLE]
+  - selected_bronze_record_id : string [NULLABLE]
+  - selected_bronze_record_position : bigint [NULLABLE]
+  - selected_object_sha256 : string [NULLABLE]
+  - silver_processed_at : timestamp [NULLABLE]
+  - gold_processed_at : timestamp [NULLABLE]
+  - total_lots_with_val_cert : bigint [NULLABLE]
+  - total_lots_non_tend : bigint [NULLABLE]
+  - total_lots_suspended : bigint [NULLABLE]
+  - port_sum_lots_with_val_cert : bigint [NULLABLE]
+  - port_sum_lots_non_tend : bigint [NULLABLE]
+  - port_sum_lots_suspended : bigint [NULLABLE]
+  - delta_lots_with_val_cert : bigint [NULLABLE]
+  - delta_lots_non_tend : bigint [NULLABLE]
+  - delta_lots_suspended : bigint [NULLABLE]
+  - reported_port_count : bigint [NULLABLE]
+  - reconciliation_status : string [NULLABLE]
+  - totals_quality_status : string [NULLABLE]
+  - totals_selected_source : string [NULLABLE]
+  - totals_selected_source_file : string [NULLABLE]
+  - totals_bronze_object_key : string [NULLABLE]
+  - totals_bronze_record_id : string [NULLABLE]
+  - totals_object_sha256 : string [NULLABLE]
+  - port_share_val_cert_pct : double [NULLABLE]
+  - port_share_non_tend_pct : double [NULLABLE]
+  - port_share_suspended_pct : double [NULLABLE]
+  - previous_cutoff_date : date [NULLABLE]
+  - previous_lots_with_val_cert : bigint [NULLABLE]
+  - previous_lots_non_tend : bigint [NULLABLE]
+  - previous_lots_suspended : bigint [NULLABLE]
+  - days_since_previous_snapshot : int [NULLABLE]
+  - change_lots_with_val_cert : bigint [NULLABLE]
+  - change_lots_non_tend : bigint [NULLABLE]
+  - change_lots_suspended : bigint [NULLABLE]
+  - change_val_cert_pct : double [NULLABLE]
+  - change_non_tend_pct : double [NULLABLE]
+  - change_suspended_pct : double [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - stock_port_fact_key (string): distinct=3152, nulls=0 => UNIQUE + NOT NULL
+  - stock_totals_fact_key (string): distinct=252, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - date_key (int): distinct=252, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - port_key (bigint): distinct=13, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - port_id (string): distinct=13, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - source_key (bigint): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - source_code (string): distinct=1, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - selected_bronze_object_key (string): distinct=252, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - selected_bronze_record_id (string): distinct=3152, nulls=0 => UNIQUE + NOT NULL
+  - totals_bronze_object_key (string): distinct=252, nulls=0 => NOT A UNIQUE NON-NULL KEY
+  - totals_bronze_record_id (string): distinct=252, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+----------------------------------------------------------------------------------------
+TABLE: lakehouse.gold.`mart_weather_price_impact`
+ROW_COUNT: 9409
+COLUMN_COUNT: 16
+SCHEMA:
+  - market_date : date [NULLABLE]
+  - price_fact_key : bigint [NULLABLE]
+  - province : string [NULLABLE]
+  - price_series_key : bigint [NULLABLE]
+  - source_family : string [NULLABLE]
+  - coffee_price_vnd_kg : decimal(18,2) [NULLABLE]
+  - price_quality_status : string [NULLABLE]
+  - price_change_pct : decimal(27,3) [NULLABLE]
+  - temperature_mean_c : double [NULLABLE]
+  - rain_sum_mm : double [NULLABLE]
+  - precipitation_mm : double [NULLABLE]
+  - weather_station_count : bigint [NULLABLE]
+  - weather_is_corrected : boolean [NULLABLE]
+  - weather_review_count : bigint [NULLABLE]
+  - rain_price_corr30 : double [NULLABLE]
+  - temperature_price_corr30 : double [NULLABLE]
+CANDIDATE KEYS (profiled from data):
+  - price_fact_key (bigint): distinct=9409, nulls=0 => UNIQUE + NOT NULL
+  - price_series_key (bigint): distinct=12, nulls=0 => NOT A UNIQUE NON-NULL KEY
+
+========================================================================================
+CANDIDATE FOREIGN KEY RELATIONSHIPS
+========================================================================================
+fact_news_topic.article_key -> dim_article.article_key | distinct=1223, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_global_coffee_exports.exporter_key -> dim_coffee_exporter.exporter_key | distinct=11, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_production.coffee_product_key -> dim_coffee_product.coffee_product_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_production_v2_staging.coffee_product_key -> dim_coffee_product.coffee_product_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_production_annual.coffee_product_key -> dim_coffee_product.coffee_product_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_exchange_rate.currency_pair_key -> dim_currency_pair.currency_pair_key | distinct=2, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_coffee_trade_monthly.date_key -> dim_date.date_key | distinct=141, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_domestic_price.date_key -> dim_date.date_key | distinct=1914, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_exchange_rate.date_key -> dim_date.date_key | distinct=3616, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_fuel_price.date_key -> dim_date.date_key | distinct=56, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_futures_price.trade_date_key -> dim_date.date_key | distinct=4812, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_news_topic.date_key -> dim_date.date_key | distinct=928, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_robusta_stock_port.date_key -> dim_date.date_key | distinct=252, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_robusta_stock_totals.date_key -> dim_date.date_key | distinct=252, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_weather_daily.date_key -> dim_date.date_key | distinct=9826, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_trade_monthly.date_key -> dim_date.date_key | distinct=141, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_robusta_stock_analysis.date_key -> dim_date.date_key | distinct=252, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_coffee_trade_monthly.destination_key -> dim_destination.destination_key | distinct=10, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_export.destination_key -> dim_destination.destination_key | distinct=162, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_export_annual.destination_key -> dim_destination.destination_key | distinct=162, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_trade_monthly.destination_key -> dim_destination.destination_key | distinct=10, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_fuel_price.fuel_series_key -> dim_fuel_series.fuel_series_key | distinct=60, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_fuel_price_impact.fuel_series_key -> dim_fuel_series.fuel_series_key | distinct=58, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_robusta_ml_features_daily.fuel_series_key -> dim_fuel_series.fuel_series_key | distinct=1, unmatched=0, nulls=4508 => ALL NON-NULL VALUES MATCH
+fact_coffee_trade_monthly.geography_key -> dim_geography.geography_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_domestic_price.geography_key -> dim_geography.geography_key | distinct=4, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_export.geography_key -> dim_geography.geography_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_production.geography_key -> dim_geography.geography_key | distinct=32, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_production_v1_backup.geography_key -> dim_geography.geography_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_production_v2_staging.geography_key -> dim_geography.geography_key | distinct=32, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_psd.geography_key -> dim_geography.geography_key | distinct=94, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_weather_daily.geography_key -> dim_geography.geography_key | distinct=4, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_production_annual.geography_key -> dim_geography.geography_key | distinct=32, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_supply_demand.geography_key -> dim_geography.geography_key | distinct=58, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_supply_demand_snapshot.geography_key -> dim_geography.geography_key | distinct=93, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_trade_monthly.geography_key -> dim_geography.geography_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_export.hs_product_key -> dim_hs_product.hs_product_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_export_annual.hs_product_key -> dim_hs_product.hs_product_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_news_topic.topic_key -> dim_news_topic.topic_key | distinct=9, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_market_news_analytics.topic_key -> dim_news_topic.topic_key | distinct=9, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_robusta_stock_port.port_key -> dim_port.port_key | distinct=13, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_robusta_stock_analysis.port_key -> dim_port.port_key | distinct=13, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_domestic_price.price_series_key -> dim_price_series.price_series_key | distinct=12, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_price_trends.price_series_key -> dim_price_series.price_series_key | distinct=12, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_fuel_price_impact.price_series_key -> dim_price_series.price_series_key | distinct=12, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_futures_domestic_spread.price_series_key -> dim_price_series.price_series_key | distinct=12, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_robusta_fx_price_transmission.price_series_key -> dim_price_series.price_series_key | distinct=12, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_robusta_ml_features_daily.price_series_key -> dim_price_series.price_series_key | distinct=12, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_weather_price_impact.price_series_key -> dim_price_series.price_series_key | distinct=12, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_coffee_trade_monthly.source_key -> dim_source.source_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_domestic_price.source_key -> dim_source.source_key | distinct=3, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_exchange_rate.source_key -> dim_source.source_key | distinct=5, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_export.source_key -> dim_source.source_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_fuel_price.source_key -> dim_source.source_key | distinct=3, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_futures_price.source_key -> dim_source.source_key | distinct=2, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_global_coffee_exports.source_key -> dim_source.source_key | distinct=1, unmatched=1, nulls=0 => UNMATCHED VALUES FOUND
+fact_news_topic.source_key -> dim_source.source_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_production.area_source_key -> dim_source.source_key | distinct=2, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_production.production_source_key -> dim_source.source_key | distinct=2, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_production.yield_source_key -> dim_source.source_key | distinct=1, unmatched=0, nulls=84 => ALL NON-NULL VALUES MATCH
+fact_production_v1_backup.area_source_key -> dim_source.source_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_production_v1_backup.production_source_key -> dim_source.source_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_production_v2_staging.area_source_key -> dim_source.source_key | distinct=2, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_production_v2_staging.production_source_key -> dim_source.source_key | distinct=2, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_production_v2_staging.yield_source_key -> dim_source.source_key | distinct=1, unmatched=0, nulls=84 => ALL NON-NULL VALUES MATCH
+fact_psd.source_key -> dim_source.source_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_robusta_stock_port.source_key -> dim_source.source_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_robusta_stock_totals.source_key -> dim_source.source_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_weather_daily.source_key -> dim_source.source_key | distinct=6, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_export_annual.source_key -> dim_source.source_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_production_annual.area_source_key -> dim_source.source_key | distinct=2, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_production_annual.production_source_key -> dim_source.source_key | distinct=2, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_production_annual.yield_source_key -> dim_source.source_key | distinct=1, unmatched=0, nulls=84 => ALL NON-NULL VALUES MATCH
+mart_coffee_supply_demand_snapshot.source_key -> dim_source.source_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_trade_monthly.source_key -> dim_source.source_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_robusta_stock_analysis.source_key -> dim_source.source_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_weather_daily.weather_location_key -> dim_weather_location.weather_location_key | distinct=12, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_export.year_key -> dim_year.year_key | distinct=24, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_global_coffee_exports.year_key -> dim_year.year_key | distinct=1, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_production.year_key -> dim_year.year_key | distinct=20, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_production_v1_backup.year_key -> dim_year.year_key | distinct=19, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_production_v2_staging.year_key -> dim_year.year_key | distinct=20, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_psd.market_year_key -> dim_year.year_key | distinct=67, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+fact_psd.calendar_year_key -> dim_year.year_key | distinct=65, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_export_annual.year_key -> dim_year.year_key | distinct=24, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_production_annual.year_key -> dim_year.year_key | distinct=20, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_supply_demand_snapshot.market_year_key -> dim_year.year_key | distinct=28, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+mart_coffee_supply_demand_snapshot.calendar_year_key -> dim_year.year_key | distinct=21, unmatched=0, nulls=0 => ALL NON-NULL VALUES MATCH
+
+========================================================================================
+SUMMARY: UNIQUE NON-NULL KEY CANDIDATES
+========================================================================================
+dim_article: article_key, article_id
+dim_coffee_exporter: exporter_key
+dim_coffee_product: coffee_product_key
+dim_currency_pair: currency_pair_key, currency_pair
+dim_date: date_key, full_date
+dim_destination: destination_key
+dim_fuel_series: fuel_series_key, fuel_series_id
+dim_geography: geography_key
+dim_hs_product: hs_product_key
+dim_news_topic: topic_key
+dim_port: port_key, port_id
+dim_price_series: price_series_key
+dim_source: source_key, source_code
+dim_weather_location: weather_location_key, source_series_id
+dim_year: year_key
+fact_coffee_trade_monthly: trade_fact_key, silver_observation_id
+fact_domestic_price: price_fact_key, selected_bronze_record_id
+fact_exchange_rate: observation_id
+fact_export: export_fact_key
+fact_fuel_price: fuel_fact_key, selected_bronze_record_id
+fact_futures_price: futures_fact_key, trade_date_key, selected_bronze_record_id
+fact_global_coffee_exports: export_fact_id, exporter_key, bronze_record_id
+fact_news_topic: news_topic_fact_key
+fact_production: production_fact_key
+fact_production_v1_backup: production_fact_key, year_key, area_bronze_record_id, production_bronze_record_id
+fact_production_v2_staging: production_fact_key
+fact_psd: psd_fact_key, silver_record_id, bronze_record_id
+fact_robusta_stock_port: stock_port_fact_key, selected_bronze_record_id
+fact_robusta_stock_totals: stock_totals_fact_key, date_key, selected_bronze_object_key, selected_bronze_record_id
+fact_weather_daily: weather_fact_key, selected_bronze_record_id
+mart_coffee_export_annual: export_fact_key
+mart_coffee_market_daily: NONE VERIFIED
+mart_coffee_price_trends: price_fact_key
+mart_coffee_production_annual: production_fact_key
+mart_coffee_supply_demand: supply_demand_fact_key
+mart_coffee_supply_demand_snapshot: supply_demand_snapshot_fact_key
+mart_coffee_trade_monthly: trade_fact_key, silver_observation_id
+mart_fuel_price_impact: NONE VERIFIED
+mart_futures_domestic_spread: NONE VERIFIED
+mart_market_news_analytics: NONE VERIFIED
+mart_robusta_fx_price_transmission: NONE VERIFIED
+mart_robusta_ml_features_daily: feature_fact_key
+mart_robusta_stock_analysis: stock_port_fact_key, selected_bronze_record_id
+mart_weather_price_impact: price_fact_key

@@ -1,0 +1,19 @@
+{
+  "run_id": "52dae8205a9844f7aae329567ceda601",
+  "domain": "london_futures",
+  "source": "giacaphe_london_robusta",
+  "started_at_utc": "2026-11-25T04:22:54.817727+00:00",
+  "finished_at_utc": "2026-11-25T04:23:01.036339+00:00",
+  "status": "SUCCESS",
+  "batch_id": "20261125T042300Z_27b322a4",
+  "raw_object_key": "bronze/london_futures/source=giacaphe_london_robusta/ingestion_date=2026-11-25/batch_id=20261125t042300z_27b322a4/raw/giacaphe_london_robusta_20261125T112254.json",
+  "metadata_object_key": "bronze/london_futures/source=giacaphe_london_robusta/ingestion_date=2026-11-25/batch_id=20261125t042300z_27b322a4/metadata.json",
+  "size_bytes": 8387,
+  "error_type": null,
+  "error_message": null,
+  "metrics": {
+    "api_requests": 1,
+    "quote_records": 5,
+    "raw_objects_uploaded": 1
+  }
+}

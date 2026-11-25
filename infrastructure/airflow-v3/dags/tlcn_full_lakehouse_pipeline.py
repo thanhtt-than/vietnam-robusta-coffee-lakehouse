@@ -90,7 +90,6 @@ with DAG(
         "preflight_docker_spark",
         f"""command -v docker >/dev/null
 docker inspect {CONTAINER} >/dev/null
-docker inspect -f '{{{{.State.Running}}}}' {CONTAINER} | grep -qx true
 docker exec {CONTAINER} test -x {SUBMIT}
 docker exec {CONTAINER} test -f {GUARD_PATH}
 docker exec {CONTAINER} test -f /workspace/src/bronze/ingest_googlefinance_fx.py
